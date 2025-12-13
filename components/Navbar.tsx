@@ -27,7 +27,8 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
     { name: 'Projects', path: 'projects' },
     { name: 'Success Stories', path: 'success-stories' },
     { name: 'Testimonials', path: 'testimonials' },
-    { name: 'Contact', path: 'contact' }
+    { name: 'Contact', path: 'contact' },
+    { name: 'Become a Sponsor', path: 'sponsor-requirements', highlight: true }
   ];
 
   return (
@@ -86,16 +87,18 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index + 0.3 }}
                 onClick={() => onNavigate(item.path)}
-                className={`relative transition-all duration-300 ${currentPage === item.path
-                  ? 'text-accent-orange'
-                  : darkMode
-                    ? 'text-white/80 hover:text-white'
-                    : 'text-gray-700 hover:text-black'
+                className={`relative transition-all duration-300 ${(item as any).highlight
+                    ? 'px-4 py-2 bg-gradient-to-r from-accent-orange to-accent-orange-light text-white rounded-lg hover:shadow-lg'
+                    : currentPage === item.path
+                      ? 'text-accent-orange'
+                      : darkMode
+                        ? 'text-white/80 hover:text-white'
+                        : 'text-gray-700 hover:text-black'
                   }`}
                 whileHover={{ y: -2 }}
               >
                 <span className="relative z-10">{item.name}</span>
-                {currentPage === item.path && (
+                {currentPage === item.path && !(item as any).highlight && (
                   <>
                     <motion.div
                       layoutId="activeTab"
@@ -208,8 +211,8 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             className={`md:hidden backdrop-blur-xl border-t-2 shadow-lg ${darkMode
-                ? 'bg-dark-primary/95 border-accent-orange/20 ring-1 ring-white/10'
-                : 'bg-white/95 border-gray-200'
+              ? 'bg-dark-primary/95 border-accent-orange/20 ring-1 ring-white/10'
+              : 'bg-white/95 border-gray-200'
               }`}
           >
             <div className="px-4 py-6 space-y-3">
@@ -225,10 +228,10 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
                     setIsOpen(false);
                   }}
                   className={`block w-full text-left px-6 py-4 rounded-xl transition-all text-lg min-h-[56px] flex items-center ${currentPage === item.path
-                      ? 'bg-gradient-to-r from-accent-orange to-accent-orange-light text-white shadow-lg'
-                      : darkMode
-                        ? 'text-white hover:bg-white/10'
-                        : 'text-black hover:bg-gray-200'
+                    ? 'bg-gradient-to-r from-accent-orange to-accent-orange-light text-white shadow-lg'
+                    : darkMode
+                      ? 'text-white hover:bg-white/10'
+                      : 'text-black hover:bg-gray-200'
                     }`}
                 >
                   {item.name}

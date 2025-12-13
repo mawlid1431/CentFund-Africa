@@ -288,3 +288,64 @@ export async function getDashboardStats() {
         totalProjects: projects?.length || 0
     };
 }
+
+// Sponsors
+export async function createSponsor(sponsor: {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    country: string;
+    organization?: string;
+    project_id: string;
+    amount: number;
+    sponsor_type: 'full' | 'partial';
+    status: 'pending' | 'approved' | 'rejected';
+}) {
+    if (!supabase) throw new Error('Database not connected');
+    const { data, error } = await supabase
+        .from('sponsors')
+        .insert(sponsor)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
+export async function getSponsors() {
+    if (!supabase) return [];
+    const { data, error } = await supabase
+        .from('sponsors')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+}
+
+export async function getSponsorById(id: string) {
+    if (!supabase) throw new Error('Database not connected');
+    const { data, error } = await supabase
+        .from('sponsors')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+    if (error) throw error;
+    return data;
+}
+
+export async function updateSponsorStatus(id: string, status: 'pending' | 'approved' | 'rejected') {
+    if (!supabase) throw new Error('Database not connected');
+    const { data, error } = await supabase
+        .from('sponsors')
+        .update({ status })
+        .eq('id', id)
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+}

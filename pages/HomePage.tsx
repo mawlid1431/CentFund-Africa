@@ -419,7 +419,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => onNavigate('contact')}
+                  onClick={() => onNavigate('sponsor-requirements')}
                   className={`px-6 sm:px-8 py-3 sm:py-4 rounded-xl flex items-center justify-center gap-3 border transition-all group min-h-[48px] text-sm sm:text-base ${darkMode
                     ? 'bg-white/10 backdrop-blur-sm text-white border-white/20 hover:bg-white/20'
                     : 'bg-black text-white border-black hover:bg-gray-900'

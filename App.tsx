@@ -13,6 +13,11 @@ import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { SuccessStoriesPage } from './pages/SuccessStoriesPage';
 import { TestimonialsPage } from './pages/TestimonialsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { SponsorRequirementsPage } from './pages/SponsorRequirementsPage';
+import { SponsorAuthPage } from './pages/SponsorAuthPage';
+import { SponsorDashboardPage } from './pages/SponsorDashboardPage';
+import { SponsorApplicationPage } from './pages/SponsorApplicationPage';
+import { SponsorSuccessPage } from './pages/SponsorSuccessPage';
 
 interface AppProps {
   initialPage?: string;
@@ -24,7 +29,7 @@ function App({ initialPage = 'home' }: AppProps) {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
 
   // Valid pages list
-  const validPages = ['home', 'projects', 'success-stories', 'testimonials', 'about', 'contact', 'admin', 'project-detail', '404'];
+  const validPages = ['home', 'projects', 'success-stories', 'testimonials', 'about', 'contact', 'admin', 'project-detail', 'sponsor-requirements', 'sponsor-auth', 'sponsor-dashboard', 'sponsor-application', 'sponsor-success', '404'];
 
   // Check if current page is valid, if not show 404
   useEffect(() => {
@@ -98,11 +103,16 @@ function App({ initialPage = 'home' }: AppProps) {
             />
           )}
           {currentPage === 'admin' && <AdminPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
+          {currentPage === 'sponsor-requirements' && <SponsorRequirementsPage darkMode={darkMode} onNavigate={handleNavigate} />}
+          {currentPage === 'sponsor-auth' && <SponsorAuthPage darkMode={darkMode} onNavigate={handleNavigate} />}
+          {currentPage === 'sponsor-dashboard' && <SponsorDashboardPage darkMode={darkMode} onNavigate={handleNavigate} />}
+          {currentPage === 'sponsor-application' && <SponsorApplicationPage darkMode={darkMode} onNavigate={handleNavigate} />}
+          {currentPage === 'sponsor-success' && <SponsorSuccessPage darkMode={darkMode} onNavigate={handleNavigate} />}
           {currentPage === '404' && <NotFoundPage darkMode={darkMode} onNavigate={handleNavigate} />}
         </motion.div>
       </AnimatePresence>
 
-      {currentPage !== 'admin' && currentPage !== '404' && (
+      {currentPage !== 'admin' && currentPage !== '404' && !currentPage.startsWith('sponsor-') && (
         <>
           <Footer darkMode={darkMode} onNavigate={setCurrentPage} />
           <WhatsAppButton />
