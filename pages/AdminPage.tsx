@@ -10,25 +10,43 @@ interface AdminPageProps {
 
 export function AdminPage({ darkMode, toggleDarkMode }: AdminPageProps) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userType, setUserType] = useState<'admin' | 'sponsor' | 'applicant'>('admin');
 
     useEffect(() => {
-        // Check if admin is already logged in
+        // Check if user is already logged in
         const adminToken = localStorage.getItem('adminToken');
-        if (adminToken) {
+        const storedUserType = localStorage.getItem('userType') as 'admin' | 'sponsor' | 'applicant';
+        if (adminToken && storedUserType) {
             setIsAuthenticated(true);
+            setUserType(storedUserType);
         }
     }, []);
 
-    const handleLogin = (success: boolean) => {
+    const handleLogin = (success: boolean, type: 'admin' | 'sponsor' | 'applicant', userData?: any) => {
         if (success) {
             setIsAuthenticated(true);
-            localStorage.setItem('adminToken', 'admin-authenticated');
+            setUserType(type);
+            localStorage.setItem('adminToken', 'authenticated');
+            localStorage.setItem('userType', type);
+
+            // Redirect based on user type
+            if (type === 'sponsor') {
+                // Redirect to sponsor dashboard
+                window.location.href = '/sponsor-dashboard';
+            } else if (type === 'applicant') {
+                // Redirect to applicant dashboard (you can create this)
+                window.location.href = '/';
+            }
+            // Admin stays on admin page
         }
     };
 
     const handleLogout = () => {
         setIsAuthenticated(false);
         localStorage.removeItem('adminToken');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
     };
 
     return (

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { LogOut, Target, Sun, Moon, FolderKanban, UsersRound, MessageSquareQuote, Heart, Settings } from 'lucide-react';
+import { LogOut, Target, Sun, Moon, FolderKanban, UsersRound, MessageSquareQuote, Heart, Settings, FileText } from 'lucide-react';
 import { ProjectsManager } from './ProjectsManager';
 import { TeamManager } from './TeamManager';
 import { TestimonialsManager } from './TestimonialsManager';
 import { SuccessStoriesManager } from './SuccessStoriesManager';
 import { SettingsManager } from './SettingsManager';
+import { ApplicationsManager } from './ApplicationsManager';
 import { getDashboardStats } from '@/utils/supabase/helpers';
 
 interface AdminDashboardProps {
@@ -15,7 +16,7 @@ interface AdminDashboardProps {
 }
 
 export function AdminDashboard({ darkMode, toggleDarkMode, onLogout }: AdminDashboardProps) {
-    const [activeTab, setActiveTab] = useState<'projects' | 'success-stories' | 'testimonials' | 'team' | 'settings'>('projects');
+    const [activeTab, setActiveTab] = useState<'projects' | 'success-stories' | 'testimonials' | 'team' | 'settings' | 'applications'>('projects');
     const [stats, setStats] = useState([
         { name: 'Total Projects', value: '0', icon: Target, color: 'from-blue-500 to-blue-600' },
     ]);
@@ -120,6 +121,20 @@ export function AdminDashboard({ darkMode, toggleDarkMode, onLogout }: AdminDash
                 <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => setActiveTab('applications')}
+                    className={`flex items-center gap-2 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all whitespace-nowrap min-w-fit ${activeTab === 'applications'
+                        ? 'bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white shadow-lg shadow-[#ff6f0f]/30'
+                        : darkMode
+                            ? 'bg-white/5 text-gray-400 hover:bg-white/10'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        }`}
+                >
+                    <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="text-sm sm:text-base">Applications</span>
+                </motion.button>
+                <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => setActiveTab('projects')}
                     className={`flex items-center gap-2 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all whitespace-nowrap min-w-fit ${activeTab === 'projects'
                         ? 'bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white shadow-lg shadow-[#ff6f0f]/30'
@@ -190,7 +205,9 @@ export function AdminDashboard({ darkMode, toggleDarkMode, onLogout }: AdminDash
             </div>
 
             {/* Content */}
-            {activeTab === 'projects' ? (
+            {activeTab === 'applications' ? (
+                <ApplicationsManager darkMode={darkMode} />
+            ) : activeTab === 'projects' ? (
                 <ProjectsManager darkMode={darkMode} onRefresh={loadStats} />
             ) : activeTab === 'success-stories' ? (
                 <SuccessStoriesManager darkMode={darkMode} />

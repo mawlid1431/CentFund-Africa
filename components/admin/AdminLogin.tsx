@@ -5,7 +5,7 @@ import { Lock, User, Eye, EyeOff, Sun, Moon } from 'lucide-react';
 interface AdminLoginProps {
     darkMode: boolean;
     toggleDarkMode: () => void;
-    onLogin: (success: boolean) => void;
+    onLogin: (success: boolean, userType: 'admin' | 'sponsor' | 'applicant', userData?: any) => void;
 }
 
 export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProps) {
@@ -20,22 +20,83 @@ export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProp
         setIsLoading(true);
         setError('');
 
-        // Get admin credentials from environment variables for security
+        // Get credentials from environment variables
         const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
         const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
 
-        // Simple authentication (replace with real authentication for production)
-        if (username === adminEmail && password === adminPassword) {
-            setTimeout(() => {
-                onLogin(true);
+        // Sponsor credentials
+        const sponsors = [
+            {
+                email: import.meta.env.VITE_SPONSOR1_EMAIL,
+                password: import.meta.env.VITE_SPONSOR1_PASSWORD,
+                name: import.meta.env.VITE_SPONSOR1_NAME,
+            },
+            {
+                email: import.meta.env.VITE_SPONSOR2_EMAIL,
+                password: import.meta.env.VITE_SPONSOR2_PASSWORD,
+                name: import.meta.env.VITE_SPONSOR2_NAME,
+            },
+            {
+                email: import.meta.env.VITE_SPONSOR3_EMAIL,
+                password: import.meta.env.VITE_SPONSOR3_PASSWORD,
+                name: import.meta.env.VITE_SPONSOR3_NAME,
+            },
+        ];
+
+        // Applicant credentials
+        const applicants = [
+            {
+                email: import.meta.env.VITE_USER1_EMAIL,
+                password: import.meta.env.VITE_USER1_PASSWORD,
+            },
+            {
+                email: import.meta.env.VITE_USER2_EMAIL,
+                password: import.meta.env.VITE_USER2_PASSWORD,
+            },
+        ];
+
+        // Debug: Log environment variables (remove in production)
+        console.log('Admin Email:', adminEmail);
+        console.log('Sponsor 1 Email:', import.meta.env.VITE_SPONSOR1_EMAIL);
+        console.log('Entered Email:', username);
+
+        setTimeout(() => {
+            // Check if admin
+            if (username === adminEmail && password === adminPassword) {
+                localStorage.setItem('userType', 'admin');
+                localStorage.setItem('userEmail', username);
+                onLogin(true, 'admin');
                 setIsLoading(false);
-            }, 1000);
-        } else {
-            setTimeout(() => {
-                setError('Invalid email or password');
+                return;
+            }
+
+            // Check if sponsor
+            const sponsor = sponsors.find(s => s.email === username && s.password === password);
+            if (sponsor) {
+                console.log('Sponsor found:', sponsor);
+                localStorage.setItem('userType', 'sponsor');
+                localStorage.setItem('userEmail', username);
+                localStorage.setItem('userName', sponsor.name);
+                onLogin(true, 'sponsor', { name: sponsor.name, email: username });
                 setIsLoading(false);
-            }, 1000);
-        }
+                return;
+            }
+
+            // Check if applicant
+            const applicant = applicants.find(a => a.email === username && a.password === password);
+            if (applicant) {
+                localStorage.setItem('userType', 'applicant');
+                localStorage.setItem('userEmail', username);
+                onLogin(true, 'applicant', { email: username });
+                setIsLoading(false);
+                return;
+            }
+
+            // Invalid credentials
+            console.log('No match found for:', username);
+            setError('Invalid email or password');
+            setIsLoading(false);
+        }, 1000);
     };
 
     return (
@@ -76,10 +137,10 @@ export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProp
                         <Lock className="w-8 h-8 text-white" />
                     </motion.div>
                     <h1 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                        Admin Dashboard
+                        CentFund Africa
                     </h1>
                     <p className={`text-sm mt-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                        Sign in to manage CentFund Africa
+                        Sign in as Admin, Sponsor, or Applicant
                     </p>
                 </div>
 
