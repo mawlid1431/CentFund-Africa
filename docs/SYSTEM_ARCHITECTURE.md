@@ -71,7 +71,15 @@ CentFund Africa is a certification sponsorship platform that connects students s
 All users log in through the same page: `/admin`
 
 ```
-User enters email + password
+User navigates to /admin
+         ↓
+Login Selection Screen
+┌────────────────────────────────┐
+│  Choose Your Login Type:       │
+│  [Admin] [Sponsor] [Student]   │
+└────────────────────────────────┘
+         ↓
+User selects type & enters credentials
          ↓
 System checks credentials against .env file
          ↓
@@ -79,26 +87,35 @@ System checks credentials against .env file
     ↓         ↓         ↓
 Admin?   Sponsor?   Applicant?
     ↓         ↓         ↓
-Stay on   Redirect   Redirect
-/admin    /sponsor   /home
-          -dashboard
+Shows    Shows      Shows
+Admin    Sponsor    Student
+Dashboard Dashboard Dashboard
+(on same (on same  (on same
+ page)    page)     page)
 ```
 
 ### Authentication Process
 1. User navigates to `/admin`
-2. Enters email and password
-3. System checks against environment variables:
+2. Sees LoginSelection screen with 3 options:
+   - Admin Login
+   - Sponsor Login
+   - Student Login
+3. User selects their type
+4. Enters email and password in AdminLogin component
+5. System checks against environment variables:
    - `VITE_ADMIN_EMAIL` & `VITE_ADMIN_PASSWORD`
    - `VITE_SPONSOR1_EMAIL` & `VITE_SPONSOR1_PASSWORD` (and 2, 3)
    - `VITE_USER1_EMAIL` & `VITE_USER1_PASSWORD` (and 2)
-
-4. User type is identified
-5. Session data stored in localStorage:
+6. User type is identified and validated
+7. Session data stored in localStorage:
    - `userType`: 'admin' | 'sponsor' | 'applicant'
    - `userEmail`: User's email
    - `userName`: User's name (for sponsors)
    - `adminToken`: Authentication token
-6. User redirected to appropriate dashboard
+8. Appropriate dashboard shown on same page:
+   - Admin → AdminDashboard
+   - Sponsor → SponsorDashboard
+   - Student → StudentDashboard
 
 ### Session Management
 - **Storage:** Browser localStorage
@@ -351,41 +368,81 @@ sponsors (becoming partners)
 centfund-africa/
 ├── components/
 │   ├── admin/
-│   │   ├── AdminDashboard.tsx          # Main admin interface
-│   │   ├── AdminLogin.tsx              # Unified login for all users
-│   │   ├── ApplicationsManager.tsx     # Student applications management
+│   │   ├── AdminDashboard.tsx              # Main admin interface with tabs
+│   │   ├── AdminLogin.tsx                  # Unified login component
+│   │   ├── LoginSelection.tsx              # User type selection screen
+│   │   ├── ApplicationsManager.tsx         # Student applications management
 │   │   ├── SponsorApplicationsManager.tsx  # Sponsor applications
-│   │   ├── SponsorsListManager.tsx     # Active sponsors list
-│   │   ├── ProjectsManager.tsx         # Projects management
-│   │   ├── TeamManager.tsx             # Team management
-│   │   └── ...
+│   │   ├── SponsorsListManager.tsx         # Active sponsors list
+│   │   ├── SponsorsManager.tsx             # Sponsors management
+│   │   ├── ProjectsManager.tsx             # Projects management
+│   │   ├── ProjectForm.tsx                 # Project creation/edit form
+│   │   ├── TeamManager.tsx                 # Team management
+│   │   ├── TeamForm.tsx                    # Team member form
+│   │   ├── SuccessStoriesManager.tsx       # Success stories management
+│   │   ├── SuccessStoryForm.tsx            # Success story form
+│   │   ├── TestimonialsManager.tsx         # Testimonials management
+│   │   ├── TestimonialForm.tsx             # Testimonial form
+│   │   ├── PartnershipManager.tsx          # Partnerships management
+│   │   ├── SettingsManager.tsx             # Settings management
+│   │   └── SimpleAdminDashboard.tsx        # Simplified dashboard view
+│   ├── sponsor/
+│   │   └── SponsorDashboard.tsx            # Sponsor dashboard component
+│   ├── student/
+│   │   └── StudentDashboard.tsx            # Student dashboard component
 │   ├── ContactForm.tsx
 │   ├── Navbar.tsx
 │   ├── Footer.tsx
+│   ├── ProjectCard.tsx
+│   ├── TeamCard.tsx
+│   ├── TypewriterText.tsx
+│   ├── HeroImageSlider.tsx
+│   ├── DecorativeElements.tsx
+│   ├── WhatsAppButton.tsx
 │   └── ...
 ├── pages/
-│   ├── HomePage.tsx
-│   ├── AdminPage.tsx                   # Admin entry point
-│   ├── ApplicationPage.tsx             # Student application form
-│   ├── SponsorDashboardPage.tsx        # Sponsor dashboard
-│   ├── SponsorApplicationPage.tsx      # Become a sponsor form
+│   ├── HomePage.tsx                        # Landing page
+│   ├── AdminPage.tsx                       # Admin entry point (all users)
+│   ├── ApplicationPage.tsx                 # Student application form
+│   ├── SponsorApplicationPage.tsx          # Become a sponsor form
+│   ├── SponsorRequirementsPage.tsx         # Sponsor requirements info
+│   ├── SponsorSuccessPage.tsx              # Sponsor application success
+│   ├── SponsorDashboardPage.tsx            # Sponsor dashboard page
+│   ├── ProjectsPage.tsx                    # Projects listing
+│   ├── ProjectDetailPage.tsx               # Individual project details
+│   ├── AboutPage.tsx                       # About page
+│   ├── ContactPage.tsx                     # Contact page
+│   ├── SuccessStoriesPage.tsx              # Success stories listing
+│   ├── TestimonialsPage.tsx                # Testimonials listing
+│   ├── NotFoundPage.tsx                    # 404 page
 │   └── ...
 ├── utils/
 │   └── supabase/
-│       ├── client.ts                   # Supabase client config
-│       └── helpers.ts                  # Database helper functions
+│       ├── client.ts                       # Supabase client config
+│       └── helpers.ts                      # Database helper functions
 ├── database/
-│   ├── APPLICATION_SYSTEM_SCHEMA.sql   # Complete database schema
-│   └── sponsors_table.sql              # Sponsors table schema
+│   ├── APPLICATION_SYSTEM_SCHEMA.sql       # Complete database schema
+│   ├── sponsors_table.sql                  # Sponsors table schema
+│   └── README.md                           # Database documentation
 ├── docs/
-│   ├── SYSTEM_ARCHITECTURE.md          # This file
-│   ├── APPLICATION_SYSTEM_GUIDE.md     # User guide
-│   ├── LOGIN_CREDENTIALS.md            # Login info
-│   └── ADMIN_APPLICATIONS_GUIDE.md     # Admin guide
-├── .env                                # Environment variables
-├── App.tsx                             # Main app component
-├── main.tsx                            # Entry point + routing
-└── package.json
+│   ├── SYSTEM_ARCHITECTURE.md              # This file
+│   ├── APPLICATION_SYSTEM_GUIDE.md         # User guide
+│   ├── LOGIN_CREDENTIALS.md                # Login info
+│   ├── ADMIN_APPLICATIONS_GUIDE.md         # Admin guide
+│   └── setup/                              # Setup documentation
+├── styles/                                 # CSS styles
+├── public/                                 # Static assets
+│   ├── carousel-1.jpg through carousel-5.jpg
+│   └── ...
+├── .env                                    # Environment variables
+├── .env.example                            # Environment template
+├── App.tsx                                 # Main app component
+├── main.tsx                                # Entry point + routing
+├── package.json                            # Dependencies
+├── vite.config.ts                          # Vite configuration
+├── tailwind.config.ts                      # Tailwind configuration
+├── tsconfig.json                           # TypeScript configuration
+└── vercel.json                             # Vercel deployment config
 ```
 
 ### Component Hierarchy
@@ -395,48 +452,92 @@ App.tsx
 ├── Navbar
 ├── Routes
 │   ├── HomePage
+│   │   ├── HeroImageSlider
+│   │   ├── TypewriterText
+│   │   ├── ProjectCard (multiple)
+│   │   ├── DecorativeElements
+│   │   └── WhatsAppButton
 │   ├── AdminPage
-│   │   ├── AdminLogin (if not authenticated)
-│   │   └── AdminDashboard (if authenticated)
-│   │       ├── ApplicationsManager
-│   │       │   ├── Student Applications View
-│   │       │   ├── Sponsor Applications View
-│   │       │   └── Active Sponsors View
-│   │       ├── ProjectsManager
-│   │       ├── TeamManager
-│   │       └── SettingsManager
-│   ├── SponsorDashboardPage
+│   │   ├── LoginSelection (if not authenticated)
+│   │   ├── AdminLogin (if user type selected)
+│   │   └── Dashboard (if authenticated)
+│   │       ├── AdminDashboard (for admin users)
+│   │       │   ├── [Applications Tab]
+│   │       │   │   ├── ApplicationsManager
+│   │       │   │   ├── SponsorApplicationsManager
+│   │       │   │   └── SponsorsListManager
+│   │       │   ├── [Projects Tab]
+│   │       │   │   ├── ProjectsManager
+│   │       │   │   └── ProjectForm
+│   │       │   ├── [Team Tab]
+│   │       │   │   ├── TeamManager
+│   │       │   │   └── TeamForm
+│   │       │   ├── [Success Stories Tab]
+│   │       │   │   ├── SuccessStoriesManager
+│   │       │   │   └── SuccessStoryForm
+│   │       │   ├── [Testimonials Tab]
+│   │       │   │   ├── TestimonialsManager
+│   │       │   │   └── TestimonialForm
+│   │       │   ├── [Partnerships Tab]
+│   │       │   │   └── PartnershipManager
+│   │       │   └── [Settings Tab]
+│   │       │       └── SettingsManager
+│   │       ├── SponsorDashboard (for sponsor users)
+│   │       └── StudentDashboard (for student users)
 │   ├── ApplicationPage
-│   └── ...
+│   │   └── ContactForm (application form)
+│   ├── SponsorApplicationPage
+│   │   └── ContactForm (sponsor form)
+│   ├── SponsorRequirementsPage
+│   ├── ProjectsPage
+│   │   └── ProjectCard (multiple)
+│   ├── ProjectDetailPage
+│   ├── AboutPage
+│   │   └── TeamCard (multiple)
+│   ├── ContactPage
+│   │   └── ContactForm
+│   ├── SuccessStoriesPage
+│   ├── TestimonialsPage
+│   └── NotFoundPage
 └── Footer
 ```
 
 
-### Admin Dashboard - 4 Category Cards
+### Admin Dashboard - Multi-Tab Interface
 
-The admin dashboard features 4 main category cards for managing different aspects:
+The admin dashboard features a tabbed interface for managing different aspects:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    ADMIN DASHBOARD                           │
-│                   /admin (Applications Tab)                  │
+│  [Applications] [Projects] [Team] [Success Stories]          │
+│  [Testimonials] [Partnerships] [Settings]                    │
 └─────────────────────────────────────────────────────────────┘
 
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│   📚 BLUE    │  │  💼 PURPLE   │  │  🏢 GREEN    │  │  🏆 ORANGE   │
-│   Student    │  │  Becoming    │  │   Active     │  │  Completed   │
-│  Applicants  │  │   Sponsor    │  │  Sponsors    │  │              │
-│              │  │              │  │              │  │              │
-│   Count: X   │  │   Count: Y   │  │   Count: Z   │  │   Count: W   │
-│  Pending: N  │  │  Pending: M  │  │  Active: K   │  │  Success: J  │
-└──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘
-      ↓                  ↓                  ↓                  ↓
-   [CLICK]           [CLICK]           [CLICK]           [VIEW ONLY]
+APPLICATIONS TAB:
+┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+│   📚 BLUE    │  │  💼 PURPLE   │  │  🏢 GREEN    │
+│   Student    │  │  Becoming    │  │   Active     │
+│  Applicants  │  │   Sponsor    │  │  Sponsors    │
+│              │  │              │  │              │
+│   Count: X   │  │   Count: Y   │  │   Count: Z   │
+│  Pending: N  │  │  Pending: M  │  │  Active: K   │
+└──────────────┘  └──────────────┘  └──────────────┘
+      ↓                  ↓                  ↓
+   [CLICK]           [CLICK]           [CLICK]
       ↓                  ↓                  ↓
   Shows table      Shows sponsor      Shows active
   of student       applications       sponsors list
   applications     (people wanting    (approved
                    to be partners)    partners)
+
+OTHER TABS:
+- Projects: Manage certification programs
+- Team: Manage team members
+- Success Stories: Manage student success stories
+- Testimonials: Manage user testimonials
+- Partnerships: Manage partner organizations
+- Settings: System configuration
 ```
 
 ---
@@ -562,30 +663,43 @@ const { data, error } = await supabase
 ### Journey 2: Admin Manages Application
 
 ```
-1. Admin logs in at /admin
+1. Admin navigates to /admin
+   ↓
+2. Sees LoginSelection screen
+   ↓
+3. Clicks "Admin Login"
+   ↓
+4. Enters credentials:
    Email: admin@centfundafrica.org
    Password: Admin@2024Secure!
    ↓
-2. Clicks "Applications" tab
+5. AdminDashboard loads with multiple tabs
    ↓
-3. Sees 4 category cards
+6. Clicks "Applications" tab (default view)
    ↓
-4. Clicks "Student Applicants" (Blue Card)
+7. Sees 3 category cards:
+   - Student Applicants (Blue)
+   - Becoming Sponsor (Purple)
+   - Active Sponsors (Green)
    ↓
-5. Views list of all applications
+8. Clicks "Student Applicants" (Blue Card)
+   ↓
+9. Views list of all applications
    - Can search by name/email
    - Can filter by status
+   - Can sort by date
    ↓
-6. Clicks "View" on an application
+10. Clicks "View" on an application
    ↓
-7. Reviews complete details:
+11. Reviews complete details:
    - Personal info
-   - Education
+   - Education background
    - Certification needs
-   - Documents
+   - Financial situation
+   - Documents (resume, ID)
    - Submission date & time
    ↓
-8. Makes decision:
+12. Makes decision:
    
    Option A: ACCEPT
    ↓
@@ -611,28 +725,47 @@ const { data, error } = await supabase
    - Clicks "Reject"
    - Status: rejected
    - Application ends
+   
+13. Can switch to other tabs:
+   - Projects: Manage certification programs
+   - Team: Manage team members
+   - Success Stories: Feature graduates
+   - Testimonials: Manage feedback
+   - Partnerships: Manage partners
+   - Settings: Configure system
 ```
 
 ### Journey 3: Sponsor Reviews Assignment
 
 ```
-1. Sponsor logs in at /admin
+1. Sponsor navigates to /admin
+   ↓
+2. Sees LoginSelection screen
+   ↓
+3. Clicks "Sponsor Login"
+   ↓
+4. Enters credentials:
    Email: sponsor1@centfundafrica.org
    Password: Sponsor1@2024!
    ↓
-2. Automatically redirected to /sponsor-dashboard
+5. SponsorDashboard loads on same page
    ↓
-3. Sees assigned applications
+6. Sees assigned applications list
+   - Application details
+   - Student information
+   - Status indicators
    ↓
-4. Clicks "View" on assigned student
+7. Clicks "View" on assigned student
    ↓
-5. Reviews student details:
+8. Reviews student details:
    - Personal information
    - Education background
    - Certification requirements
-   - Cost
+   - Cost breakdown
+   - Career goals
+   - Financial situation
    ↓
-6. Makes decision:
+9. Makes decision:
    
    Option A: ACCEPT
    ↓
@@ -646,13 +779,21 @@ const { data, error } = await supabase
    - Submits
    ↓
    - Admin notified
+   - Status updated
    - Can move to Stage 2
    
    Option B: DECLINE
    ↓
    - Clicks "Decline"
+   - Provides reason (optional)
    - Application returns to admin
    - Admin can assign different sponsor
+   
+10. Can track all sponsorships:
+   - Active sponsorships
+   - Completed sponsorships
+   - Payment status
+   - Student progress
 ```
 
 ### Journey 4: Person Wants to Become Sponsor
@@ -698,7 +839,46 @@ const { data, error } = await supabase
    - Application ends
 ```
 
-### Journey 5: Admin Views Active Sponsors
+### Journey 5: Student Tracks Application
+
+```
+1. Student navigates to /admin
+   ↓
+2. Sees LoginSelection screen
+   ↓
+3. Clicks "Student Login"
+   ↓
+4. Enters credentials:
+   Email: applicant1@example.com
+   Password: User1@2024!
+   ↓
+5. StudentDashboard loads on same page
+   ↓
+6. Sees their application status:
+   - Current status
+   - Stage progress
+   - Assigned sponsor (if any)
+   - Timeline
+   ↓
+7. Can view application details:
+   - Submitted information
+   - Documents uploaded
+   - Status history
+   - Next steps
+   ↓
+8. Receives updates:
+   - Status changes
+   - Sponsor assignment
+   - Payment confirmation
+   - Completion notification
+   ↓
+9. Can update information:
+   - Contact details
+   - Documents
+   - Additional information
+```
+
+### Journey 6: Admin Views Active Sponsors
 
 ```
 1. Admin logs in
@@ -723,6 +903,7 @@ const { data, error } = await supabase
    - Organization info
    - Sponsorship capacity
    - Active sponsorships
+   - Payment history
    - Documents
 ```
 
@@ -733,38 +914,68 @@ const { data, error } = await supabase
 
 ### Admin Features
 1. **Dashboard Overview**
-   - 4 category cards with real-time counts
-   - Quick navigation between categories
+   - Multi-tab interface for different management areas
+   - Real-time statistics and counts
+   - Quick navigation between sections
    - Visual status indicators
 
-2. **Student Application Management**
-   - View all applications
-   - Search and filter functionality
-   - Detailed application view
-   - Accept/Reject applications
-   - Stage progression (Stage 1 → Stage 2)
-   - Sponsor assignment
-   - Status tracking
-   - History logging
+2. **Applications Tab**
+   - **Student Applications Management**
+     - View all student applications
+     - Search and filter functionality
+     - Detailed application view
+     - Accept/Reject applications
+     - Stage progression (Stage 1 → Stage 2)
+     - Sponsor assignment
+     - Status tracking
+     - History logging
+   
+   - **Sponsor Applications Management**
+     - View people applying to become sponsors
+     - Review company/organization details
+     - Approve/Reject sponsor applications
+     - Add to active sponsors list
+   
+   - **Active Sponsors Management**
+     - View all approved sponsors
+     - See sponsor details
+     - Track sponsorship capacity
+     - Monitor active sponsorships
 
-3. **Sponsor Application Management**
-   - View people applying to become sponsors
-   - Review company/organization details
-   - Approve/Reject sponsor applications
-   - Add to active sponsors list
+3. **Projects Tab**
+   - Create/Edit/Delete certification programs
+   - Manage project details (name, description, image)
+   - Set project status (active/inactive)
+   - Track project metrics
 
-4. **Active Sponsors Management**
-   - View all approved sponsors
-   - See sponsor details
-   - Track sponsorship capacity
-   - Monitor active sponsorships
+4. **Team Tab**
+   - Add/Edit/Remove team members
+   - Manage team member profiles
+   - Set roles and positions
+   - Upload team photos
 
-5. **Additional Features**
-   - Projects management
-   - Team management
-   - Testimonials management
-   - Success stories management
-   - Settings management
+5. **Success Stories Tab**
+   - Create/Edit/Delete success stories
+   - Manage student testimonials
+   - Track impact metrics
+   - Feature successful graduates
+
+6. **Testimonials Tab**
+   - Manage user testimonials
+   - Approve/Reject testimonials
+   - Feature testimonials on homepage
+   - Track ratings and feedback
+
+7. **Partnerships Tab**
+   - Manage partner organizations
+   - Track partnership agreements
+   - Monitor partnership status
+
+8. **Settings Tab**
+   - System configuration
+   - Email settings
+   - Notification preferences
+   - General settings
 
 ### Sponsor Features
 1. **Dashboard**
@@ -866,16 +1077,35 @@ Submit → Pending → Admin Review → Approve/Reject
 
 ### Admin Management Workflow
 ```
-Login → Dashboard → Applications Tab
-                         ↓
-            ┌────────────┼────────────┐
-            ↓            ↓            ↓
-    Student Apps   Sponsor Apps   Active Sponsors
-            ↓            ↓            ↓
-    Manage Students  Approve/Reject  View Partners
-    Accept/Reject    New Sponsors    Monitor Status
-    Assign Sponsors
-    Track Progress
+Login → LoginSelection → AdminDashboard
+                              ↓
+        ┌─────────────────────┼─────────────────────┐
+        ↓                     ↓                     ↓
+  Applications Tab      Projects Tab          Team Tab
+        ↓                     ↓                     ↓
+  ┌─────┼─────┐         Manage Certs         Manage Team
+  ↓     ↓     ↓         Add/Edit/Delete      Add/Edit/Delete
+Student Sponsor Active   Set Status          Set Roles
+Apps    Apps   Sponsors  Track Metrics       Upload Photos
+  ↓     ↓     ↓
+Manage  Approve View
+Accept  Reject  Monitor
+Assign  Add to  Status
+Track   List    Capacity
+
+        ↓                     ↓                     ↓
+  Success Stories      Testimonials          Partnerships
+        ↓                     ↓                     ↓
+  Feature Grads        Manage Feedback       Manage Partners
+  Track Impact         Approve/Reject        Track Agreements
+  Add Stories          Feature on Site       Monitor Status
+
+        ↓
+    Settings
+        ↓
+  Configure System
+  Email Settings
+  Notifications
 ```
 
 ---
@@ -1011,11 +1241,13 @@ CentFund Africa is a comprehensive sponsorship management platform that:
 3. **Provides** role-based access for admins, sponsors, and students
 4. **Tracks** all applications through multiple stages with detailed history
 5. **Facilitates** sponsor-student matching and payment processing
-6. **Offers** a unified login system with automatic role detection
-7. **Features** an intuitive admin dashboard with 4 category cards
+6. **Offers** a unified login system with user type selection
+7. **Features** an intuitive multi-tab admin dashboard for comprehensive management
 8. **Ensures** secure data handling and access control
+9. **Supports** multiple management areas: applications, projects, team, success stories, testimonials, partnerships, and settings
+10. **Displays** all dashboards on the same page based on user role (no redirects)
 
-The system streamlines the entire sponsorship process, making it easy for students to apply, sponsors to support, and admins to manage everything efficiently.
+The system streamlines the entire sponsorship process, making it easy for students to apply, sponsors to support, and admins to manage everything efficiently through a modern, responsive interface.
 
 ---
 
@@ -1029,6 +1261,48 @@ For technical support or questions:
 
 ---
 
-**Last Updated:** December 2024  
-**Version:** 1.0  
+**Last Updated:** December 13, 2024  
+**Version:** 2.0  
 **Platform:** CentFund Africa Sponsorship Management System
+
+---
+
+## 🆕 Recent Updates (v2.0)
+
+### Authentication Flow Enhancement
+- Added LoginSelection component for user type selection
+- Improved user experience with clear role separation
+- All dashboards now render on the same page (no redirects)
+
+### Admin Dashboard Improvements
+- Migrated from 4-card layout to comprehensive multi-tab interface
+- Added dedicated tabs for:
+  - Applications (Student, Sponsor, Active Sponsors)
+  - Projects (Certification programs management)
+  - Team (Team members management)
+  - Success Stories (Graduate success stories)
+  - Testimonials (User feedback)
+  - Partnerships (Partner organizations)
+  - Settings (System configuration)
+
+### Component Organization
+- Separated dashboards into dedicated components:
+  - AdminDashboard (admin users)
+  - SponsorDashboard (sponsor users)
+  - StudentDashboard (student users)
+- Added form components for easier data entry
+- Improved component reusability
+
+### User Experience
+- Enhanced visual design with Framer Motion animations
+- Improved responsive design for mobile devices
+- Added TypewriterText and HeroImageSlider components
+- Integrated WhatsAppButton for quick communication
+- Better loading states and error handling
+
+### Technical Improvements
+- Updated to React 19.2.3
+- Using Motion 11.11.17 for animations
+- Supabase 2.46.1 for backend
+- TypeScript 5.7.2 for type safety
+- Vite 6.0.1 for fast builds
