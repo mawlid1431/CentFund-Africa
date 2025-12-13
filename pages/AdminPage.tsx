@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { AdminLogin } from '../components/admin/AdminLogin';
 import { AdminDashboard } from '../components/admin/AdminDashboard';
 import { LoginSelection } from '../components/admin/LoginSelection';
+import { StudentDashboard } from '../components/student/StudentDashboard';
 
 interface AdminPageProps {
     darkMode: boolean;
@@ -31,15 +32,18 @@ export function AdminPage({ darkMode, toggleDarkMode }: AdminPageProps) {
             localStorage.setItem('adminToken', 'authenticated');
             localStorage.setItem('userType', type);
 
+            // Store user data if provided
+            if (userData) {
+                if (userData.name) localStorage.setItem('userName', userData.name);
+                if (userData.email) localStorage.setItem('userEmail', userData.email);
+            }
+
             // Redirect based on user type
             if (type === 'sponsor') {
                 // Redirect to sponsor dashboard
                 window.location.href = '/sponsor-dashboard';
-            } else if (type === 'applicant') {
-                // Redirect to applicant dashboard (you can create this)
-                window.location.href = '/';
             }
-            // Admin stays on admin page
+            // Admin and applicant stay on this page to show their respective dashboards
         }
     };
 
@@ -98,7 +102,13 @@ export function AdminPage({ darkMode, toggleDarkMode }: AdminPageProps) {
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
                     >
-                        <AdminDashboard darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout} />
+                        {userType === 'admin' ? (
+                            <AdminDashboard darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout} />
+                        ) : userType === 'applicant' ? (
+                            <StudentDashboard darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout} />
+                        ) : (
+                            <AdminDashboard darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout} />
+                        )}
                     </motion.div>
                 )}
             </AnimatePresence>
