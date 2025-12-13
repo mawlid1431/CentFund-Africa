@@ -79,7 +79,7 @@ export async function getTeamMembers() {
     const { data, error } = await supabase
         .from('team_members')
         .select('*')
-        .order('display_order', { ascending: true });
+        .order('order_index', { ascending: true });
 
     if (error) throw error;
     return data.map(member => ({
@@ -87,8 +87,8 @@ export async function getTeamMembers() {
         name: member.name,
         role: member.role,
         image: member.image,
-        displayOrder: member.display_order,
-        linkedinUrl: member.linkedin_url,
+        displayOrder: member.order_index,
+        linkedinUrl: member.linkedin,
         email: member.email
     }));
 }
@@ -108,8 +108,8 @@ export async function createTeamMember(member: {
             name: member.name,
             role: member.role,
             image: member.image,
-            display_order: member.displayOrder,
-            linkedin_url: member.linkedinUrl,
+            order_index: member.displayOrder,
+            linkedin: member.linkedinUrl,
             email: member.email
         })
         .select()
@@ -134,8 +134,8 @@ export async function updateTeamMember(id: string, member: {
             name: member.name,
             role: member.role,
             image: member.image,
-            display_order: member.displayOrder,
-            linkedin_url: member.linkedinUrl,
+            order_index: member.displayOrder,
+            linkedin: member.linkedinUrl,
             email: member.email
         })
         .eq('id', id)
