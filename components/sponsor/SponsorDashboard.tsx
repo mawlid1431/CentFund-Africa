@@ -112,7 +112,7 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
             setApplicants(prev =>
                 prev.map(app =>
                     app.id === selectedApplicant.id
-                        ? { ...app, status: reviewAction }
+                        ? { ...app, status: reviewAction === 'accept' ? 'accepted' : 'rejected' }
                         : app
                 )
             );
@@ -241,8 +241,8 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
                                             </div>
                                         </div>
                                         <div className={`px-4 py-2 rounded-lg ${applicant.status === 'pending' ? 'bg-yellow-500/10 text-yellow-500' :
-                                                applicant.status === 'accepted' ? 'bg-green-500/10 text-green-500' :
-                                                    'bg-red-500/10 text-red-500'
+                                            applicant.status === 'accepted' ? 'bg-green-500/10 text-green-500' :
+                                                'bg-red-500/10 text-red-500'
                                             }`}>
                                             <span className="font-medium capitalize">{applicant.status}</span>
                                         </div>
@@ -379,8 +379,8 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
                                         onChange={(e) => setReviewReason(e.target.value)}
                                         rows={4}
                                         className={`w-full px-4 py-3 rounded-lg border transition-all ${darkMode
-                                                ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f]'
-                                                : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f]'
+                                            ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f]'
+                                            : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f]'
                                             }`}
                                         placeholder={`Provide a detailed reason for ${reviewAction === 'accept' ? 'accepting' : 'rejecting'} this application...`}
                                     />
@@ -396,8 +396,8 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
                                             </label>
                                             <div className="space-y-3">
                                                 <label className={`flex items-start gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${paymentMethod === 'through-us'
-                                                        ? 'border-[#ff6f0f] bg-[#ff6f0f]/5'
-                                                        : darkMode ? 'border-white/10 hover:border-white/20' : 'border-gray-200 hover:border-gray-300'
+                                                    ? 'border-[#ff6f0f] bg-[#ff6f0f]/5'
+                                                    : darkMode ? 'border-white/10 hover:border-white/20' : 'border-gray-200 hover:border-gray-300'
                                                     }`}>
                                                     <input
                                                         type="radio"
@@ -417,8 +417,8 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
                                                     </div>
                                                 </label>
                                                 <label className={`flex items-start gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${paymentMethod === 'direct'
-                                                        ? 'border-[#ff6f0f] bg-[#ff6f0f]/5'
-                                                        : darkMode ? 'border-white/10 hover:border-white/20' : 'border-gray-200 hover:border-gray-300'
+                                                    ? 'border-[#ff6f0f] bg-[#ff6f0f]/5'
+                                                    : darkMode ? 'border-white/10 hover:border-white/20' : 'border-gray-200 hover:border-gray-300'
                                                     }`}>
                                                     <input
                                                         type="radio"
@@ -479,8 +479,8 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
                                         onClick={handleSubmitReview}
                                         disabled={loading}
                                         className={`flex-1 px-6 py-3 rounded-lg font-medium text-white ${reviewAction === 'accept'
-                                                ? 'bg-gradient-to-r from-green-500 to-emerald-500'
-                                                : 'bg-gradient-to-r from-red-500 to-pink-500'
+                                            ? 'bg-gradient-to-r from-green-500 to-emerald-500'
+                                            : 'bg-gradient-to-r from-red-500 to-pink-500'
                                             } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     >
                                         {loading ? 'Processing...' : `Confirm ${reviewAction === 'accept' ? 'Accept' : 'Reject'}`}

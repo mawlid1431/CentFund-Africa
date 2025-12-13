@@ -178,8 +178,8 @@ export function SponsorsListManager({ darkMode }: SponsorsListManagerProps) {
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className={`w-full pl-10 pr-4 py-2 rounded-lg border ${darkMode
-                                        ? 'bg-[#1a2942] border-gray-700 text-white'
-                                        : 'bg-white border-gray-300 text-gray-900'
+                                    ? 'bg-[#1a2942] border-gray-700 text-white'
+                                    : 'bg-white border-gray-300 text-gray-900'
                                     } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                             />
                         </div>
@@ -190,8 +190,8 @@ export function SponsorsListManager({ darkMode }: SponsorsListManagerProps) {
                             value={filterStatus}
                             onChange={(e) => setFilterStatus(e.target.value)}
                             className={`px-4 py-2 rounded-lg border ${darkMode
-                                    ? 'bg-[#1a2942] border-gray-700 text-white'
-                                    : 'bg-white border-gray-300 text-gray-900'
+                                ? 'bg-[#1a2942] border-gray-700 text-white'
+                                : 'bg-white border-gray-300 text-gray-900'
                                 } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                         >
                             <option value="all">All Status</option>
@@ -295,3 +295,169 @@ export function SponsorsListManager({ darkMode }: SponsorsListManagerProps) {
                     </table>
                 </div>
             </div>
+
+            {/* Sponsor Details Modal */}
+            <AnimatePresence>
+                {selectedSponsor && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+                        onClick={() => setSelectedSponsor(null)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className={`${darkMode ? 'bg-[#0a1628]' : 'bg-white'} rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto`}
+                        >
+                            <div className={`sticky top-0 ${darkMode ? 'bg-[#0a1628]' : 'bg-white'} border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'} p-6 flex justify-between items-center`}>
+                                <h3 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                    Sponsor Details
+                                </h3>
+                                <button
+                                    onClick={() => setSelectedSponsor(null)}
+                                    className={`p-2 rounded-lg ${darkMode ? 'hover:bg-[#1a2942]' : 'hover:bg-gray-100'}`}
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </div>
+
+                            <div className="p-6 space-y-6">
+                                {/* Personal Information */}
+                                <div>
+                                    <h4 className={`text-lg font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                        Personal Information
+                                    </h4>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Name</p>
+                                            <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{selectedSponsor.name}</p>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Email</p>
+                                            <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{selectedSponsor.email}</p>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Phone</p>
+                                            <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{selectedSponsor.phone}</p>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Organization</p>
+                                            <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{selectedSponsor.organization || 'Individual'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Location */}
+                                <div>
+                                    <h4 className={`text-lg font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                        Location
+                                    </h4>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>City</p>
+                                            <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{selectedSponsor.city}</p>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Country</p>
+                                            <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{selectedSponsor.country}</p>
+                                        </div>
+                                        <div className="col-span-2">
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Address</p>
+                                            <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{selectedSponsor.address}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Sponsorship Details */}
+                                <div>
+                                    <h4 className={`text-lg font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                        Sponsorship Details
+                                    </h4>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Type</p>
+                                            <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getTypeColor(selectedSponsor.sponsor_type)} text-white`}>
+                                                {selectedSponsor.sponsor_type}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Amount</p>
+                                            <p className={`font-medium text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                                ${Number(selectedSponsor.amount).toLocaleString()}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Status</p>
+                                            <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(selectedSponsor.status)} text-white`}>
+                                                {selectedSponsor.status}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Date Joined</p>
+                                            <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                                {new Date(selectedSponsor.created_at).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Documents */}
+                                <div>
+                                    <h4 className={`text-lg font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                        Documents
+                                    </h4>
+                                    <div className="space-y-2">
+                                        {selectedSponsor.id_document_url && (
+                                            <a
+                                                href={selectedSponsor.id_document_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 underline block"
+                                            >
+                                                View ID Document
+                                            </a>
+                                        )}
+                                        {selectedSponsor.proof_of_funds_url && (
+                                            <a
+                                                href={selectedSponsor.proof_of_funds_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 underline block"
+                                            >
+                                                View Proof of Funds
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Actions */}
+                                {selectedSponsor.status === 'pending' && (
+                                    <div className="flex gap-4 pt-4 border-t border-gray-200">
+                                        <button
+                                            onClick={() => updateSponsorStatus(selectedSponsor.id, 'approved')}
+                                            className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+                                        >
+                                            <CheckCircle className="w-5 h-5" />
+                                            Approve
+                                        </button>
+                                        <button
+                                            onClick={() => updateSponsorStatus(selectedSponsor.id, 'rejected')}
+                                            className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+                                        >
+                                            <XCircle className="w-5 h-5" />
+                                            Reject
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+}
