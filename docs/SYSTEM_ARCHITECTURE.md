@@ -1,167 +1,274 @@
-# CentFund Africa - System Architecture Documentation
-
-## 📋 Table of Contents
-1. [System Overview](#system-overview)
-2. [Technology Stack](#technology-stack)
-3. [User Roles](#user-roles)
-4. [Authentication Flow](#authentication-flow)
-5. [Application Workflow](#application-workflow)
-6. [Database Schema](#database-schema)
-7. [Frontend Architecture](#frontend-architecture)
-8. [Backend Integration](#backend-integration)
-9. [Complete User Journeys](#complete-user-journeys)
-10. [Deployment](#deployment)
+# CentFund Africa - System Architecture
+## Simple & Clear Explanation for Pitch
 
 ---
 
-## 🎯 System Overview
+## 🎯 What is CentFund Africa?
 
-CentFund Africa is a comprehensive certification sponsorship platform that connects ambitious students seeking professional certification funding with sponsors willing to support their education. The platform manages the complete sponsorship lifecycle from application submission to certification completion.
+**CentFund Africa** connects students who need certification funding with sponsors who want to help. Think of it as a bridge between ambition and opportunity.
 
-### Core Purpose
-- **Students/Applicants:** Apply for certification sponsorship and track application progress
-- **Sponsors:** Support students by funding their certifications and monitor impact
-- **Admins:** Manage applications, assign sponsors, oversee projects, and maintain the platform
+### The Problem We Solve
+- Students can't afford professional certifications (AWS, CCNA, IELTS, etc.)
+- Sponsors want to help but don't know who to support
+- No transparent system to track impact
 
-### Key Features
-- 🎓 **Student Application System** - Comprehensive application forms with document uploads
-- 💼 **Sponsor Management** - Onboarding, approval, and assignment workflow
-- 📊 **Admin Dashboard** - Multi-tab interface for complete platform management
-- 🔐 **Unified Authentication** - Single login page with role-based access
-- 📈 **Real-time Statistics** - Live dashboard metrics and progress tracking
-- 🌐 **Public Website** - Showcase projects, success stories, and testimonials
-- 📱 **Responsive Design** - Optimized for desktop, tablet, and mobile devices
+### Our Solution
+A digital platform that:
+1. **Students apply** for certification funding
+2. **Admins review** and approve applications
+3. **Sponsors choose** which students to support
+4. **Everyone tracks** progress in real-time
 
 ---
 
-## 💻 Technology Stack
+## 🔄 How It Works (Simple Flow)
 
-### Frontend
-- **Framework:** React 19.2.3 with TypeScript 5.7.2
-- **Build Tool:** Vite 6.0.1 (fast development and optimized builds)
-- **Styling:** Tailwind CSS 3.4.0 (utility-first CSS framework)
-- **Animations:** Motion 11.11.17 (Framer Motion - smooth animations)
-- **Icons:** Lucide React 0.468.0 (beautiful icon library)
-- **Notifications:** Sonner 2.0.3 (toast notifications)
-- **Routing:** React Router DOM 6.28.0
-
-### Backend
-- **Database:** Supabase (PostgreSQL)
-- **Authentication:** Environment-based credentials (development)
-- **Storage:** Supabase Storage (file uploads)
-- **API:** Supabase Client 2.46.1
-
-### Development Tools
-- **Package Manager:** npm 9.0.0+
-- **Node Version:** 18.0.0+
-- **Linting:** ESLint 9.15.0
-- **Type Checking:** TypeScript strict mode
-
-### Deployment
-- **Platform:** Vercel (recommended)
-- **CI/CD:** Automated builds on push
-- **Environment:** Production and staging environments
+```
+┌─────────────┐
+│   STUDENT   │ Applies for certification funding
+└──────┬──────┘
+       │
+       ↓
+┌─────────────┐
+│    ADMIN    │ Reviews & approves application
+└──────┬──────┘
+       │
+       ↓
+┌─────────────┐
+│   SPONSOR   │ Accepts & funds the student
+└──────┬──────┘
+       │
+       ↓
+┌─────────────┐
+│   SUCCESS   │ Student gets certified!
+└─────────────┘
+```
 
 ---
 
-## 👥 User Roles
+## 👥 Three Types of Users
 
-### 1. Admin
-**Access Level:** Full system control  
-**Login:** `/admin`  
-**Credentials:** Stored in `.env` file
-
-**Capabilities:**
-- View and manage all student applications
-- Review sponsor applications (people wanting to become sponsors)
-- Approve/reject applications
-- Assign sponsors to students
-- Move applications through stages
-- View all system statistics
-- Manage active sponsors list
-
-### 2. Sponsor/Partner
-**Access Level:** Limited to assigned applications  
-**Login:** `/admin` (redirects to `/sponsor-dashboard`)  
-**Credentials:** Stored in `.env` file
-
-**Capabilities:**
-- View assigned student applications
-- Accept or decline sponsorship
-- Choose payment method (direct or through platform)
-- Track sponsorship progress
-- View student details and requirements
-
-### 3. Student/Applicant
-**Access Level:** Own application only  
-**Login:** `/admin` (redirects to home)  
-**Credentials:** Stored in `.env` file
-
-**Capabilities:**
-- Submit certification application
+### 1. 🎓 Students
+- Submit application with documents
 - Track application status
-- View assigned sponsor (if any)
-- Update application information
-- View progress through stages
+- See assigned sponsor
+- Update progress
+
+### 2. 💼 Sponsors
+- View student applications
+- Choose who to support
+- Track their impact
+- See success stories
+
+### 3. 👨‍💼 Admins
+- Review all applications
+- Match students with sponsors
+- Manage the platform
+- Track overall statistics
 
 ---
 
-## 🔐 Authentication Flow
-
-### Unified Login System
-All users log in through the same page: `/admin`
+## 🏗️ Platform Architecture (Visual)
 
 ```
-User navigates to /admin
-         ↓
-Login Selection Screen
-┌────────────────────────────────┐
-│  Choose Your Login Type:       │
-│  [Admin] [Sponsor] [Student]   │
-└────────────────────────────────┘
-         ↓
-User selects type & enters credentials
-         ↓
-System checks credentials against .env file
-         ↓
-    ┌────┴────┐
-    ↓         ↓         ↓
-Admin?   Sponsor?   Applicant?
-    ↓         ↓         ↓
-Shows    Shows      Shows
-Admin    Sponsor    Student
-Dashboard Dashboard Dashboard
-(on same (on same  (on same
- page)    page)     page)
+┌──────────────────────────────────────────────────────────┐
+│                    PUBLIC WEBSITE                         │
+│  (Anyone can visit - no login needed)                    │
+│                                                           │
+│  • Home Page - Hero & Featured Projects                  │
+│  • Projects - All Certifications Available               │
+│  • Success Stories - Student Achievements                │
+│  • About Us - Team & Mission                             │
+│  • Contact - Get in Touch                                │
+└──────────────────────────────────────────────────────────┘
+                           │
+                           ↓
+┌──────────────────────────────────────────────────────────┐
+│                  APPLICATION FORMS                        │
+│  (No login required - open to everyone)                  │
+│                                                           │
+│  • Student Application - Apply for funding               │
+│  • Become a Sponsor - Partner with us                    │
+└──────────────────────────────────────────────────────────┘
+                           │
+                           ↓
+┌──────────────────────────────────────────────────────────┐
+│                   LOGIN PORTAL                            │
+│  (One login page for all users)                          │
+│                                                           │
+│  Choose: [Student] [Sponsor] [Admin]                     │
+└──────────────────────────────────────────────────────────┘
+         │                  │                  │
+         ↓                  ↓                  ↓
+┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+│   STUDENT    │  │   SPONSOR    │  │    ADMIN     │
+│  DASHBOARD   │  │  DASHBOARD   │  │  DASHBOARD   │
+│              │  │              │  │              │
+│ • My Status  │  │ • Assigned   │  │ • All Apps   │
+│ • Documents  │  │   Students   │  │ • Approve    │
+│ • Progress   │  │ • Accept/    │  │ • Assign     │
+│              │  │   Decline    │  │ • Manage     │
+└──────────────┘  └──────────────┘  └──────────────┘
 ```
 
-### Authentication Process
-1. User navigates to `/admin`
-2. Sees LoginSelection screen with 3 options:
-   - Admin Login
-   - Sponsor Login
-   - Student Login
-3. User selects their type
-4. Enters email and password in AdminLogin component
-5. System checks against environment variables:
-   - `VITE_ADMIN_EMAIL` & `VITE_ADMIN_PASSWORD`
-   - `VITE_SPONSOR1_EMAIL` & `VITE_SPONSOR1_PASSWORD` (and 2, 3)
-   - `VITE_USER1_EMAIL` & `VITE_USER1_PASSWORD` (and 2)
-6. User type is identified and validated
-7. Session data stored in localStorage:
-   - `userType`: 'admin' | 'sponsor' | 'applicant'
-   - `userEmail`: User's email
-   - `userName`: User's name (for sponsors)
-   - `adminToken`: Authentication token
-8. Appropriate dashboard shown on same page:
-   - Admin → AdminDashboard
-   - Sponsor → SponsorDashboard
-   - Student → StudentDashboard
+---
 
-### Session Management
-- **Storage:** Browser localStorage
-- **Duration:** Until logout
-- **Security:** Token-based authentication
+## 💻 Technology Stack (Simple)
+
+### What Users See (Frontend)
+- **React** - Modern web framework
+- **Tailwind CSS** - Beautiful, responsive design
+- **TypeScript** - Reliable, error-free code
+
+### What Powers It (Backend)
+- **Supabase** - Database & file storage
+- **PostgreSQL** - Secure data management
+- **Vercel** - Fast, reliable hosting
+
+### Why These Choices?
+✅ **Fast** - Loads in seconds  
+✅ **Secure** - Bank-level security  
+✅ **Scalable** - Grows with us  
+✅ **Cost-effective** - Affordable to run
+
+---
+
+## � Comrplete Application Journey
+
+### Step-by-Step Process
+
+```
+STEP 1: STUDENT APPLIES
+┌─────────────────────────────────────┐
+│ Student fills application form:     │
+│ • Personal info                     │
+│ • Education background              │
+│ • Certification needed              │
+│ • Why they need help                │
+│ • Upload documents (ID, resume)     │
+└─────────────────────────────────────┘
+              ↓
+        [SUBMITTED]
+              ↓
+
+STEP 2: ADMIN REVIEWS
+┌─────────────────────────────────────┐
+│ Admin checks:                       │
+│ • Is application complete?          │
+│ • Does student qualify?             │
+│ • Is certification valid?           │
+│                                     │
+│ Decision: [ACCEPT] or [REJECT]      │
+└─────────────────────────────────────┘
+              ↓
+        [ACCEPTED]
+              ↓
+
+STEP 3: ADMIN ASSIGNS SPONSOR
+┌─────────────────────────────────────┐
+│ Admin matches student with sponsor: │
+│ • Reviews available sponsors        │
+│ • Checks sponsor capacity           │
+│ • Assigns best match                │
+└─────────────────────────────────────┘
+              ↓
+    [ASSIGNED TO SPONSOR]
+              ↓
+
+STEP 4: SPONSOR DECIDES
+┌─────────────────────────────────────┐
+│ Sponsor reviews student:            │
+│ • Reads application                 │
+│ • Views documents                   │
+│ • Checks certification cost         │
+│                                     │
+│ Decision: [ACCEPT] or [DECLINE]     │
+└─────────────────────────────────────┘
+              ↓
+    [SPONSOR ACCEPTS]
+              ↓
+
+STEP 5: PAYMENT
+┌─────────────────────────────────────┐
+│ Sponsor chooses payment method:     │
+│ • Pay directly to exam center       │
+│ • Pay through our platform          │
+└─────────────────────────────────────┘
+              ↓
+    [PAYMENT CONFIRMED]
+              ↓
+
+STEP 6: SUCCESS!
+┌─────────────────────────────────────┐
+│ Student gets certified:             │
+│ • Takes exam                        │
+│ • Passes certification              │
+│ • Shares success story              │
+│ • Becomes inspiration for others    │
+└─────────────────────────────────────┘
+              ↓
+        [COMPLETED] 🎉
+```
+
+---
+
+## �️ Datan We Store (Database)
+
+### Core Information
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    APPLICATIONS                          │
+│  Everything about student applications:                 │
+│  • Personal info (name, email, phone)                   │
+│  • Education (school, degree, GPA)                      │
+│  • Certification details (name, cost, date)             │
+│  • Documents (resume, ID, transcripts)                  │
+│  • Status (pending, approved, completed)                │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│                      SPONSORS                            │
+│  Information about our partners:                        │
+│  • Contact details                                      │
+│  • Organization info                                    │
+│  • How many students they've helped                     │
+│  • Current sponsorships                                 │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│                      PROJECTS                            │
+│  Certifications we support:                             │
+│  • AWS Cloud Practitioner                               │
+│  • CCNA Networking                                      │
+│  • IELTS English Test                                   │
+│  • CompTIA A+                                           │
+│  • And more...                                          │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│                   SUCCESS STORIES                        │
+│  Celebrating our graduates:                             │
+│  • Student name & photo                                 │
+│  • Their journey                                        │
+│  • Certification achieved                               │
+│  • Impact on their career                               │
+└─────────────────────────────────────────────────────────┘
+```
+
+### How Data Connects
+
+```
+STUDENT applies → Creates APPLICATION
+                        ↓
+ADMIN reviews → Updates APPLICATION status
+                        ↓
+SPONSOR assigned → Links to APPLICATION
+                        ↓
+Payment made → Updates APPLICATION
+                        ↓
+Certification done → Creates SUCCESS STORY
+```
 
 ---
 
