@@ -4,6 +4,7 @@ import { AdminLogin } from '../components/admin/AdminLogin';
 import { AdminDashboard } from '../components/admin/AdminDashboard';
 import { LoginSelection } from '../components/admin/LoginSelection';
 import { StudentDashboard } from '../components/student/StudentDashboard';
+import { SponsorDashboard } from '../components/sponsor/SponsorDashboard';
 
 interface AdminPageProps {
     darkMode: boolean;
@@ -38,12 +39,8 @@ export function AdminPage({ darkMode, toggleDarkMode }: AdminPageProps) {
                 if (userData.email) localStorage.setItem('userEmail', userData.email);
             }
 
-            // Redirect based on user type
-            if (type === 'sponsor') {
-                // Redirect to sponsor dashboard
-                window.location.href = '/sponsor-dashboard';
-            }
-            // Admin and applicant stay on this page to show their respective dashboards
+            // All user types stay on this page to show their respective dashboards
+            // No redirect needed - dashboard will be shown based on userType
         }
     };
 
@@ -106,6 +103,8 @@ export function AdminPage({ darkMode, toggleDarkMode }: AdminPageProps) {
                             <AdminDashboard darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout} />
                         ) : userType === 'applicant' ? (
                             <StudentDashboard darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout} />
+                        ) : userType === 'sponsor' ? (
+                            <SponsorDashboard darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout} />
                         ) : (
                             <AdminDashboard darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogout={handleLogout} />
                         )}
