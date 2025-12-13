@@ -11,6 +11,16 @@ export default {
     theme: {
         extend: {
             colors: {
+                // Dark Blue Theme Colors
+                'dark-primary': '#0a1628',      // Main dark background
+                'dark-secondary': '#0f1c3f',    // Secondary dark background
+                'dark-accent': '#1a2847',       // Accent dark
+
+                // Orange Accent
+                'accent-orange': '#ff6f0f',
+                'accent-orange-light': '#ff8f3f',
+                'accent-orange-lighter': '#ffa55f',
+
                 primary: {
                     50: '#f0f9ff',
                     100: '#e0f2fe',
@@ -53,6 +63,14 @@ export default {
                     '0%': { transform: 'translateY(20px)', opacity: '0' },
                     '100%': { transform: 'translateY(0)', opacity: '1' },
                 },
+            },
+            backgroundColor: {
+                'light': '#ffffff',
+                'dark': '#0a1628',
+            },
+            textColor: {
+                'light': '#000000',
+                'dark': '#ffffff',
             },
         },
     },

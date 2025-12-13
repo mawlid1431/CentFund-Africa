@@ -20,7 +20,7 @@ export function TeamCard({ name, role, image, darkMode, index, linkedinUrl, emai
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
       whileHover={{ y: -10 }}
-      className={`rounded-2xl overflow-hidden ${darkMode ? 'bg-white/5 border border-white/10' : 'bg-white border border-black/5'
+      className={`rounded-2xl overflow-hidden ${darkMode ? 'bg-dark-secondary border border-white/10' : 'bg-white border border-gray-200'
         } shadow-lg hover:shadow-2xl transition-all duration-300`}
     >
       <div className="relative h-80 overflow-hidden group">
@@ -53,10 +53,10 @@ export function TeamCard({ name, role, image, darkMode, index, linkedinUrl, emai
         </div>
       </div>
       <div className="p-6 text-center">
-        <h3 className={`mb-1 ${darkMode ? 'text-white' : 'text-black'}`}>
+        <h3 className={`mb-1 font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>
           {name}
         </h3>
-        <p className="text-[#ff6f0f]">{role}</p>
+        <p className="text-accent-orange font-medium">{role}</p>
       </div>
     </motion.div>
   );

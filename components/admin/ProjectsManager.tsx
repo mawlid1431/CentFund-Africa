@@ -145,7 +145,7 @@ export function ProjectsManager({ darkMode, onRefresh }: ProjectsManagerProps) {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
-                            className={`rounded-xl overflow-hidden shadow-lg ${darkMode ? 'bg-[#1a2f5f] border border-white/10' : 'bg-white border border-gray-200'
+                            className={`rounded-xl overflow-hidden shadow-lg ${darkMode ? 'bg-[#0a1628] border border-white/10' : 'bg-white border border-gray-200'
                                 }`}
                         >
                             {/* Project Image */}

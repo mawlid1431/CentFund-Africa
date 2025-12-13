@@ -29,18 +29,65 @@ export function ProjectsPage({ darkMode, onNavigate }: ProjectsPageProps) {
         image: p.image,
         date: p.date,
       }));
-      setAllProjects(formattedProjects);
+      setAllProjects(formattedProjects.length > 0 ? formattedProjects : hardcodedProjects);
     } catch (error) {
       console.error('Error loading projects:', error);
+      setAllProjects(hardcodedProjects);
     } finally {
       setLoading(false);
     }
   };
 
+  // Hardcoded certification programs
+  const hardcodedProjects = [
+    {
+      id: '1',
+      title: 'AWS Cloud Practitioner',
+      description: 'Beginner-level cloud certification to build tech careers. Learn AWS fundamentals and cloud concepts.',
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800',
+      date: 'Open',
+    },
+    {
+      id: '2',
+      title: 'CCNA Networking Certification',
+      description: 'Learn networking fundamentals and advanced skills. Perfect for IT enthusiasts and aspiring network engineers.',
+      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800',
+      date: 'Open',
+    },
+    {
+      id: '3',
+      title: 'IELTS Certification',
+      description: 'Improve English language skills for global opportunities. Achieve your target score for university admission.',
+      image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800',
+      date: 'Open',
+    },
+    {
+      id: '4',
+      title: 'CompTIA A+ Certification',
+      description: 'Essential IT certification covering hardware, software, and troubleshooting. Start your IT career today.',
+      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800',
+      date: 'Open',
+    },
+    {
+      id: '5',
+      title: 'Microsoft Azure Fundamentals',
+      description: 'Learn cloud services and Microsoft Azure basics. Perfect for beginners entering cloud computing.',
+      image: 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800',
+      date: 'Open',
+    },
+    {
+      id: '6',
+      title: 'Google IT Support Certificate',
+      description: 'Professional certificate in IT support. Learn troubleshooting, customer service, and system administration.',
+      image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800',
+      date: 'Open',
+    },
+  ];
+
   return (
     <div className={`min-h-screen ${darkMode ? 'bg-[#0a1628]' : 'bg-white'}`}>
       {/* Header Section */}
-      <section className={`relative py-32 overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0f1c3f] to-[#1a2f5f]' : 'bg-gradient-to-r from-[#1a2f5f] to-[#2a4f7f]'}`}>
+      <section className={`relative py-32 overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0a1628] to-[#0a1628]' : 'bg-gradient-to-r from-[#0a1628] to-[#2a4f7f]'}`}>
         <DecorativeElements />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,17 +105,17 @@ export function ProjectsPage({ darkMode, onNavigate }: ProjectsPageProps) {
               Our Impact
             </motion.p>
             <h1 className="text-white mb-6">
-              Making a Difference Together
+              Explore Certification Programs
             </h1>
             <p className="text-white/80 max-w-2xl mx-auto">
-              Every project represents hope, change, and the power of community working together for a better future.
+              Browse available certification programs and apply today. Each program is designed to unlock career opportunities and transform lives.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Search and Filter */}
-      <section className={`py-8 ${darkMode ? 'bg-[#0f1c3f]' : 'bg-gray-50'}`}>
+      <section className={`py-8 ${darkMode ? 'bg-[#0a1628]' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-4">
             <motion.div
@@ -144,7 +191,7 @@ export function ProjectsPage({ darkMode, onNavigate }: ProjectsPageProps) {
       </section>
 
       {/* CTA Section */}
-      <section className={`py-20 relative overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0f1c3f] to-[#1a2f5f]' : 'bg-gradient-to-r from-[#1a2f5f] to-[#2a4f7f]'}`}>
+      <section className={`py-20 relative overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0a1628] to-[#0a1628]' : 'bg-gradient-to-r from-[#0a1628] to-[#2a4f7f]'}`}>
         <DecorativeElements />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -154,10 +201,10 @@ export function ProjectsPage({ darkMode, onNavigate }: ProjectsPageProps) {
             viewport={{ once: true }}
           >
             <h2 className="text-white mb-6">
-              Don't See What You're Looking For?
+              Don't See Your Desired Certification?
             </h2>
             <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-              We're constantly expanding our programs. Get in touch to learn more about how you can help.
+              We're constantly adding new certification programs. Contact us to suggest a program or learn about upcoming opportunities.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}

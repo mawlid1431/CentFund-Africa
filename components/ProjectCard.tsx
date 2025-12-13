@@ -36,7 +36,7 @@ export function ProjectCard({
       whileHover={{ y: -15, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className={`group rounded-3xl overflow-hidden shadow-xl ${darkMode ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-100'
+      className={`group rounded-3xl overflow-hidden shadow-xl ${darkMode ? 'bg-dark-secondary text-white border border-white/10' : 'bg-white text-black border border-gray-200'
         } hover:shadow-2xl transition-all duration-500 ${onClick ? 'cursor-pointer' : ''}`}
     >
       <div className="relative h-72 overflow-hidden">
@@ -72,10 +72,10 @@ export function ProjectCard({
       </div>
 
       <div className="p-8">
-        <h3 className={`mb-3 group-hover:text-[#ff6f0f] transition-colors ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+        <h3 className={`mb-3 group-hover:text-accent-orange transition-colors ${darkMode ? 'text-white' : 'text-black'}`}>
           {title}
         </h3>
-        <p className={`mb-6 line-clamp-2 ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
+        <p className={`mb-6 line-clamp-2 ${darkMode ? 'text-white/70' : 'text-gray-700'}`}>
           {description}
         </p>
 
@@ -83,17 +83,17 @@ export function ProjectCard({
           <div className="mb-6">
             <div className="flex justify-between mb-3">
               <div>
-                <p className={`text-sm mb-1 ${darkMode ? 'text-white/60' : 'text-gray-500'}`}>Raised</p>
-                <p className={`${darkMode ? 'text-white' : 'text-gray-900'}`}>${raised}</p>
+                <p className={`text-sm mb-1 ${darkMode ? 'text-white/60' : 'text-gray-600'}`}>Raised</p>
+                <p className={`font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>${raised}</p>
               </div>
               <div className="text-right">
-                <p className={`text-sm mb-1 ${darkMode ? 'text-white/60' : 'text-gray-500'}`}>Goal</p>
-                <p className={`${darkMode ? 'text-white' : 'text-gray-900'}`}>${goal}</p>
+                <p className={`text-sm mb-1 ${darkMode ? 'text-white/60' : 'text-gray-600'}`}>Goal</p>
+                <p className={`font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>${goal}</p>
               </div>
             </div>
 
             {/* Progress bar with gradient */}
-            <div className={`w-full h-3 rounded-full overflow-hidden ${darkMode ? 'bg-white/10' : 'bg-gray-200'}`}>
+            <div className={`w-full h-3 rounded-full overflow-hidden ${darkMode ? 'bg-white/10' : 'bg-gray-300'}`}>
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: `${progress}%` }}
@@ -142,7 +142,7 @@ export function ProjectCard({
               }}
               className={`px-4 py-3 rounded-xl transition-all flex items-center justify-center gap-2 ${darkMode
                 ? 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
-                : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200'
+                : 'bg-gray-200 hover:bg-gray-300 text-black border border-gray-300'
                 }`}
             >
               <Play className="w-4 h-4" />

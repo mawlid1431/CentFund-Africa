@@ -12,28 +12,28 @@ export function ContactPage({ darkMode }: ContactPageProps) {
     {
       icon: Mail,
       title: 'Email Us',
-      content: 'Charitymubarak1@gmail.com',
-      link: 'mailto:Charitymubarak1@gmail.com',
+      content: 'contact@centfundafrica.org',
+      link: 'mailto:contact@centfundafrica.org',
       color: 'from-blue-500 to-cyan-500',
     },
     {
       icon: Phone,
       title: 'Call Us',
-      content: '+1 781-692-1308',
-      link: 'tel:+17816921308',
+      content: '+XXX XXX XXX',
+      link: 'tel:+XXXXXXXXXX',
       color: 'from-green-500 to-emerald-500',
     },
     {
       icon: MapPin,
-      title: 'Visit Us',
-      content: 'Boston Road, MA, United States, Massachusetts',
-      link: 'https://maps.google.com/?q=Boston+Road+MA+Massachusetts',
+      title: 'Location',
+      content: 'Africa',
+      link: '#',
       color: 'from-orange-500 to-red-500',
     },
     {
       icon: Clock,
-      title: 'Office Hours',
-      content: 'Morning: 9:00 AM - 12:00 PM | Afternoon: 4:00 PM - 5:30 PM',
+      title: 'Response Time',
+      content: 'We respond within 24 hours',
       link: '#',
       color: 'from-purple-500 to-pink-500',
     },
@@ -48,27 +48,27 @@ export function ContactPage({ darkMode }: ContactPageProps) {
 
   const faqs = [
     {
-      question: 'How can I volunteer?',
-      answer: 'We welcome volunteers! Please fill out the contact form with your interest in volunteering, and our team will reach out to discuss opportunities.',
+      question: 'How do I apply for certification sponsorship?',
+      answer: 'Fill out the contact form indicating your interest in certification sponsorship. Include details about your desired certification, educational background, and career goals. Our team will review your application and respond within 24 hours.',
     },
     {
-      question: 'Are donations tax-deductible?',
-      answer: 'Yes, all donations to Mubarak Charity are tax-deductible. You will receive a receipt via email for your records.',
+      question: 'What certifications do you sponsor?',
+      answer: 'We sponsor a wide range of professional certifications including AWS Cloud Practitioner, CCNA, CompTIA, Microsoft certifications, and more. Check our Projects page for current available programs.',
     },
     {
-      question: 'How can I track my donation?',
-      answer: 'After making a donation, you\'ll receive regular updates via email showing the impact of your contribution in our communities.',
+      question: 'How can I become a sponsor/investor?',
+      answer: 'Contact us through the form to learn about sponsorship opportunities. You can sponsor individual students or contribute to our general fund. We provide regular updates on the impact of your investment.',
     },
     {
-      question: 'Can I donate items instead of money?',
-      answer: 'Yes! We accept donations of school supplies, clothing, and non-perishable food items. Contact us to arrange a drop-off.',
+      question: 'What is the eligibility criteria for students?',
+      answer: 'Students must demonstrate financial need, academic potential, and commitment to completing the certification. Age and education requirements vary by program. Contact us for specific eligibility details.',
     },
   ];
 
   return (
     <div className={`min-h-screen ${darkMode ? 'bg-[#0a1628]' : 'bg-white'}`}>
       {/* Header Section */}
-      <section className={`relative py-32 overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0f1c3f] to-[#1a2f5f]' : 'bg-gradient-to-r from-[#1a2f5f] to-[#2a4f7f]'}`}>
+      <section className={`relative py-32 overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0a1628] to-[#0a1628]' : 'bg-gradient-to-r from-[#0a1628] to-[#2a4f7f]'}`}>
         <DecorativeElements />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,10 +86,10 @@ export function ContactPage({ darkMode }: ContactPageProps) {
               Get In Touch
             </motion.p>
             <h1 className="text-white mb-6">
-              We'd Love to Hear From You
+              Contact Us
             </h1>
             <p className="text-white/80 max-w-2xl mx-auto">
-              Have questions or want to get involved? Our team is here to help. Reach out and let's make a difference together.
+              We'd love to hear from you! Whether you want to become a sponsor, partner with us, or have questions, reach out today.
             </p>
           </motion.div>
         </div>
@@ -113,7 +113,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
                 <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${method.color} flex items-center justify-center mb-4 text-white`}>
                   <method.icon className="w-7 h-7" />
                 </div>
-                <h3 className={`mb-2 text-base sm:text-lg font-semibold ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+                <h3 className={`mb-2 text-base sm:text-lg font-semibold ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                   {method.title}
                 </h3>
                 <p className={`text-sm sm:text-base ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
@@ -126,7 +126,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
       </section>
 
       {/* Contact Form & Info */}
-      <section className={`py-20 ${darkMode ? 'bg-[#0f1c3f]' : 'bg-gray-50'}`}>
+      <section className={`py-20 ${darkMode ? 'bg-[#0a1628]' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -135,7 +135,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <h2 className={`mb-6 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+              <h2 className={`mb-6 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                 Send Us a Message
               </h2>
               <div className={`rounded-3xl p-8 ${darkMode ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-100'
@@ -152,16 +152,16 @@ export function ContactPage({ darkMode }: ContactPageProps) {
               className="space-y-8"
             >
               <div>
-                <h2 className={`mb-6 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+                <h2 className={`mb-6 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                   Why Contact Us?
                 </h2>
                 <div className="space-y-4">
                   {[
-                    'Learn about volunteer opportunities',
-                    'Inquire about partnership programs',
-                    'Get information about our projects',
-                    'Discuss corporate social responsibility initiatives',
-                    'Request a speaker for your event',
+                    'Apply for certification sponsorship',
+                    'Become an investor/sponsor',
+                    'Inquire about partnership opportunities',
+                    'Learn about available certification programs',
+                    'Get updates on student success stories',
                   ].map((item, index) => (
                     <motion.div
                       key={index}
@@ -184,7 +184,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
               {/* Social Links */}
               <div className={`rounded-2xl p-8 ${darkMode ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-100'
                 }`}>
-                <h3 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+                <h3 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                   Follow Us
                 </h3>
                 <p className={`mb-6 ${darkMode ? 'text-white/60' : 'text-gray-600'}`}>
@@ -209,7 +209,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
               {/* Office Info */}
               <div className={`rounded-2xl p-8 ${darkMode ? 'bg-gradient-to-br from-[#ff6f0f]/10 to-[#4a90e2]/10' : 'bg-gradient-to-br from-[#ff6f0f]/5 to-[#4a90e2]/5'
                 } border border-[#ff6f0f]/20`}>
-                <h3 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+                <h3 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                   Quick Response Guarantee
                 </h3>
                 <p className={darkMode ? 'text-white/70' : 'text-gray-600'}>
@@ -230,7 +230,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+            <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
               Frequently Asked Questions
             </h2>
             <p className={`max-w-2xl mx-auto ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
@@ -249,7 +249,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
                 className={`rounded-2xl p-6 ${darkMode ? 'bg-white/5 border border-white/10' : 'bg-gray-50 border border-gray-100'
                   }`}
               >
-                <h3 className={`mb-3 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+                <h3 className={`mb-3 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                   {faq.question}
                 </h3>
                 <p className={darkMode ? 'text-white/70' : 'text-gray-600'}>
@@ -262,7 +262,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
       </section>
 
       {/* Map Section (Placeholder) */}
-      <section className={`py-20 ${darkMode ? 'bg-[#0f1c3f]' : 'bg-gray-50'}`}>
+      <section className={`py-20 ${darkMode ? 'bg-[#0a1628]' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -285,7 +285,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
       </section>
 
       {/* CTA Section */}
-      <section className={`py-20 relative overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0f1c3f] to-[#1a2f5f]' : 'bg-gradient-to-r from-[#1a2f5f] to-[#2a4f7f]'}`}>
+      <section className={`py-20 relative overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0a1628] to-[#0a1628]' : 'bg-gradient-to-r from-[#0a1628] to-[#2a4f7f]'}`}>
         <DecorativeElements />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -295,17 +295,17 @@ export function ContactPage({ darkMode }: ContactPageProps) {
             viewport={{ once: true }}
           >
             <h2 className="text-white mb-6">
-              Ready to Make an Impact?
+              Ready to Empower Youth?
             </h2>
             <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-              Don't wait to start making a difference. Join our community of changemakers today.
+              Join CentFund Africa today. Whether you're seeking opportunity or wanting to create it, we're here to help.
             </p>
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(255, 111, 15, 0.4)' }}
               whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white px-12 py-4 rounded-lg shadow-xl"
             >
-              Start Donating Today
+              Get Started Today
             </motion.button>
           </motion.div>
         </div>

@@ -35,10 +35,14 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-        ? 'bg-[#0f1c3f]/95 backdrop-blur-xl shadow-2xl shadow-black/20 border-b-2 border-[#ff6f0f]/20'
-        : 'bg-[#0f1c3f]/80 backdrop-blur-md border-b border-gray-300/30'
-        } ring-1 ring-white/10 shadow-lg`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${darkMode
+        ? scrolled
+          ? 'bg-dark-primary/95 backdrop-blur-xl shadow-2xl shadow-black/20 border-b-2 border-accent-orange/20 ring-1 ring-white/10'
+          : 'bg-dark-primary/80 backdrop-blur-md border-b border-white/10'
+        : scrolled
+          ? 'bg-white/95 backdrop-blur-xl shadow-2xl border-b-2 border-gray-200'
+          : 'bg-white/80 backdrop-blur-md border-b border-gray-200'
+        } shadow-lg`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
@@ -58,15 +62,15 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="text-white text-xl">🖤</span>
+                <span className="text-white text-xl">🎓</span>
               </motion.div>
               <div className="flex flex-col leading-tight">
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-white text-xl tracking-tight">
-                    Mubarak
+                  <span className={`text-xl tracking-tight ${darkMode ? 'text-white' : 'text-black'}`}>
+                    CentFund
                   </span>
-                  <span className="text-[#ff6f0f] text-xl tracking-tight">
-                    Charity
+                  <span className="text-accent-orange text-xl tracking-tight">
+                    Africa
                   </span>
                 </div>
               </div>
@@ -83,8 +87,10 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
                 transition={{ delay: 0.1 * index + 0.3 }}
                 onClick={() => onNavigate(item.path)}
                 className={`relative transition-all duration-300 ${currentPage === item.path
-                  ? 'text-[#ff6f0f]'
-                  : 'text-white/80 hover:text-white'
+                  ? 'text-accent-orange'
+                  : darkMode
+                    ? 'text-white/80 hover:text-white'
+                    : 'text-gray-700 hover:text-black'
                   }`}
                 whileHover={{ y: -2 }}
               >
@@ -93,13 +99,13 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
                   <>
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] rounded-full"
+                      className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-orange to-accent-orange-light rounded-full"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="absolute -inset-2 bg-[#ff6f0f]/5 rounded-lg -z-10"
+                      className="absolute -inset-2 bg-accent-orange/5 rounded-lg -z-10"
                     />
                   </>
                 )}
@@ -114,7 +120,10 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
               whileHover={{ scale: 1.1, rotate: 180 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleDarkMode}
-              className="p-3 rounded-xl transition-all bg-white/10 text-white hover:bg-white/20 shadow-lg"
+              className={`p-3 rounded-xl transition-all shadow-lg ${darkMode
+                ? 'bg-white/10 text-white hover:bg-white/20'
+                : 'bg-gray-200 text-black hover:bg-gray-300'
+                }`}
             >
               <AnimatePresence mode="wait">
                 {darkMode ? (
@@ -147,14 +156,20 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={toggleDarkMode}
-              className="p-3 rounded-lg text-white hover:bg-white/10 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className={`p-3 rounded-lg transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center ${darkMode
+                ? 'text-white hover:bg-white/10'
+                : 'text-black hover:bg-gray-200'
+                }`}
             >
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </motion.button>
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white p-3 hover:bg-white/10 transition-colors rounded-lg min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className={`p-3 transition-colors rounded-lg min-w-[44px] min-h-[44px] flex items-center justify-center ${darkMode
+                ? 'text-white hover:bg-white/10'
+                : 'text-black hover:bg-gray-200'
+                }`}
             >
               <AnimatePresence mode="wait">
                 {isOpen ? (
@@ -192,7 +207,10 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-[#0f1c3f]/95 backdrop-blur-xl border-t-2 border-[#ff6f0f]/20 ring-1 ring-white/10 shadow-lg"
+            className={`md:hidden backdrop-blur-xl border-t-2 shadow-lg ${darkMode
+                ? 'bg-dark-primary/95 border-accent-orange/20 ring-1 ring-white/10'
+                : 'bg-white/95 border-gray-200'
+              }`}
           >
             <div className="px-4 py-6 space-y-3">
               {navItems.map((item, index) => (
@@ -207,8 +225,10 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
                     setIsOpen(false);
                   }}
                   className={`block w-full text-left px-6 py-4 rounded-xl transition-all text-lg min-h-[56px] flex items-center ${currentPage === item.path
-                    ? 'bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white shadow-lg'
-                    : 'text-white hover:bg-white/10'
+                      ? 'bg-gradient-to-r from-accent-orange to-accent-orange-light text-white shadow-lg'
+                      : darkMode
+                        ? 'text-white hover:bg-white/10'
+                        : 'text-black hover:bg-gray-200'
                     }`}
                 >
                   {item.name}

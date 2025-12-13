@@ -5,6 +5,7 @@ type Project = Database['public']['Tables']['projects']['Row'];
 
 // Projects
 export async function getProjects() {
+    if (!supabase) return [];
     const { data, error } = await supabase
         .from('projects')
         .select('*')
@@ -15,6 +16,7 @@ export async function getProjects() {
 }
 
 export async function getActiveProjects() {
+    if (!supabase) return [];
     const { data, error } = await supabase
         .from('projects')
         .select('*')
@@ -25,6 +27,7 @@ export async function getActiveProjects() {
 }
 
 export async function getProjectById(id: string) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('projects')
         .select('*')
@@ -36,6 +39,7 @@ export async function getProjectById(id: string) {
 }
 
 export async function createProject(project: Database['public']['Tables']['projects']['Insert']) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('projects')
         .insert(project)
@@ -47,6 +51,7 @@ export async function createProject(project: Database['public']['Tables']['proje
 }
 
 export async function updateProject(id: string, updates: Database['public']['Tables']['projects']['Update']) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('projects')
         .update(updates)
@@ -59,6 +64,7 @@ export async function updateProject(id: string, updates: Database['public']['Tab
 }
 
 export async function deleteProject(id: string) {
+    if (!supabase) throw new Error('Database not connected');
     const { error } = await supabase
         .from('projects')
         .delete()
@@ -69,6 +75,7 @@ export async function deleteProject(id: string) {
 
 // Team Members
 export async function getTeamMembers() {
+    if (!supabase) return [];
     const { data, error } = await supabase
         .from('team_members')
         .select('*')
@@ -94,6 +101,7 @@ export async function createTeamMember(member: {
     linkedinUrl?: string;
     email?: string;
 }) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('team_members')
         .insert({
@@ -119,6 +127,7 @@ export async function updateTeamMember(id: string, member: {
     linkedinUrl?: string;
     email?: string;
 }) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('team_members')
         .update({
@@ -138,6 +147,7 @@ export async function updateTeamMember(id: string, member: {
 }
 
 export async function deleteTeamMember(id: string) {
+    if (!supabase) throw new Error('Database not connected');
     const { error } = await supabase
         .from('team_members')
         .delete()
@@ -148,6 +158,7 @@ export async function deleteTeamMember(id: string) {
 
 // Testimonials
 export async function getTestimonials() {
+    if (!supabase) return [];
     const { data, error } = await supabase
         .from('testimonials')
         .select('*')
@@ -158,6 +169,7 @@ export async function getTestimonials() {
 }
 
 export async function getTestimonialById(id: string) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('testimonials')
         .select('*')
@@ -169,6 +181,7 @@ export async function getTestimonialById(id: string) {
 }
 
 export async function createTestimonial(testimonial: Database['public']['Tables']['testimonials']['Insert']) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('testimonials')
         .insert(testimonial)
@@ -180,6 +193,7 @@ export async function createTestimonial(testimonial: Database['public']['Tables'
 }
 
 export async function updateTestimonial(id: string, updates: Database['public']['Tables']['testimonials']['Update']) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('testimonials')
         .update(updates)
@@ -192,6 +206,7 @@ export async function updateTestimonial(id: string, updates: Database['public'][
 }
 
 export async function deleteTestimonial(id: string) {
+    if (!supabase) throw new Error('Database not connected');
     const { error } = await supabase
         .from('testimonials')
         .delete()
@@ -202,6 +217,7 @@ export async function deleteTestimonial(id: string) {
 
 // Success Stories
 export async function getSuccessStories() {
+    if (!supabase) return [];
     const { data, error } = await supabase
         .from('success_stories')
         .select('*')
@@ -212,6 +228,7 @@ export async function getSuccessStories() {
 }
 
 export async function getSuccessStoryById(id: string) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('success_stories')
         .select('*')
@@ -223,6 +240,7 @@ export async function getSuccessStoryById(id: string) {
 }
 
 export async function createSuccessStory(story: Database['public']['Tables']['success_stories']['Insert']) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('success_stories')
         .insert(story)
@@ -234,6 +252,7 @@ export async function createSuccessStory(story: Database['public']['Tables']['su
 }
 
 export async function updateSuccessStory(id: string, updates: Database['public']['Tables']['success_stories']['Update']) {
+    if (!supabase) throw new Error('Database not connected');
     const { data, error } = await supabase
         .from('success_stories')
         .update(updates)
@@ -246,6 +265,7 @@ export async function updateSuccessStory(id: string, updates: Database['public']
 }
 
 export async function deleteSuccessStory(id: string) {
+    if (!supabase) throw new Error('Database not connected');
     const { error } = await supabase
         .from('success_stories')
         .delete()
@@ -256,6 +276,7 @@ export async function deleteSuccessStory(id: string) {
 
 // Dashboard Stats
 export async function getDashboardStats() {
+    if (!supabase) return { activeProjects: 0, totalProjects: 0 };
     const { data: projects } = await supabase
         .from('projects')
         .select('*');

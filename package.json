@@ -1,7 +1,7 @@
 {
-  "name": "mubarak-charity-website",
+  "name": "centfund-africa-website",
   "version": "1.0.0",
-  "description": "A modern, professional charity website for Mubarak Charity with donation management and project tracking",
+  "description": "A modern platform connecting students with sponsors to fund professional certifications and unlock career opportunities",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,13 +13,13 @@
     "@supabase/supabase-js": "^2.46.1",
     "lucide-react": "^0.468.0",
     "motion": "^11.11.17",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "sonner": "^2.0.3"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
     "@vitejs/plugin-react": "^4.3.4",
@@ -39,17 +39,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/mubarak-charity-website.git"
+    "url": "https://github.com/yourusername/centfund-africa-website.git"
   },
   "keywords": [
-    "charity",
-    "donation",
-    "nonprofit",
+    "education",
+    "certification",
+    "sponsorship",
+    "students",
     "react",
     "typescript",
     "tailwindcss",
     "supabase"
   ],
-  "author": "Mubarak Charity",
+  "author": "CentFund Africa",
   "license": "MIT"
 }

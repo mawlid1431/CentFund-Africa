@@ -74,7 +74,7 @@ export function SettingsManager({ darkMode }: SettingsManagerProps) {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`p-6 rounded-xl ${darkMode ? 'bg-[#1a2f5f] border border-white/10' : 'bg-white border border-gray-200'
+                className={`p-6 rounded-xl ${darkMode ? 'bg-[#0a1628] border border-white/10' : 'bg-white border border-gray-200'
                     } shadow-lg`}
             >
                 <div className="flex items-center gap-3 mb-6">
@@ -125,7 +125,7 @@ export function SettingsManager({ darkMode }: SettingsManagerProps) {
                                 value={currentPassword}
                                 onChange={(e) => setCurrentPassword(e.target.value)}
                                 className={`w-full pl-10 pr-12 py-3 rounded-lg border transition-all ${darkMode
-                                        ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                        ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                         : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     }`}
                                 placeholder="Enter current password"
@@ -155,7 +155,7 @@ export function SettingsManager({ darkMode }: SettingsManagerProps) {
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
                                 className={`w-full pl-10 pr-12 py-3 rounded-lg border transition-all ${darkMode
-                                        ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                        ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                         : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     }`}
                                 placeholder="Enter new password (min 8 characters)"
@@ -189,7 +189,7 @@ export function SettingsManager({ darkMode }: SettingsManagerProps) {
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 className={`w-full pl-10 pr-12 py-3 rounded-lg border transition-all ${darkMode
-                                        ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                        ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                         : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     }`}
                                 placeholder="Confirm new password"

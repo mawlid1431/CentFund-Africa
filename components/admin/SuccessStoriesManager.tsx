@@ -94,7 +94,7 @@ export function SuccessStoriesManager({ darkMode }: SuccessStoriesManagerProps) 
                             key={story.id}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className={`${darkMode ? 'bg-[#0f1c3f] border-white/10' : 'bg-white border-gray-200'} border rounded-xl p-6 shadow-lg`}
+                            className={`${darkMode ? 'bg-[#0a1628] border-white/10' : 'bg-white border-gray-200'} border rounded-xl p-6 shadow-lg`}
                         >
                             {/* Profile */}
                             <div className="flex items-center gap-4 mb-4">

@@ -62,7 +62,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
   return (
     <div className={`min-h-screen ${darkMode ? 'bg-[#0a1628]' : 'bg-white'}`}>
       {/* Header Section */}
-      <section className={`relative py-32 overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0f1c3f] to-[#1a2f5f]' : 'bg-gradient-to-r from-[#1a2f5f] to-[#2a4f7f]'}`}>
+      <section className={`relative py-32 overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0a1628] to-[#0a1628]' : 'bg-gradient-to-r from-[#0a1628] to-[#2a4f7f]'}`}>
         <DecorativeElements />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,10 +80,10 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
               Our Story
             </motion.p>
             <h1 className="text-white mb-6">
-              About Us
+              About CentFund Africa
             </h1>
             <p className="text-white/80 text-2xl max-w-3xl mx-auto font-semibold">
-              Empowering Lives, Building Futures
+              Making Professional Certifications Accessible to Every Student
             </p>
           </motion.div>
         </div>
@@ -98,21 +98,33 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className={`mb-8 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
-              Who We Are
+            <h2 className={`mb-8 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
+              Why We Exist
             </h2>
             <div className={`space-y-6 text-left text-lg leading-relaxed ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
               <p>
-                Mubarik Charity is a nonprofit organization dedicated to creating sustainable change in underserved communities. Founded in 2010, we have been at the forefront of providing humanitarian aid, education, and healthcare to those in need. Our team of passionate professionals and volunteers works tirelessly to ensure that every individual has the opportunity to thrive.
+                <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>The Problem:</strong> Many young people cannot afford certifications like AWS, CCNA, IELTS, and SAT/ACT. Investors want to help but lack a trustworthy platform.
+              </p>
+              <p>
+                <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>Our Solution:</strong> CentFund Africa bridges this gap by ensuring transparency, verification, and impact. We connect verified students with investors who fund their certification programs.
+              </p>
+              <p>
+                <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>Real Results:</strong> We've sponsored 500+ students, completed 120+ certifications, helped 70+ students secure employment, and facilitated $150,000+ in investor contributions.
               </p>
             </div>
 
-            <h2 className={`mt-12 mb-8 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
-              What We Do
+            <h2 className={`mt-12 mb-8 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
+              Our Brand Story
             </h2>
             <div className={`space-y-6 text-left text-lg leading-relaxed ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
               <p>
-                We focus on three core areas: Education, Healthcare, and Community Development. From sponsoring school fees and providing medical supplies to organizing food drives and vocational training programs, we aim to address the root causes of poverty and inequality. Our initiatives are designed to empower individuals and communities to build a brighter future.
+                CentFund Africa was born from the belief that <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>talent exists everywhere, but opportunity does not.</strong>
+              </p>
+              <p className="italic">
+                "Every certification funded represents hope, opportunity, and a chance at a better future."
+              </p>
+              <p>
+                Millions of young people dream of certifications, but only a few can afford them. We make that possible. Through our platform, we're not just funding education—we're building careers, transforming families, and strengthening communities.
               </p>
             </div>
           </motion.div>
@@ -120,7 +132,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
       </section>
 
       {/* Mission & Vision */}
-      <section className={`py-20 ${darkMode ? 'bg-[#0f1c3f]' : 'bg-gray-50'}`}>
+      <section className={`py-20 ${darkMode ? 'bg-[#0a1628]' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <motion.div
@@ -133,12 +145,27 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
               <div className="w-20 h-20 bg-gradient-to-br from-[#ff6f0f]/20 to-[#4a90e2]/20 rounded-2xl flex items-center justify-center mb-6">
                 <Target className="w-10 h-10 text-[#ff6f0f]" />
               </div>
-              <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+              <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                 Our Mission
               </h2>
-              <p className={`${darkMode ? 'text-white/70' : 'text-gray-600'} leading-relaxed text-lg`}>
-                Our mission is to provide access to essential resources and opportunities that enable individuals and communities to break the cycle of poverty. We believe in the power of collective action and are committed to creating a world where everyone has the chance to live a healthy, educated, and fulfilling life.
-              </p>
+              <ul className={`${darkMode ? 'text-white/70' : 'text-gray-600'} leading-relaxed text-lg space-y-3`}>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#ff6f0f] mt-1">•</span>
+                  <span>Connect verified students with investors</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#ff6f0f] mt-1">•</span>
+                  <span>Enable equal access to high-value certifications</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#ff6f0f] mt-1">•</span>
+                  <span>Reduce youth unemployment through skill development</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#ff6f0f] mt-1">•</span>
+                  <span>Build a long-term sustainable educational support ecosystem</span>
+                </li>
+              </ul>
             </motion.div>
 
             <motion.div
@@ -151,11 +178,11 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
               <div className="w-20 h-20 bg-gradient-to-br from-[#4a90e2]/20 to-[#ff6f0f]/20 rounded-2xl flex items-center justify-center mb-6">
                 <Eye className="w-10 h-10 text-[#4a90e2]" />
               </div>
-              <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+              <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                 Our Vision
               </h2>
               <p className={`${darkMode ? 'text-white/70' : 'text-gray-600'} leading-relaxed text-lg`}>
-                We envision a world where every individual, regardless of their circumstances, has access to the tools and opportunities needed to reach their full potential. Through our work, we strive to build resilient communities that can sustain themselves and contribute to global progress.
+                To make professional certifications accessible to every student regardless of financial background. We envision an Africa where talent, not money, determines who gets certified and who succeeds in the global economy.
               </p>
             </motion.div>
           </div>
@@ -171,7 +198,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+            <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
               Our Core Values
             </h2>
             <p className={`max-w-2xl mx-auto ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
@@ -194,7 +221,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
                 <div className="w-16 h-16 bg-gradient-to-br from-[#ff6f0f]/20 to-[#4a90e2]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <value.icon className="w-8 h-8 text-[#ff6f0f]" />
                 </div>
-                <h3 className={`mb-3 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+                <h3 className={`mb-3 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                   {value.title}
                 </h3>
                 <p className={`${darkMode ? 'text-white/60' : 'text-gray-600'}`}>
@@ -207,7 +234,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
       </section>
 
       {/* Timeline Section */}
-      <section className={`py-20 ${darkMode ? 'bg-[#0f1c3f]' : 'bg-gray-50'}`}>
+      <section className={`py-20 ${darkMode ? 'bg-[#0a1628]' : 'bg-gray-50'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -215,7 +242,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+            <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
               Our Journey in Milestones
             </h2>
             <p className={`max-w-2xl mx-auto ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
@@ -242,7 +269,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
                     <div className={`inline-block rounded-2xl p-6 ${darkMode ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-100'
                       } shadow-lg`}>
                       <div className="text-[#ff6f0f] mb-2">{milestone.year}</div>
-                      <h3 className={`mb-2 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+                      <h3 className={`mb-2 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
                         {milestone.event}
                       </h3>
                       <p className={darkMode ? 'text-white/60' : 'text-gray-600'}>
@@ -251,7 +278,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
                     </div>
                   </div>
 
-                  <div className="hidden lg:block w-4 h-4 bg-[#ff6f0f] rounded-full border-4 border-[#0f1c3f] relative z-10" />
+                  <div className="hidden lg:block w-4 h-4 bg-[#ff6f0f] rounded-full border-4 border-[#0a1628] relative z-10" />
 
                   <div className="flex-1" />
                 </motion.div>
@@ -270,7 +297,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#1a2f5f]'}`}>
+            <h2 className={`mb-4 ${darkMode ? 'text-white' : 'text-[#0a1628]'}`}>
               Meet Our Team
             </h2>
             <p className={`max-w-2xl mx-auto ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
@@ -280,7 +307,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
 
           {loadingTeam ? (
             <div className="flex justify-center items-center py-12">
-              <div className={`animate-spin rounded-full h-12 w-12 border-b-2 ${darkMode ? 'border-white' : 'border-[#1a2f5f]'}`}></div>
+              <div className={`animate-spin rounded-full h-12 w-12 border-b-2 ${darkMode ? 'border-white' : 'border-[#0a1628]'}`}></div>
             </div>
           ) : team.length === 0 ? (
             <div className={`text-center py-12 ${darkMode ? 'text-white/60' : 'text-gray-600'}`}>
@@ -297,7 +324,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
       </section>
 
       {/* CTA Section */}
-      <section className={`py-20 relative overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0f1c3f] to-[#1a2f5f]' : 'bg-gradient-to-r from-[#1a2f5f] to-[#2a4f7f]'}`}>
+      <section className={`py-20 relative overflow-hidden ${darkMode ? 'bg-gradient-to-r from-[#0a1628] to-[#0a1628]' : 'bg-gradient-to-r from-[#0a1628] to-[#2a4f7f]'}`}>
         <DecorativeElements />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -11,7 +11,7 @@
 ### 1. Clone Repository
 ```bash
 git clone <your-repo-url>
-cd mubarak-charity-website
+cd centfund-africa-website
 ```
 
 ### 2. Install Dependencies

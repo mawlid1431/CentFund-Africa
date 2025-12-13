@@ -45,7 +45,7 @@ export function AdminDashboard({ darkMode, toggleDarkMode, onLogout }: AdminDash
                         Admin Dashboard
                     </h1>
                     <p className={`text-base sm:text-lg mt-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                        Manage Mubarak Charity operations
+                        Manage CentFund Africa operations
                     </p>
                 </div>
                 <div className="flex flex-wrap gap-2 sm:gap-3 w-full sm:w-auto">
@@ -95,7 +95,7 @@ export function AdminDashboard({ darkMode, toggleDarkMode, onLogout }: AdminDash
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className={`p-6 rounded-xl ${darkMode ? 'bg-[#1a2f5f] border border-white/10' : 'bg-white border border-gray-200'
+                        className={`p-6 rounded-xl ${darkMode ? 'bg-[#0a1628] border border-white/10' : 'bg-white border border-gray-200'
                             } shadow-lg`}
                     >
                         <div className="flex items-center justify-between">

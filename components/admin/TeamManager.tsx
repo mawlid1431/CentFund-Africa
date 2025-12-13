@@ -122,7 +122,7 @@ export function TeamManager({ darkMode }: TeamManagerProps) {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
-                            className={`rounded-xl overflow-hidden ${darkMode ? 'bg-[#1a2f5f] border border-white/10' : 'bg-white border border-gray-200'
+                            className={`rounded-xl overflow-hidden ${darkMode ? 'bg-[#0a1628] border border-white/10' : 'bg-white border border-gray-200'
                                 } shadow-lg hover:shadow-xl transition-all`}
                         >
                             <div className="relative h-64 overflow-hidden group">

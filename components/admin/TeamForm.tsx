@@ -144,10 +144,10 @@ export function TeamForm({ darkMode, member, onSave, onCancel }: TeamFormProps) 
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className={`w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl ${darkMode ? 'bg-[#1a2f5f] border border-white/10' : 'bg-white border border-gray-200'
+                className={`w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl ${darkMode ? 'bg-[#0a1628] border border-white/10' : 'bg-white border border-gray-200'
                     }`}
             >
-                <div className={`sticky top-0 z-10 flex justify-between items-center p-6 border-b ${darkMode ? 'bg-[#1a2f5f] border-white/10' : 'bg-white border-gray-200'
+                <div className={`sticky top-0 z-10 flex justify-between items-center p-6 border-b ${darkMode ? 'bg-[#0a1628] border-white/10' : 'bg-white border-gray-200'
                     }`}>
                     <h2 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                         {member ? 'Edit Team Member' : 'Add Team Member'}
@@ -178,7 +178,7 @@ export function TeamForm({ darkMode, member, onSave, onCancel }: TeamFormProps) 
                             required
                             placeholder="Enter member name"
                             className={`w-full px-4 py-3 rounded-lg border transition-all ${darkMode
-                                    ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                    ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                 }`}
                         />
@@ -198,7 +198,7 @@ export function TeamForm({ darkMode, member, onSave, onCancel }: TeamFormProps) 
                             required
                             placeholder="e.g., Founder & CEO"
                             className={`w-full px-4 py-3 rounded-lg border transition-all ${darkMode
-                                    ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                    ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                 }`}
                         />
@@ -213,7 +213,7 @@ export function TeamForm({ darkMode, member, onSave, onCancel }: TeamFormProps) 
 
                         <div className="space-y-3">
                             <label className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 border-dashed cursor-pointer transition-all ${darkMode
-                                    ? 'bg-[#0f1c3f] border-white/20 hover:border-[#ff6f0f] hover:bg-[#0f1c3f]/80'
+                                    ? 'bg-[#0a1628] border-white/20 hover:border-[#ff6f0f] hover:bg-[#0a1628]/80'
                                     : 'bg-gray-50 border-gray-300 hover:border-[#ff6f0f] hover:bg-gray-100'
                                 }`}>
                                 <Upload className="w-5 h-5 text-[#ff6f0f]" />
@@ -281,7 +281,7 @@ export function TeamForm({ darkMode, member, onSave, onCancel }: TeamFormProps) 
                             onChange={handleChange}
                             placeholder="https://linkedin.com/in/username"
                             className={`w-full px-4 py-3 rounded-lg border transition-all ${darkMode
-                                    ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                    ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                 }`}
                         />
@@ -300,7 +300,7 @@ export function TeamForm({ darkMode, member, onSave, onCancel }: TeamFormProps) 
                             onChange={handleChange}
                             placeholder="email@example.com"
                             className={`w-full px-4 py-3 rounded-lg border transition-all ${darkMode
-                                    ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                    ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                 }`}
                         />
@@ -319,7 +319,7 @@ export function TeamForm({ darkMode, member, onSave, onCancel }: TeamFormProps) 
                             min="0"
                             placeholder="0"
                             className={`w-full px-4 py-3 rounded-lg border transition-all ${darkMode
-                                    ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                    ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                 }`}
                         />

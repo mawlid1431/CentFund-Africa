@@ -61,7 +61,7 @@ export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProp
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
                 className={`w-full max-w-md p-8 rounded-2xl shadow-2xl ${darkMode
-                    ? 'bg-[#1a2f5f] border border-white/10'
+                    ? 'bg-[#0a1628] border border-white/10'
                     : 'bg-white border border-gray-200'
                     }`}
             >
@@ -79,7 +79,7 @@ export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProp
                         Admin Dashboard
                     </h1>
                     <p className={`text-sm mt-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                        Sign in to manage Mubarak Charity
+                        Sign in to manage CentFund Africa
                     </p>
                 </div>
 
@@ -107,7 +107,7 @@ export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProp
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 className={`w-full pl-10 pr-4 py-3 rounded-lg border transition-all ${darkMode
-                                    ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                    ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     }`}
                                 placeholder="Enter email"
@@ -128,7 +128,7 @@ export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProp
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className={`w-full pl-10 pr-12 py-3 rounded-lg border transition-all ${darkMode
-                                    ? 'bg-[#0f1c3f] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
+                                    ? 'bg-[#0a1628] border-white/10 text-white placeholder-gray-400 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-[#ff6f0f] focus:ring-2 focus:ring-[#ff6f0f]/20'
                                     }`}
                                 placeholder="Enter password"

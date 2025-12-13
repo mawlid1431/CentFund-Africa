@@ -1,6 +1,6 @@
-# 🌟 Mubarak Charity Website
+# 🌟 CentFund Africa Website
 
-A modern, professional charity website built with React, TypeScript, Tailwind CSS, and Supabase. Manage charity projects, track donations, and engage with supporters through a beautiful, responsive interface.
+A modern, professional platform built with React, TypeScript, Tailwind CSS, and Supabase. Connect students with sponsors to fund professional certifications and unlock career opportunities.
 
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
@@ -60,7 +60,7 @@ A modern, professional charity website built with React, TypeScript, Tailwind CS
 1. **Clone the repository**
 ```bash
 git clone <your-repo-url>
-cd mubarak-charity-website
+cd centfund-africa-website
 ```
 
 2. **Install dependencies**
@@ -136,7 +136,7 @@ Access the admin dashboard at `/admin`
 ## 📁 Project Structure
 
 ```
-mubarak-charity-website/
+centfund-africa-website/
 ├── components/          # React components
 │   ├── admin/          # Admin dashboard components
 │   ├── DonationForm.tsx

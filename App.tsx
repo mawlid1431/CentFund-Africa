@@ -12,6 +12,7 @@ import { AdminPage } from './pages/AdminPage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { SuccessStoriesPage } from './pages/SuccessStoriesPage';
 import { TestimonialsPage } from './pages/TestimonialsPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 interface AppProps {
   initialPage?: string;
@@ -21,6 +22,16 @@ function App({ initialPage = 'home' }: AppProps) {
   const [darkMode, setDarkMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+
+  // Valid pages list
+  const validPages = ['home', 'projects', 'success-stories', 'testimonials', 'about', 'contact', 'admin', 'project-detail', '404'];
+
+  // Check if current page is valid, if not show 404
+  useEffect(() => {
+    if (!validPages.includes(currentPage)) {
+      setCurrentPage('404');
+    }
+  }, [currentPage]);
 
   useEffect(() => {
     if (darkMode) {
@@ -54,7 +65,7 @@ function App({ initialPage = 'home' }: AppProps) {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? 'bg-[#0a1628]' : 'bg-white'}`}>
+    <div className={`min-h-screen transition-colors duration-500 ${darkMode ? 'bg-dark-primary text-white' : 'bg-white text-black'}`}>
       <Toaster position="top-right" richColors />
       {currentPage !== 'admin' && (
         <Navbar
@@ -87,10 +98,11 @@ function App({ initialPage = 'home' }: AppProps) {
             />
           )}
           {currentPage === 'admin' && <AdminPage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
+          {currentPage === '404' && <NotFoundPage darkMode={darkMode} onNavigate={handleNavigate} />}
         </motion.div>
       </AnimatePresence>
 
-      {currentPage !== 'admin' && (
+      {currentPage !== 'admin' && currentPage !== '404' && (
         <>
           <Footer darkMode={darkMode} onNavigate={setCurrentPage} />
           <WhatsAppButton />

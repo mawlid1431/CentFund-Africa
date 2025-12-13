@@ -120,7 +120,7 @@ export function TestimonialForm({ darkMode, testimonial, onClose, onSuccess }: T
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className={`${darkMode ? 'bg-[#1a2f5f]' : 'bg-white'} rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto`}
+                className={`${darkMode ? 'bg-[#0a1628]' : 'bg-white'} rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto`}
             >
                 <div className="flex justify-between items-center mb-6">
                     <h2 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
