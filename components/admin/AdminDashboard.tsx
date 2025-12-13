@@ -47,7 +47,7 @@ export function AdminDashboard({ darkMode, toggleDarkMode, onLogout }: AdminDash
                         Admin Dashboard
                     </h1>
                     <p className={`text-base sm:text-lg mt-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                        Manage CentFund Africa operations
+                        Manage CertFund Africa operations
                     </p>
                 </div>
                 <div className="flex flex-wrap gap-2 sm:gap-3 w-full sm:w-auto">

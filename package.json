@@ -1,5 +1,5 @@
 {
-  "name": "centfund-africa-website",
+  "name": "certfund-africa-website",
   "version": "1.0.0",
   "description": "A modern platform connecting students with sponsors to fund professional certifications and unlock career opportunities",
   "type": "module",
@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mawlid1431/CentFund-Africa.git"
+    "url": "https://github.com/mawlid1431/CertFund-Africa.git"
   },
   "keywords": [
     "education",
@@ -52,6 +52,6 @@
     "tailwindcss",
     "supabase"
   ],
-  "author": "CentFund Africa",
+  "author": "CertFund Africa",
   "license": "MIT"
 }

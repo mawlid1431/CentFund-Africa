@@ -80,7 +80,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
               Our Story
             </motion.p>
             <h1 className="text-white mb-6">
-              About CentFund Africa
+              About CertFund Africa
             </h1>
             <p className="text-white/80 text-2xl max-w-3xl mx-auto font-semibold">
               Making Professional Certifications Accessible to Every Student
@@ -106,7 +106,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
                 <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>The Problem:</strong> Many young people cannot afford certifications like AWS, CCNA, IELTS, and SAT/ACT. Investors want to help but lack a trustworthy platform.
               </p>
               <p>
-                <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>Our Solution:</strong> CentFund Africa bridges this gap by ensuring transparency, verification, and impact. We connect verified students with investors who fund their certification programs.
+                <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>Our Solution:</strong> CertFund Africa bridges this gap by ensuring transparency, verification, and impact. We connect verified students with investors who fund their certification programs.
               </p>
               <p>
                 <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>Real Results:</strong> We've sponsored 500+ students, completed 120+ certifications, helped 70+ students secure employment, and facilitated $150,000+ in investor contributions.
@@ -118,7 +118,7 @@ export function AboutPage({ darkMode, onNavigate }: AboutPageProps) {
             </h2>
             <div className={`space-y-6 text-left text-lg leading-relaxed ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
               <p>
-                CentFund Africa was born from the belief that <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>talent exists everywhere, but opportunity does not.</strong>
+                CertFund Africa was born from the belief that <strong className={darkMode ? 'text-white' : 'text-[#0a1628]'}>talent exists everywhere, but opportunity does not.</strong>
               </p>
               <p className="italic">
                 "Every certification funded represents hope, opportunity, and a chance at a better future."

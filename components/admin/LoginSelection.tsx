@@ -53,7 +53,7 @@ export function LoginSelection({ darkMode, onSelectUserType }: LoginSelectionPro
                         <span className="text-4xl">🎓</span>
                     </motion.div>
                     <h1 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                        Welcome to CentFund Africa
+                        Welcome to CertFund Africa
                     </h1>
                     <p className={`text-lg ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                         Select your login type to continue
@@ -71,8 +71,8 @@ export function LoginSelection({ darkMode, onSelectUserType }: LoginSelectionPro
                             whileHover={{ y: -10, scale: 1.02 }}
                             onClick={() => onSelectUserType(userType.type)}
                             className={`relative overflow-hidden rounded-2xl p-8 cursor-pointer transition-all group ${darkMode
-                                    ? 'bg-[#0a1628] border border-white/10 hover:border-white/20'
-                                    : 'bg-white border border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-2xl'
+                                ? 'bg-[#0a1628] border border-white/10 hover:border-white/20'
+                                : 'bg-white border border-gray-200 hover:border-gray-300 shadow-lg hover:shadow-2xl'
                                 }`}
                         >
                             {/* Background Gradient */}

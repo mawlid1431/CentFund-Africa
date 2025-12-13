@@ -8,7 +8,7 @@
 
 ## 📝 What Was Updated
 
-The `SYSTEM_ARCHITECTURE.md` file has been completely updated to reflect the **actual implementation** of your CentFund Africa platform.
+The `SYSTEM_ARCHITECTURE.md` file has been completely updated to reflect the **actual implementation** of your CertFund Africa platform.
 
 ---
 
@@ -219,4 +219,4 @@ If you have questions about the updated documentation:
 
 ---
 
-*The SYSTEM_ARCHITECTURE.md file now accurately reflects your complete CentFund Africa platform implementation!*
+*The SYSTEM_ARCHITECTURE.md file now accurately reflects your complete CertFund Africa platform implementation!*

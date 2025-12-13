@@ -1,11 +1,11 @@
-# CentFund Africa - System Architecture
+# CertFund Africa - System Architecture
 ## Simple & Clear Explanation for Pitch
 
 ---
 
-## 🎯 What is CentFund Africa?
+## 🎯 What is CertFund Africa?
 
-**CentFund Africa** connects students who need certification funding with sponsors who want to help. Think of it as a bridge between ambition and opportunity.
+**CertFund Africa** connects students who need certification funding with sponsors who want to help. Think of it as a bridge between ambition and opportunity.
 
 ### The Problem We Solve
 - Students can't afford professional certifications (AWS, CCNA, IELTS, etc.)
@@ -272,95 +272,97 @@ Certification done → Creates SUCCESS STORY
 
 ---
 
-## 📊 Application Workflow
+## � Uselr Dashboards (What Each Person Sees)
 
-### Complete Application Lifecycle
-
+### Admin Dashboard
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    STUDENT APPLICATION                       │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-                    [SUBMITTED]
-                    Status: pending
-                    Stage: 1
-                           ↓
-┌─────────────────────────────────────────────────────────────┐
-│                    ADMIN REVIEWS                             │
-│  - Views all application details                            │
-│  - Checks eligibility                                        │
-│  - Makes decision                                            │
-└─────────────────────────────────────────────────────────────┘
-                           ↓
-                    ┌──────┴──────┐
-                    ↓             ↓
-              [ACCEPTED]      [REJECTED]
-           Status: accepted   Status: rejected
-              Stage: 1        (END)
-                    ↓
-┌─────────────────────────────────────────────────────────────┐
-│              ADMIN ASSIGNS SPONSOR                           │
-│  - Selects from active sponsors list                        │
-│  - Checks sponsor capacity                                   │
-│  - Assigns student to sponsor                                │
-└─────────────────────────────────────────────────────────────┘
-                    ↓
-         [ASSIGNED TO SPONSOR]
-      Status: assigned_to_sponsor
-                    ↓
-┌─────────────────────────────────────────────────────────────┐
-│              SPONSOR REVIEWS                                 │
-│  - Views student application                                 │
-│  - Reviews requirements                                      │
-│  - Makes decision                                            │
-└─────────────────────────────────────────────────────────────┘
-                    ↓
-              ┌─────┴─────┐
-              ↓           ↓
-        [ACCEPTED]    [DECLINED]
-                           ↓
-                    Back to Admin
-                           ↓
-┌─────────────────────────────────────────────────────────────┐
-│           SPONSOR CHOOSES PAYMENT METHOD                     │
-│  Option 1: Pay Direct to Exam Center                        │
-│  Option 2: Pay Through Platform                             │
-└─────────────────────────────────────────────────────────────┘
-                    ↓
-              [PAYMENT CONFIRMED]
-                    ↓
-┌─────────────────────────────────────────────────────────────┐
-│              ADMIN MOVES TO STAGE 2                          │
-│  Status: pending_stage2                                      │
-│  Stage: 2                                                    │
-└─────────────────────────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────────────────────────┐
-│              ADMIN FINAL REVIEW                              │
-│  - Verifies payment                                          │
-│  - Confirms all requirements met                             │
-│  - Makes final decision                                      │
-└─────────────────────────────────────────────────────────────┘
-                    ↓
-              ┌─────┴─────┐
-              ↓           ↓
-      [ACCEPTED]      [REJECTED]
-   Status: accepted  Status: rejected
-      Stage: 2
-         ↓
-    [COMPLETED]
+┌──────────────────────────────────────────────────────────┐
+│                    ADMIN CONTROL CENTER                   │
+├──────────────────────────────────────────────────────────┤
+│                                                           │
+│  📊 STATISTICS                                           │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐              │
+│  │ 45 Total │  │ 12 Pending│  │ 8 Active │              │
+│  │ Students │  │ Review    │  │ Sponsors │              │
+│  └──────────┘  └──────────┘  └──────────┘              │
+│                                                           │
+│  📋 TABS                                                 │
+│  [Applications] [Projects] [Team] [Success Stories]      │
+│                                                           │
+│  APPLICATIONS TAB:                                       │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
+│  │  📚 BLUE    │  │  💼 PURPLE  │  │  🏢 GREEN   │     │
+│  │  Student    │  │  Becoming   │  │  Active     │     │
+│  │  Apps       │  │  Sponsor    │  │  Sponsors   │     │
+│  └─────────────┘  └─────────────┘  └─────────────┘     │
+│                                                           │
+│  ACTIONS:                                                │
+│  • Review applications                                   │
+│  • Approve/Reject                                        │
+│  • Assign sponsors                                       │
+│  • Track progress                                        │
+└──────────────────────────────────────────────────────────┘
 ```
 
-### Status Definitions
+### Sponsor Dashboard
+```
+┌──────────────────────────────────────────────────────────┐
+│                   SPONSOR DASHBOARD                       │
+├──────────────────────────────────────────────────────────┤
+│                                                           │
+│  👋 Welcome, [Sponsor Name]!                             │
+│                                                           │
+│  📊 YOUR IMPACT                                          │
+│  • Students Helped: 5                                    │
+│  • Active Sponsorships: 2                                │
+│  • Total Investment: $3,500                              │
+│                                                           │
+│  📋 ASSIGNED STUDENTS                                    │
+│  ┌─────────────────────────────────────────────┐        │
+│  │ John Doe - AWS Certification                │        │
+│  │ Status: Waiting for your decision           │        │
+│  │ [View Details] [Accept] [Decline]           │        │
+│  └─────────────────────────────────────────────┘        │
+│                                                           │
+│  ┌─────────────────────────────────────────────┐        │
+│  │ Jane Smith - CCNA Certification             │        │
+│  │ Status: Payment pending                     │        │
+│  │ [View Progress]                             │        │
+│  └─────────────────────────────────────────────┘        │
+└──────────────────────────────────────────────────────────┘
+```
 
-| Status | Description | Stage | Actions Available |
-|--------|-------------|-------|-------------------|
-| `pending` | Initial submission | 1 | Admin: Accept/Reject |
-| `accepted_stage1` | Approved for Stage 1 | 1 | Admin: Assign Sponsor, Move to Stage 2 |
-| `assigned_to_sponsor` | Sponsor assigned | 1 | Sponsor: Accept/Decline |
-| `pending_stage2` | Awaiting Stage 2 review | 2 | Admin: Final Accept/Reject |
-| `accepted_stage2` | Final approval | 2 | Completed |
-| `rejected` | Application denied | Any | End |
+### Student Dashboard
+```
+┌──────────────────────────────────────────────────────────┐
+│                   STUDENT DASHBOARD                       │
+├──────────────────────────────────────────────────────────┤
+│                                                           │
+│  👋 Welcome, [Student Name]!                             │
+│                                                           │
+│  📊 APPLICATION STATUS                                   │
+│  ┌─────────────────────────────────────────────┐        │
+│  │ AWS Cloud Practitioner Certification        │        │
+│  │                                             │        │
+│  │ Status: ✅ Sponsor Assigned                 │        │
+│  │ Sponsor: Tech Solutions Inc.                │        │
+│  │                                             │        │
+│  │ PROGRESS:                                   │        │
+│  │ [✓] Application Submitted                   │        │
+│  │ [✓] Admin Approved                          │        │
+│  │ [✓] Sponsor Assigned                        │        │
+│  │ [✓] Sponsor Accepted                        │        │
+│  │ [⏳] Payment Processing                      │        │
+│  │ [ ] Exam Scheduled                          │        │
+│  │ [ ] Certification Complete                  │        │
+│  └─────────────────────────────────────────────┘        │
+│                                                           │
+│  📄 YOUR DOCUMENTS                                       │
+│  • Resume.pdf ✓                                          │
+│  • ID_Document.pdf ✓                                     │
+│  • Transcript.pdf ✓                                      │
+└──────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -748,7 +750,7 @@ projects ←→ testimonials (by project name)
 ### Project Structure
 
 ```
-centfund-africa/
+certfund-africa/
 ├── components/
 │   ├── admin/
 │   │   ├── AdminDashboard.tsx              # Main admin interface with tabs
@@ -951,11 +953,11 @@ VITE_SUPABASE_ANON_KEY=your_anon_key
 VITE_SUPABASE_SERVICE_ROLE_KEY=your_service_key
 
 # Admin
-VITE_ADMIN_EMAIL=admin@centfundafrica.org
+VITE_ADMIN_EMAIL=admin@certfundafrica.org
 VITE_ADMIN_PASSWORD=Admin@2024Secure!
 
 # Sponsors (3 accounts)
-VITE_SPONSOR1_EMAIL=sponsor1@centfundafrica.org
+VITE_SPONSOR1_EMAIL=sponsor1@certfundafrica.org
 VITE_SPONSOR1_PASSWORD=Sponsor1@2024!
 VITE_SPONSOR1_NAME=John Smith
 
@@ -1053,7 +1055,7 @@ const { data, error } = await supabase
 3. Clicks "Admin Login"
    ↓
 4. Enters credentials:
-   Email: admin@centfundafrica.org
+   Email: admin@certfundafrica.org
    Password: Admin@2024Secure!
    ↓
 5. AdminDashboard loads with multiple tabs
@@ -1128,7 +1130,7 @@ const { data, error } = await supabase
 3. Clicks "Sponsor Login"
    ↓
 4. Enters credentials:
-   Email: sponsor1@centfundafrica.org
+   Email: sponsor1@certfundafrica.org
    Password: Sponsor1@2024!
    ↓
 5. SponsorDashboard loads on same page
@@ -1567,8 +1569,8 @@ Track   List    Capacity
 
 #### 1. Clone Repository
 ```bash
-git clone https://github.com/mawlid1431/CentFund-Africa.git
-cd CentFund-Africa
+git clone https://github.com/mawlid1431/CertFund-Africa.git
+cd CertFund-Africa
 ```
 
 #### 2. Install Dependencies
@@ -1586,19 +1588,19 @@ VITE_SUPABASE_ANON_KEY=your_anon_key_here
 VITE_SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
 
 # Admin Credentials
-VITE_ADMIN_EMAIL=admin@centfundafrica.org
+VITE_ADMIN_EMAIL=admin@certfundafrica.org
 VITE_ADMIN_PASSWORD=Admin@2024Secure!
 
 # Sponsor Credentials (Example)
-VITE_SPONSOR1_EMAIL=sponsor1@centfundafrica.org
+VITE_SPONSOR1_EMAIL=sponsor1@certfundafrica.org
 VITE_SPONSOR1_PASSWORD=Sponsor1@2024!
 VITE_SPONSOR1_NAME=John Smith
 
-VITE_SPONSOR2_EMAIL=sponsor2@centfundafrica.org
+VITE_SPONSOR2_EMAIL=sponsor2@certfundafrica.org
 VITE_SPONSOR2_PASSWORD=Sponsor2@2024!
 VITE_SPONSOR2_NAME=Sarah Johnson
 
-VITE_SPONSOR3_EMAIL=sponsor3@centfundafrica.org
+VITE_SPONSOR3_EMAIL=sponsor3@certfundafrica.org
 VITE_SPONSOR3_PASSWORD=Sponsor3@2024!
 VITE_SPONSOR3_NAME=Michael Brown
 
@@ -1828,7 +1830,7 @@ jobs:
 
 ## 🎓 Summary
 
-CentFund Africa is a comprehensive sponsorship management platform that:
+CertFund Africa is a comprehensive sponsorship management platform that:
 
 1. **Connects** students needing certification funding with willing sponsors
 2. **Manages** the complete application lifecycle from submission to completion
@@ -1906,7 +1908,7 @@ For technical support or questions:
 - **Database Schema:** See `database/complete_setup.sql`
 - **Sample Data:** Included in setup script
 - **GitHub Issues:** Report bugs and request features
-- **Email:** support@centfundafrica.org
+- **Email:** support@certfundafrica.org
 
 ---
 
@@ -1985,22 +1987,22 @@ This project is licensed under the MIT License - see the [LICENSE](../LICENSE) f
 
 ## 👥 Team & Contact
 
-**CentFund Africa Team**
-- **Website:** https://centfundafrica.org
-- **Email:** info@centfundafrica.org
-- **GitHub:** https://github.com/mawlid1431/CentFund-Africa
-- **Support:** support@centfundafrica.org
+**CertFund Africa Team**
+- **Website:** https://certfundafrica.org
+- **Email:** info@certfundafrica.org
+- **GitHub:** https://github.com/mawlid1431/CertFund-Africa
+- **Support:** support@certfundafrica.org
 
 **Technical Support:**
 - **Developer:** Mawlid Hassan
-- **Email:** mawlid@centfundafrica.org
+- **Email:** mawlid@certfundafrica.org
 - **GitHub:** @mawlid1431
 
 ---
 
 **Last Updated:** December 13, 2024  
 **Version:** 2.0.0  
-**Platform:** CentFund Africa Sponsorship Management System  
+**Platform:** CertFund Africa Sponsorship Management System  
 **Status:** Production Ready ✅
 
 ---
@@ -2103,4 +2105,4 @@ This project is licensed under the MIT License - see the [LICENSE](../LICENSE) f
 
 ---
 
-*Built with ❤️ by the CentFund Africa Team*
+*Built with ❤️ by the CertFund Africa Team*

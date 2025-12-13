@@ -150,8 +150,8 @@ export function SponsorSuccessPage({ darkMode, onNavigate }: SponsorSuccessPageP
                         whileTap={{ scale: 0.95 }}
                         onClick={() => window.print()}
                         className={`flex-1 py-4 rounded-xl flex items-center justify-center gap-3 border transition-all ${darkMode
-                                ? 'border-white/20 text-white hover:bg-white/10'
-                                : 'border-gray-300 text-black hover:bg-gray-100'
+                            ? 'border-white/20 text-white hover:bg-white/10'
+                            : 'border-gray-300 text-black hover:bg-gray-100'
                             }`}
                     >
                         <Download className="w-5 h-5" />
@@ -167,8 +167,8 @@ export function SponsorSuccessPage({ darkMode, onNavigate }: SponsorSuccessPageP
                 >
                     <p className={`text-sm ${darkMode ? 'text-white/60' : 'text-gray-500'}`}>
                         Questions? Contact us at{' '}
-                        <a href="mailto:sponsors@centfundafrica.org" className="text-accent-orange hover:underline">
-                            sponsors@centfundafrica.org
+                        <a href="mailto:sponsors@certfundafrica.org" className="text-accent-orange hover:underline">
+                            sponsors@certfundafrica.org
                         </a>
                     </p>
                 </motion.div>

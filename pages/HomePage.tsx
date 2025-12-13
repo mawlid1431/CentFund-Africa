@@ -51,7 +51,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
       project: 'AWS Cloud Practitioner',
       location: 'Nairobi, Kenya',
       date: 'January 2024',
-      story: 'Thanks to CentFund Africa, I completed my AWS certification and now work as a cloud engineer for a tech startup.',
+      story: 'Thanks to CertFund Africa, I completed my AWS certification and now work as a cloud engineer for a tech startup.',
       image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400',
       impact: 'Secured cloud engineer position with 3x salary increase',
     },
@@ -62,7 +62,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
       project: 'CCNA Networking',
       location: 'Addis Ababa, Ethiopia',
       date: 'December 2023',
-      story: 'CentFund Africa made it possible for me to learn networking skills and secure a remote job in IT support.',
+      story: 'CertFund Africa made it possible for me to learn networking skills and secure a remote job in IT support.',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
       impact: 'Landed remote IT support role, supporting family of 5',
     },
@@ -73,7 +73,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
       project: 'IELTS',
       location: 'Lagos, Nigeria',
       date: 'November 2023',
-      story: 'I achieved my IELTS score and got admitted to a university abroad. CentFund Africa changed my future.',
+      story: 'I achieved my IELTS score and got admitted to a university abroad. CertFund Africa changed my future.',
       image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400',
       impact: 'Admitted to UK university with scholarship',
     },
@@ -87,7 +87,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
       role: 'CCNA Graduate',
       image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400',
       rating: 5,
-      feedback: 'CentFund Africa made my dream of becoming a certified network engineer possible. The support and guidance throughout the process was exceptional.',
+      feedback: 'CertFund Africa made my dream of becoming a certified network engineer possible. The support and guidance throughout the process was exceptional.',
       project: 'CCNA Networking',
     },
     {
@@ -96,7 +96,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
       role: 'AWS Certified',
       image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
       rating: 5,
-      feedback: 'With CentFund Africa, I gained AWS certification and started a remote developer career. This platform truly changes lives.',
+      feedback: 'With CertFund Africa, I gained AWS certification and started a remote developer career. This platform truly changes lives.',
       project: 'AWS Cloud Practitioner',
     },
     {
@@ -105,7 +105,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
       role: 'Investor & Sponsor',
       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
       rating: 5,
-      feedback: 'I know my investment truly helps deserving students gain valuable skills. CentFund Africa provides complete transparency and regular updates.',
+      feedback: 'I know my investment truly helps deserving students gain valuable skills. CertFund Africa provides complete transparency and regular updates.',
       project: 'Multiple Certifications',
     },
     {
@@ -114,7 +114,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
       role: 'Corporate Sponsor',
       image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
       rating: 5,
-      feedback: 'CentFund Africa is a transparent and trustworthy way to support youth education. We have sponsored 10 students and seen amazing results.',
+      feedback: 'CertFund Africa is a transparent and trustworthy way to support youth education. We have sponsored 10 students and seen amazing results.',
       project: 'Corporate Sponsorship',
     },
     {
@@ -123,7 +123,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
       role: 'CompTIA A+ Graduate',
       image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400',
       rating: 5,
-      feedback: 'The certification process was smooth and well-organized. CentFund Africa not only funded my certification but also provided career guidance.',
+      feedback: 'The certification process was smooth and well-organized. CertFund Africa not only funded my certification but also provided career guidance.',
       project: 'CompTIA A+',
     },
     {
@@ -132,7 +132,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
       role: 'IELTS Graduate',
       image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400',
       rating: 5,
-      feedback: 'Thanks to CentFund Africa, I achieved my IELTS target score and secured admission to my dream university. Forever grateful!',
+      feedback: 'Thanks to CertFund Africa, I achieved my IELTS target score and secured admission to my dream university. Forever grateful!',
       project: 'IELTS',
     },
   ];
@@ -346,7 +346,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
                 transition={{ delay: 0.4 }}
                 className={`leading-relaxed max-w-xl text-lg sm:text-xl ${darkMode ? 'text-white/70' : 'text-gray-600'}`}
               >
-                CentFund Africa connects ambitious students with sponsors to unlock skills, certifications, and career opportunities.
+                CertFund Africa connects ambitious students with sponsors to unlock skills, certifications, and career opportunities.
               </motion.p>
 
               {/* Stats Cards - Horizontal Layout */}
@@ -704,7 +704,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
               Why Us
             </motion.span>
             <h2 className={`mb-4 text-3xl sm:text-4xl font-bold ${darkMode ? 'text-white' : 'text-black'}`}>
-              Why Choose CentFund Africa
+              Why Choose CertFund Africa
             </h2>
             <p className={`max-w-2xl mx-auto text-lg ${darkMode ? 'text-white/70' : 'text-gray-700'}`}>
               We're committed to transparency, verification, and measurable impact
@@ -761,7 +761,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
               Success Stories
             </h2>
             <p className={`max-w-2xl mx-auto text-lg ${darkMode ? 'text-white/70' : 'text-gray-700'}`}>
-              Meet the students whose careers have been transformed through CentFund Africa
+              Meet the students whose careers have been transformed through CertFund Africa
             </p>
           </motion.div>
 
@@ -1164,7 +1164,7 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
             </motion.div>
 
             <h2 className="text-white mb-6 text-3xl sm:text-4xl font-bold">
-              Join CentFund Africa Today
+              Join CertFund Africa Today
             </h2>
             <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
               Empower the next generation. Whether you're a student seeking opportunity or an investor wanting to make impact, we're here for you.

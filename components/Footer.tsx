@@ -18,7 +18,7 @@ export function Footer({ darkMode, onNavigate }: FooterProps) {
               </div>
               <div className="flex items-baseline gap-1.5">
                 <span className={`text-lg sm:text-xl ${darkMode ? 'text-white' : 'text-black'}`}>
-                  CentFund
+                  CertFund
                 </span>
                 <span className="text-accent-orange text-lg sm:text-xl">
                   Africa
@@ -117,8 +117,8 @@ export function Footer({ darkMode, onNavigate }: FooterProps) {
             <ul className="space-y-3 sm:space-y-4">
               <li className="flex items-start gap-2 sm:gap-3">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-accent-orange mt-0.5 flex-shrink-0" />
-                <a href="mailto:contact@centfundafrica.org" className={`hover:text-accent-orange transition-colors text-sm sm:text-base break-all ${darkMode ? 'text-white/70' : 'text-gray-700'}`}>
-                  contact@centfundafrica.org
+                <a href="mailto:contact@certfundafrica.org" className={`hover:text-accent-orange transition-colors text-sm sm:text-base break-all ${darkMode ? 'text-white/70' : 'text-gray-700'}`}>
+                  contact@certfundafrica.org
                 </a>
               </li>
               <li className="flex items-start gap-2 sm:gap-3">
@@ -140,7 +140,7 @@ export function Footer({ darkMode, onNavigate }: FooterProps) {
         {/* Bottom Bar */}
         <div className={`mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 ${darkMode ? 'border-t border-white/10' : 'border-t border-gray-300'}`}>
           <p className={`text-center md:text-left text-sm ${darkMode ? 'text-white/50' : 'text-gray-600'}`}>
-            © 2025 CentFund Africa. All rights reserved.
+            © 2025 CertFund Africa. All rights reserved.
           </p>
           <p className={`flex items-center gap-2 text-sm ${darkMode ? 'text-white/50' : 'text-gray-600'}`}>
             Made with <Heart className="w-4 h-4 text-accent-orange fill-accent-orange" /> for a better world

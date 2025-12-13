@@ -12,8 +12,8 @@ export function ContactPage({ darkMode }: ContactPageProps) {
     {
       icon: Mail,
       title: 'Email Us',
-      content: 'contact@centfundafrica.org',
-      link: 'mailto:contact@centfundafrica.org',
+      content: 'contact@certfundafrica.org',
+      link: 'mailto:contact@certfundafrica.org',
       color: 'from-blue-500 to-cyan-500',
     },
     {
@@ -298,7 +298,7 @@ export function ContactPage({ darkMode }: ContactPageProps) {
               Ready to Empower Youth?
             </h2>
             <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-              Join CentFund Africa today. Whether you're seeking opportunity or wanting to create it, we're here to help.
+              Join CertFund Africa today. Whether you're seeking opportunity or wanting to create it, we're here to help.
             </p>
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(255, 111, 15, 0.4)' }}

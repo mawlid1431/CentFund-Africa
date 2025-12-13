@@ -38,7 +38,7 @@ export function SuccessStoriesPage({ darkMode, onNavigate }: SuccessStoriesPageP
             project: 'AWS Cloud Practitioner',
             location: 'Nairobi, Kenya',
             date: 'January 2024',
-            story: 'Thanks to CentFund Africa, I completed my AWS certification and now work as a cloud engineer for a tech startup. The certification opened doors I never thought possible.',
+            story: 'Thanks to CertFund Africa, I completed my AWS certification and now work as a cloud engineer for a tech startup. The certification opened doors I never thought possible.',
             image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400',
             impact: 'Secured cloud engineer position with 3x salary increase',
             video_url: '',
@@ -50,7 +50,7 @@ export function SuccessStoriesPage({ darkMode, onNavigate }: SuccessStoriesPageP
             project: 'CCNA Networking',
             location: 'Addis Ababa, Ethiopia',
             date: 'December 2023',
-            story: 'CentFund Africa made it possible for me to learn networking skills and secure a remote job in IT support. I can now support my family and continue my education.',
+            story: 'CertFund Africa made it possible for me to learn networking skills and secure a remote job in IT support. I can now support my family and continue my education.',
             image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
             impact: 'Landed remote IT support role, supporting family of 5',
             video_url: '',
@@ -62,7 +62,7 @@ export function SuccessStoriesPage({ darkMode, onNavigate }: SuccessStoriesPageP
             project: 'IELTS',
             location: 'Lagos, Nigeria',
             date: 'November 2023',
-            story: 'I achieved my IELTS score and got admitted to a university abroad. CentFund Africa changed my future and made my dreams come true.',
+            story: 'I achieved my IELTS score and got admitted to a university abroad. CertFund Africa changed my future and made my dreams come true.',
             image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400',
             impact: 'Admitted to UK university with scholarship',
             video_url: '',
@@ -74,7 +74,7 @@ export function SuccessStoriesPage({ darkMode, onNavigate }: SuccessStoriesPageP
             project: 'CompTIA A+',
             location: 'Kampala, Uganda',
             date: 'October 2023',
-            story: 'The CompTIA A+ certification through CentFund Africa helped me transition from informal work to a professional IT career. I am now a certified technician.',
+            story: 'The CompTIA A+ certification through CertFund Africa helped me transition from informal work to a professional IT career. I am now a certified technician.',
             image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400',
             impact: 'Transitioned to professional IT career, 4x income increase',
             video_url: '',
@@ -112,7 +112,7 @@ export function SuccessStoriesPage({ darkMode, onNavigate }: SuccessStoriesPageP
                         Real Stories, Real Impact
                     </h1>
                     <p className={`text-lg max-w-3xl mx-auto ${darkMode ? 'text-white/70' : 'text-gray-600'}`}>
-                        Meet the students whose careers have been transformed through CentFund Africa. From AWS certifications to CCNA credentials, these are the success stories that drive our mission forward.
+                        Meet the students whose careers have been transformed through CertFund Africa. From AWS certifications to CCNA credentials, these are the success stories that drive our mission forward.
                     </p>
                 </motion.div>
 

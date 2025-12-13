@@ -1,4 +1,4 @@
-# 🌟 CentFund Africa Website
+# 🌟 CertFund Africa Website
 
 A modern, professional platform built with React, TypeScript, Tailwind CSS, and Supabase. Connect students with sponsors to fund professional certifications and unlock career opportunities.
 
@@ -60,7 +60,7 @@ A modern, professional platform built with React, TypeScript, Tailwind CSS, and 
 1. **Clone the repository**
 ```bash
 git clone <your-repo-url>
-cd centfund-africa-website
+cd certfund-africa-website
 ```
 
 2. **Install dependencies**
@@ -136,7 +136,7 @@ Access the admin dashboard at `/admin`
 ## 📁 Project Structure
 
 ```
-centfund-africa-website/
+certfund-africa-website/
 ├── components/          # React components
 │   ├── admin/          # Admin dashboard components
 │   ├── DonationForm.tsx

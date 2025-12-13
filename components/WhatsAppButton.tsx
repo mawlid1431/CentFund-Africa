@@ -2,8 +2,8 @@ import { MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export function WhatsAppButton() {
-  const whatsappNumber = '17816921308'; // CentFund Africa WhatsApp
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hello%20CentFund%20Africa!%20I%20would%20like%20to%20get%20in%20touch.`;
+  const whatsappNumber = '17816921308'; // CertFund Africa WhatsApp
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hello%20CertFund%20Africa!%20I%20would%20like%20to%20get%20in%20touch.`;
 
   return (
     <motion.a

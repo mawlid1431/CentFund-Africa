@@ -68,7 +68,7 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
               <div className="flex flex-col leading-tight">
                 <div className="flex items-baseline gap-1.5">
                   <span className={`text-xl tracking-tight ${darkMode ? 'text-white' : 'text-black'}`}>
-                    CentFund
+                    CertFund
                   </span>
                   <span className="text-accent-orange text-xl tracking-tight">
                     Africa

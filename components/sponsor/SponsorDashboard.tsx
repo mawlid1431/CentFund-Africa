@@ -409,7 +409,7 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
                                                     />
                                                     <div>
                                                         <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                                                            Pay through CentFund Africa
+                                                            Pay through CertFund Africa
                                                         </p>
                                                         <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                                             Payment will be processed through our secure system
