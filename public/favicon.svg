@@ -9,9 +9,6 @@
   <!-- Rounded square background with gradient -->
   <rect width="100" height="100" rx="20" fill="url(#grad)"/>
   
-  <!-- Heart icon in white -->
-  <path d="M50 75 L30 55 C25 50 25 42 30 37 C35 32 43 32 48 37 L50 39 L52 37 C57 32 65 32 70 37 C75 42 75 50 70 55 Z" 
-        fill="white" 
-        stroke="white" 
-        stroke-width="1"/>
+  <!-- "CF" text in white (CertFund) -->
+  <text x="50" y="70" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">CF</text>
 </svg>
