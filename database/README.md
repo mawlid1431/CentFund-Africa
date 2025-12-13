@@ -4,19 +4,40 @@ This folder contains SQL scripts for setting up and maintaining your Supabase da
 
 ## Files
 
-### 1. `setup.sql` (formerly COPY_THIS_TO_SUPABASE.sql)
-**Purpose:** Complete database setup script
+### 1. `main.sql` ⭐ **MAIN DATABASE FILE**
+**Purpose:** Complete database setup with all tables and sample data
 
 **What it does:**
-- Creates `projects` table with all required fields
+- Creates ALL required tables:
+  - `projects` - Certification programs (4 sample projects)
+  - `team_members` - Team member profiles
+  - `success_stories` - Student success stories (4 samples)
+  - `testimonials` - User testimonials (4 samples)
+  - `partners` - Partner organizations (4 samples)
+  - `users` - Admin, sponsors, and applicants
+  - `applications` - Student applications (4 samples)
+  - `sponsors` - Sponsor applications and details (4 active sponsors)
+  - `application_history` - Status change tracking
+  - `sponsor_responses` - Sponsor decisions
+  - `notifications` - User notifications
 - Sets up Row Level Security (RLS) policies
-- Creates `project-images` storage bucket
-- Configures upload/download permissions
-- Adds sample project data for testing
-- Sets up auto-update triggers
+- Creates indexes for performance
+- Adds auto-update triggers
+- Populates sample data for testing
+
+**Sample Data Included:**
+- ✅ 4 Certification Projects (AWS, CCNA, IELTS, CompTIA A+)
+- ✅ 4 Success Stories (Featured graduates)
+- ✅ 4 Testimonials (Student and sponsor feedback)
+- ✅ 4 Partner Organizations (Trusted partners)
+- ✅ 4 Active Sponsors (Approved and ready)
+- ✅ 4 Student Applications (Various statuses)
+- ✅ 3 Admin Users (Main admin, Student admin, Sponsor admin)
+- ✅ 4 Sponsor Users (Active sponsors)
+- ✅ 4 Applicant Users (Students)
 
 **When to run:**
-- ✅ First time setup
+- ✅ **First time setup** (REQUIRED)
 - ✅ After database reset
 - ✅ New environment (staging/production)
 - ✅ Database corruption recovery
@@ -25,32 +46,37 @@ This folder contains SQL scripts for setting up and maintaining your Supabase da
 1. Open [Supabase Dashboard](https://supabase.com/dashboard)
 2. Go to SQL Editor (left sidebar)
 3. Click "New Query"
-4. Copy entire contents of `setup.sql`
+4. Copy entire contents of `main.sql`
 5. Paste and click "Run" (or Ctrl+Enter)
+6. Wait for completion message: "✅ Database setup complete!"
 
 ---
 
-### 2. `fix-storage.sql` (formerly FIX_STORAGE_POLICIES.sql)
-**Purpose:** Fix image upload and storage issues
+### 2. `APPLICATION_SYSTEM_SCHEMA.sql`
+**Purpose:** Legacy application system schema (reference only)
 
 **What it does:**
-- Repairs storage bucket permissions
-- Enables public image access
-- Fixes upload/update/delete policies
-- Resolves "permission denied" errors
+- Contains the original application system schema
+- Includes detailed comments and documentation
+- Reference for understanding the application workflow
 
-**When to run:**
-- ❌ Image uploads fail
-- ❌ Images don't display publicly
-- ❌ "Permission denied" errors
-- ❌ Storage bucket issues
+**When to use:**
+- 📖 Reference documentation
+- 📖 Understanding table relationships
+- ⚠️ Not needed if you run `main.sql`
 
-**How to run:**
-1. Open [Supabase Dashboard](https://supabase.com/dashboard)
-2. Go to SQL Editor
-3. Click "New Query"
-4. Copy entire contents of `fix-storage.sql`
-5. Paste and click "Run"
+---
+
+### 3. `sponsors_table.sql`
+**Purpose:** Legacy sponsors table schema (reference only)
+
+**What it does:**
+- Contains the original sponsors table definition
+- Includes RLS policies for sponsors
+
+**When to use:**
+- 📖 Reference documentation
+- ⚠️ Not needed if you run `main.sql`
 
 ---
 
@@ -152,4 +178,21 @@ When deploying to production:
 
 ---
 
-**Last Updated:** January 2025
+---
+
+## 🚀 Quick Start
+
+**New to the project? Start here:**
+
+1. Read `QUICK_SETUP_GUIDE.md` - 5-minute setup walkthrough
+2. Run `main.sql` in Supabase SQL Editor
+3. Check `ADMIN_CREDENTIALS.md` for login details
+4. Start your app: `npm run dev`
+
+---
+
+## 📁 File Overview
+
+| File | Purpose | When to Use |
+|------|---------|-------------|
+| `main.sql` | **Complete database setup** 
