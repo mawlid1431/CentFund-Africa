@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { AdminLogin } from '../components/admin/AdminLogin';
 import { AdminDashboard } from '../components/admin/AdminDashboard';
+import { LoginSelection } from '../components/admin/LoginSelection';
 
 interface AdminPageProps {
     darkMode: boolean;
@@ -11,6 +12,7 @@ interface AdminPageProps {
 export function AdminPage({ darkMode, toggleDarkMode }: AdminPageProps) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userType, setUserType] = useState<'admin' | 'sponsor' | 'applicant'>('admin');
+    const [selectedUserType, setSelectedUserType] = useState<'admin' | 'sponsor' | 'student' | null>(null);
 
     useEffect(() => {
         // Check if user is already logged in
@@ -49,19 +51,45 @@ export function AdminPage({ darkMode, toggleDarkMode }: AdminPageProps) {
         localStorage.removeItem('userName');
     };
 
+    const handleSelectUserType = (type: 'admin' | 'sponsor' | 'student') => {
+        setSelectedUserType(type);
+    };
+
+    const handleBackToSelection = () => {
+        setSelectedUserType(null);
+    };
+
     return (
         <div className={`min-h-screen pt-20 ${darkMode ? 'bg-[#0a1628]' : 'bg-gray-50'}`}>
             <AnimatePresence mode="wait">
                 {!isAuthenticated ? (
-                    <motion.div
-                        key="login"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <AdminLogin darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLogin={handleLogin} />
-                    </motion.div>
+                    selectedUserType === null ? (
+                        <motion.div
+                            key="selection"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <LoginSelection darkMode={darkMode} onSelectUserType={handleSelectUserType} />
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="login"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <AdminLogin
+                                darkMode={darkMode}
+                                toggleDarkMode={toggleDarkMode}
+                                onLogin={handleLogin}
+                                selectedUserType={selectedUserType}
+                                onBack={handleBackToSelection}
+                            />
+                        </motion.div>
+                    )
                 ) : (
                     <motion.div
                         key="dashboard"

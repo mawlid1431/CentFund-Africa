@@ -28,7 +28,7 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
     { name: 'Success Stories', path: 'success-stories' },
     { name: 'Testimonials', path: 'testimonials' },
     { name: 'Contact', path: 'contact' },
-    { name: 'Become a Sponsor', path: 'sponsor-requirements', highlight: true }
+    { name: 'Login', path: 'admin', highlight: true }
   ];
 
   return (
@@ -88,12 +88,12 @@ export function Navbar({ darkMode, toggleDarkMode, currentPage, onNavigate }: Na
                 transition={{ delay: 0.1 * index + 0.3 }}
                 onClick={() => onNavigate(item.path)}
                 className={`relative transition-all duration-300 ${(item as any).highlight
-                    ? 'px-4 py-2 bg-gradient-to-r from-accent-orange to-accent-orange-light text-white rounded-lg hover:shadow-lg'
-                    : currentPage === item.path
-                      ? 'text-accent-orange'
-                      : darkMode
-                        ? 'text-white/80 hover:text-white'
-                        : 'text-gray-700 hover:text-black'
+                  ? 'px-4 py-2 bg-gradient-to-r from-accent-orange to-accent-orange-light text-white rounded-lg hover:shadow-lg'
+                  : currentPage === item.path
+                    ? 'text-accent-orange'
+                    : darkMode
+                      ? 'text-white/80 hover:text-white'
+                      : 'text-gray-700 hover:text-black'
                   }`}
                 whileHover={{ y: -2 }}
               >

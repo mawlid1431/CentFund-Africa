@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Lock, User, Eye, EyeOff, Sun, Moon } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, Sun, Moon, ArrowLeft, Shield, Users, GraduationCap } from 'lucide-react';
 
 interface AdminLoginProps {
     darkMode: boolean;
     toggleDarkMode: () => void;
     onLogin: (success: boolean, userType: 'admin' | 'sponsor' | 'applicant', userData?: any) => void;
+    selectedUserType?: 'admin' | 'sponsor' | 'student';
+    onBack?: () => void;
 }
 
-export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProps) {
+export function AdminLogin({ darkMode, toggleDarkMode, onLogin, selectedUserType, onBack }: AdminLoginProps) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -61,6 +63,54 @@ export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProp
         console.log('Entered Email:', username);
 
         setTimeout(() => {
+            // If a specific user type is selected, only check that type
+            if (selectedUserType === 'admin') {
+                if (username === adminEmail && password === adminPassword) {
+                    localStorage.setItem('userType', 'admin');
+                    localStorage.setItem('userEmail', username);
+                    onLogin(true, 'admin');
+                    setIsLoading(false);
+                    return;
+                } else {
+                    setError('Invalid admin credentials');
+                    setIsLoading(false);
+                    return;
+                }
+            }
+
+            if (selectedUserType === 'sponsor') {
+                const sponsor = sponsors.find(s => s.email === username && s.password === password);
+                if (sponsor) {
+                    console.log('Sponsor found:', sponsor);
+                    localStorage.setItem('userType', 'sponsor');
+                    localStorage.setItem('userEmail', username);
+                    localStorage.setItem('userName', sponsor.name);
+                    onLogin(true, 'sponsor', { name: sponsor.name, email: username });
+                    setIsLoading(false);
+                    return;
+                } else {
+                    setError('Invalid sponsor credentials');
+                    setIsLoading(false);
+                    return;
+                }
+            }
+
+            if (selectedUserType === 'student') {
+                const applicant = applicants.find(a => a.email === username && a.password === password);
+                if (applicant) {
+                    localStorage.setItem('userType', 'applicant');
+                    localStorage.setItem('userEmail', username);
+                    onLogin(true, 'applicant', { email: username });
+                    setIsLoading(false);
+                    return;
+                } else {
+                    setError('Invalid student credentials');
+                    setIsLoading(false);
+                    return;
+                }
+            }
+
+            // If no specific type selected, check all (backward compatibility)
             // Check if admin
             if (username === adminEmail && password === adminPassword) {
                 localStorage.setItem('userType', 'admin');
@@ -99,8 +149,43 @@ export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProp
         }, 1000);
     };
 
+    // Get icon and title based on selected user type
+    const getUserTypeInfo = () => {
+        switch (selectedUserType) {
+            case 'admin':
+                return { icon: Shield, title: 'Admin Login', color: 'from-purple-500 to-indigo-500' };
+            case 'sponsor':
+                return { icon: Users, title: 'Sponsor Login', color: 'from-orange-500 to-red-500' };
+            case 'student':
+                return { icon: GraduationCap, title: 'Student Login', color: 'from-blue-500 to-cyan-500' };
+            default:
+                return { icon: Lock, title: 'Login', color: 'from-[#ff6f0f] to-[#ff8f3f]' };
+        }
+    };
+
+    const userTypeInfo = getUserTypeInfo();
+
     return (
         <div className="flex items-center justify-center min-h-[calc(100vh-5rem)] px-4 relative">
+            {/* Back Button */}
+            {onBack && (
+                <motion.button
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    whileHover={{ scale: 1.05, x: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={onBack}
+                    className={`absolute top-4 left-4 p-3 rounded-xl transition-all shadow-lg flex items-center gap-2 ${darkMode
+                        ? 'bg-white/10 text-white hover:bg-white/20'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                >
+                    <ArrowLeft className="w-5 h-5" />
+                    <span className="text-sm font-medium">Back</span>
+                </motion.button>
+            )}
+
             {/* Dark Mode Toggle */}
             <motion.button
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -132,15 +217,18 @@ export function AdminLogin({ darkMode, toggleDarkMode, onLogin }: AdminLoginProp
                         initial={{ rotate: -10 }}
                         animate={{ rotate: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="w-16 h-16 bg-gradient-to-br from-[#ff6f0f] to-[#ff8f3f] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#ff6f0f]/30"
+                        className={`w-16 h-16 bg-gradient-to-br ${userTypeInfo.color} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg`}
                     >
-                        <Lock className="w-8 h-8 text-white" />
+                        <userTypeInfo.icon className="w-8 h-8 text-white" />
                     </motion.div>
                     <h1 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                        CentFund Africa
+                        {userTypeInfo.title}
                     </h1>
                     <p className={`text-sm mt-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                        Sign in as Admin, Sponsor, or Applicant
+                        {selectedUserType
+                            ? `Sign in to your ${selectedUserType} account`
+                            : 'Sign in as Admin, Sponsor, or Student'
+                        }
                     </p>
                 </div>
 
