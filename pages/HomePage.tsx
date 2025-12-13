@@ -251,52 +251,143 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
   return (
     <div>
       {/* Hero Section */}
-      <section className={`relative min-h-screen flex items-center overflow-hidden ${darkMode ? 'bg-gradient-to-br from-dark-primary via-dark-secondary to-dark-accent' : 'bg-white'}`}>
+      <section className={`relative min-h-screen flex items-center overflow-hidden ${darkMode ? 'bg-gradient-to-br from-dark-primary via-dark-secondary to-dark-accent' : 'bg-gradient-to-br from-gray-50 via-white to-orange-50/30'}`}>
         <DecorativeElements />
 
-        {/* Animated gradient overlay */}
+        {/* Enhanced Animated gradient overlay */}
         <motion.div
           animate={{
-            background: [
+            background: darkMode ? [
               'radial-gradient(circle at 20% 50%, rgba(255, 111, 15, 0.15) 0%, transparent 50%)',
               'radial-gradient(circle at 80% 50%, rgba(74, 144, 226, 0.15) 0%, transparent 50%)',
               'radial-gradient(circle at 20% 50%, rgba(255, 111, 15, 0.15) 0%, transparent 50%)',
+            ] : [
+              'radial-gradient(circle at 20% 50%, rgba(255, 111, 15, 0.08) 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 50%, rgba(255, 111, 15, 0.08) 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 50%, rgba(255, 111, 15, 0.08) 0%, transparent 50%)',
             ],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
           className="absolute inset-0"
         />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 sm:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left Image Slider with Typewriter Text Below */}
+        {/* Floating particles effect */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={`absolute w-2 h-2 rounded-full ${darkMode ? 'bg-white/5' : 'bg-orange-500/10'}`}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.2, 0.5, 0.2],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 sm:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, ease: 'easeOut' }}
-              className="relative space-y-8"
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              className="space-y-8"
             >
-              <motion.div
-                animate={{
-                  y: [0, -15, 0],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                className="relative"
-              >
-                <HeroImageSlider images={heroImages} interval={6000} />
-              </motion.div>
-
-              {/* Typewriter Text Below Image */}
+              {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5, duration: 0.8 }}
-                className="text-center lg:text-left"
+                transition={{ delay: 0.2 }}
               >
+                <motion.span
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium backdrop-blur-sm transition-all ${darkMode ? 'bg-[#ff6f0f]/10 border border-[#ff6f0f]/30 text-[#ff6f0f]' : 'bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 text-orange-700'}`}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                >
+                  <span className="w-2 h-2 bg-[#ff6f0f] rounded-full animate-pulse" />
+                  Making a Difference from now!
+                </motion.span>
+              </motion.div>
+
+              {/* Heading */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className={`leading-[1.1] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}
+              >
+                Empowering Youth Through{' '}
+                <span className="relative inline-block">
+                  <span className="bg-gradient-to-r from-[#ff6f0f] via-[#ff8f3f] to-[#ff6f0f] bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                    Funded Certifications
+                  </span>
+                  <motion.div
+                    className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] rounded-full"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ delay: 0.8, duration: 0.6 }}
+                  />
+                </span>
+              </motion.h1>
+
+              {/* Description */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className={`leading-relaxed max-w-xl text-lg sm:text-xl ${darkMode ? 'text-white/70' : 'text-gray-600'}`}
+              >
+                CentFund Africa connects ambitious students with sponsors to unlock skills, certifications, and career opportunities.
+              </motion.p>
+
+              {/* Stats Cards - Horizontal Layout */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="flex flex-wrap gap-4 py-4"
+              >
+                {[
+                  { value: '500+', label: 'Students', icon: Users, color: 'from-orange-500 to-red-500' },
+                  { value: '120+', label: 'Certifications', icon: Award, color: 'from-blue-500 to-cyan-500' },
+                  { value: '70+', label: 'Employed', icon: TrendingUp, color: 'from-green-500 to-emerald-500' },
+                ].map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 + index * 0.1 }}
+                    whileHover={{ y: -5, scale: 1.05 }}
+                    className={`flex items-center gap-3 px-5 py-3 rounded-2xl backdrop-blur-sm transition-all ${darkMode ? 'bg-white/5 hover:bg-white/10 border border-white/10' : 'bg-white hover:bg-white shadow-lg hover:shadow-xl border border-gray-100'}`}
+                  >
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-lg`}>
+                      <stat.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <p className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{stat.value}</p>
+                      <p className={`text-xs font-medium ${darkMode ? 'text-white/60' : 'text-gray-600'}`}>{stat.label}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Typewriter Text */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="flex items-center gap-3"
+              >
+                <div className="w-2 h-2 bg-[#ff6f0f] rounded-full animate-pulse" />
                 <TypewriterText
                   texts={[
                     'Empowering Communities...',
@@ -308,127 +399,146 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
                   typingSpeed={100}
                   deletingSpeed={50}
                   pauseDuration={2000}
-                  className="text-white/90 text-xl md:text-2xl"
+                  className={`text-base md:text-lg font-medium ${darkMode ? 'text-white/80' : 'text-gray-700'}`}
                 />
               </motion.div>
 
-              {/* Floating Stats Card */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.2, duration: 0.6, type: 'spring' }}
-                className="absolute top-8 -right-3 lg:-right-6 bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-2xl max-w-[200px] border border-white/20"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#ff6f0f] to-[#ff8f3f] rounded-xl flex items-center justify-center shadow-lg">
-                    <Users className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-600 mb-1">Lives Impacted</p>
-                    <p className="text-xl text-[#ff6f0f]">1000+</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1.5 pt-2.5 border-t border-gray-100">
-                  <span className="text-[#ff6f0f] text-sm">⭐⭐⭐⭐⭐</span>
-                  <span className="text-xs text-gray-600">Trusted</span>
-                </div>
-              </motion.div>
-            </motion.div>
-
-            {/* Right Content */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, ease: 'easeOut' }}
-              className="space-y-8"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <motion.span
-                  className="inline-block px-4 py-2 bg-[#ff6f0f]/10 border border-[#ff6f0f]/30 rounded-full text-[#ff6f0f] mb-6 backdrop-blur-sm"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  Making a Difference from now!
-                </motion.span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className={`leading-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold ${darkMode ? 'text-white' : 'text-black'}`}
-              >
-                Empowering Youth Through{' '}
-                <span className="bg-gradient-to-r from-accent-orange to-accent-orange-light bg-clip-text text-transparent">
-                  Funded Certifications
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className={`leading-relaxed max-w-xl text-base sm:text-lg ${darkMode ? 'text-white/80' : 'text-gray-700'}`}
-              >
-                CentFund Africa connects ambitious students with sponsors to unlock skills, certifications, and career opportunities.
-              </motion.p>
-
-              {/* Quick stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="grid grid-cols-3 gap-2 sm:gap-4 py-4"
-              >
-                {[
-                  { value: '500+', label: 'Students Sponsored' },
-                  { value: '120+', label: 'Certifications' },
-                  { value: '70+', label: 'Students Employed' },
-                ].map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{ y: -5 }}
-                    className="text-center"
-                  >
-                    <p className={`text-2xl sm:text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-black'}`}>{stat.value}</p>
-                    <p className={`text-xs sm:text-sm ${darkMode ? 'text-white/60' : 'text-gray-600'}`}>{stat.label}</p>
-                  </motion.div>
-                ))}
-              </motion.div>
-
+              {/* CTA Buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
-                className="flex flex-col sm:flex-row gap-4"
+                className="flex flex-col sm:flex-row gap-4 pt-2"
               >
                 <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => onNavigate('projects')}
-                  className="bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl flex items-center justify-center gap-3 shadow-lg shadow-[#ff6f0f]/30 hover:shadow-xl hover:shadow-[#ff6f0f]/40 transition-all group min-h-[48px] text-sm sm:text-base"
+                  className="relative overflow-hidden bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-[#ff6f0f]/40 hover:shadow-2xl hover:shadow-[#ff6f0f]/50 transition-all group min-h-[56px] text-base sm:text-lg font-semibold"
                 >
-                  <Heart className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
-                  <span>Apply Now</span>
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                  <Heart className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-125 transition-transform relative z-10" />
+                  <span className="relative z-10">Apply Now</span>
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform relative z-10" />
                 </motion.button>
 
                 <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => onNavigate('sponsor-requirements')}
-                  className={`px-6 sm:px-8 py-3 sm:py-4 rounded-xl flex items-center justify-center gap-3 border transition-all group min-h-[48px] text-sm sm:text-base ${darkMode
-                    ? 'bg-white/10 backdrop-blur-sm text-white border-white/20 hover:bg-white/20'
-                    : 'bg-black text-white border-black hover:bg-gray-900'
+                  className={`relative overflow-hidden px-8 sm:px-10 py-4 sm:py-5 rounded-2xl flex items-center justify-center gap-3 border-2 transition-all group min-h-[56px] text-base sm:text-lg font-semibold ${darkMode
+                    ? 'bg-white/5 backdrop-blur-md text-white border-white/20 hover:bg-white/10 hover:border-white/30 shadow-lg hover:shadow-xl'
+                    : 'bg-gray-900 text-white border-gray-900 hover:bg-black shadow-xl hover:shadow-2xl'
                     }`}
                 >
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
-                  <span>Become a Sponsor</span>
+                  <div className={`absolute inset-0 ${darkMode ? 'bg-gradient-to-r from-white/0 via-white/10 to-white/0' : 'bg-gradient-to-r from-white/0 via-white/20 to-white/0'} translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700`} />
+                  <Users className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-125 transition-transform relative z-10" />
+                  <span className="relative z-10">Become a Sponsor</span>
                 </motion.button>
               </motion.div>
+            </motion.div>
+
+            {/* Right Side - Creative Image Grid */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              className="relative"
+            >
+              {/* Main Grid Layout */}
+              <div className="grid grid-cols-2 gap-4 relative">
+                {/* Large Image - Top Left */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                  whileHover={{ scale: 1.05, rotate: 2 }}
+                  className="col-span-2 row-span-2 relative overflow-hidden rounded-3xl shadow-2xl group"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#ff6f0f]/20 to-transparent z-10 group-hover:opacity-0 transition-opacity duration-500" />
+                  <img
+                    src={heroImages[0]}
+                    alt="Impact"
+                    className="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Overlay Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1 }}
+                    className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-xl rounded-2xl p-4 shadow-xl z-20"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-600 mb-1">Lives Impacted</p>
+                        <p className="text-3xl font-bold bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] bg-clip-text text-transparent">1000+</p>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-xl">⭐⭐⭐⭐⭐</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+
+                {/* Small Image 1 - Bottom Left */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.6 }}
+                  whileHover={{ scale: 1.05, rotate: -2 }}
+                  className="relative overflow-hidden rounded-2xl shadow-xl group"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-transparent z-10 group-hover:opacity-0 transition-opacity duration-500" />
+                  <img
+                    src={heroImages[1]}
+                    alt="Education"
+                    className="w-full h-[180px] object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                </motion.div>
+
+                {/* Small Image 2 - Bottom Right */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                  whileHover={{ scale: 1.05, rotate: 2 }}
+                  className="relative overflow-hidden rounded-2xl shadow-xl group"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/30 to-transparent z-10 group-hover:opacity-0 transition-opacity duration-500" />
+                  <img
+                    src={heroImages[2]}
+                    alt="Community"
+                    className="w-full h-[180px] object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                </motion.div>
+              </div>
+
+              {/* Floating Decorative Elements */}
+              <motion.div
+                animate={{
+                  y: [0, -20, 0],
+                  rotate: [0, 5, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-[#ff6f0f] to-[#ff8f3f] rounded-3xl opacity-20 blur-2xl"
+              />
+              <motion.div
+                animate={{
+                  y: [0, 20, 0],
+                  rotate: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 1,
+                }}
+                className="absolute -bottom-6 -left-6 w-32 h-32 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl opacity-20 blur-2xl"
+              />
             </motion.div>
           </div>
         </div>
