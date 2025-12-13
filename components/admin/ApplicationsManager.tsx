@@ -92,29 +92,34 @@ export function ApplicationsManager({ darkMode }: ApplicationsManagerProps) {
         try {
             if (!supabase) return;
 
-            const { data, error } = await supabase
+            // Get users with sponsor role
+            const { data: users, error: usersError } = await supabase
                 .from('users')
-                .select(`
-                    id,
-                    full_name,
-                    email,
-                    sponsors (
-                        active_sponsorships,
-                        max_sponsorships
-                    )
-                `)
+                .select('id, full_name, email')
                 .eq('role', 'sponsor')
                 .eq('status', 'active');
 
-            if (error) throw error;
+            if (usersError) throw usersError;
 
-            const sponsorData = data?.map((s: any) => ({
-                id: s.id,
-                full_name: s.full_name,
-                email: s.email,
-                active_sponsorships: s.sponsors?.[0]?.active_sponsorships || 0,
-                max_sponsorships: s.sponsors?.[0]?.max_sponsorships || 5,
-            })) || [];
+            // Get sponsor details from sponsors table
+            const { data: sponsorDetails, error: sponsorError } = await supabase
+                .from('sponsors')
+                .select('email, active_sponsorships, total_sponsored')
+                .eq('status', 'approved');
+
+            if (sponsorError) throw sponsorError;
+
+            // Merge the data
+            const sponsorData = users?.map((user: any) => {
+                const details = sponsorDetails?.find((s: any) => s.email === user.email);
+                return {
+                    id: user.id,
+                    full_name: user.full_name,
+                    email: user.email,
+                    active_sponsorships: details?.active_sponsorships || 0,
+                    max_sponsorships: 5, // Default max sponsorships
+                };
+            }) || [];
 
             setSponsors(sponsorData);
         } catch (error) {
