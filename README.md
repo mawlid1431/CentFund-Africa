@@ -13,8 +13,7 @@ A modern, professional platform built with React, TypeScript, Tailwind CSS, and 
 
 **Admin Access:**
 - URL: `/admin`
-- Username: `admin`
-- Password: `admin123`
+- Credentials: Set via environment variables (see `.env.example`)
 
 ## 📋 Table of Contents
 
@@ -120,8 +119,8 @@ This creates:
 Access the admin dashboard at `/admin`
 
 **Login Credentials:**
-- **Username:** `admin`
-- **Password:** `admin123`
+- Configured via `VITE_ADMIN_EMAIL` and `VITE_ADMIN_PASSWORD` environment variables
+- See `.env.example` for setup instructions
 
 **Features:**
 - ✅ Create, edit, and delete projects
@@ -672,8 +671,7 @@ For issues or questions, please open an issue on GitHub.
 ### Admin Credentials
 ```
 URL: http://localhost:5173/admin
-Username: admin
-Password: admin123
+Credentials: Set in .env file (see .env.example)
 ```
 
 ### Environment Setup
@@ -731,4 +729,3 @@ src/
 **Built with ❤️ for making a difference**
 
 *Empowering charities to reach more people and make a bigger impact.*
- if x==tryue princt cnl

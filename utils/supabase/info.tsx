@@ -1,8 +1,12 @@
 // Supabase project information
-// Use environment variables from .env file instead of hardcoding
+// SECURITY: Never hardcode credentials or project IDs
+// Always use environment variables from .env file
 
-export const projectId = "hohzrasvjvkmgyirxbht";
-export const supabaseUrl = "https://hohzrasvjvkmgyirxbht.supabase.co";
+// This file is deprecated - use environment variables directly
+// Import from client.ts which properly uses environment variables
 
-// For actual usage, import from client.ts which uses environment variables
-// This file is kept for reference only
+export const getProjectInfo = () => ({
+    url: import.meta.env.VITE_SUPABASE_URL,
+    // Project ID can be extracted from URL if needed
+    projectId: import.meta.env.VITE_SUPABASE_URL?.split('//')[1]?.split('.')[0] || ''
+});
