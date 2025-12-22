@@ -12,9 +12,12 @@ interface Application {
     id: string;
     projectName: string;
     projectImage: string;
-    status: 'pending' | 'stage1' | 'stage2' | 'accepted' | 'rejected';
+    status: 'pending' | 'under_review' | 'accepted_stage1' | 'assigned_to_sponsor' | 'sponsor_accepted' | 'payment_pending' | 'payment_completed' | 'rejected';
     appliedDate: string;
     lastUpdated: string;
+    sponsorName?: string;
+    paymentMethod?: string;
+    progressPercentage?: number;
 }
 
 export function StudentDashboard({ darkMode, toggleDarkMode, onLogout }: StudentDashboardProps) {
@@ -78,23 +81,135 @@ export function StudentDashboard({ darkMode, toggleDarkMode, onLogout }: Student
     const getStatusInfo = (status: Application['status']) => {
         switch (status) {
             case 'pending':
-                return { icon: Clock, label: 'Pending Review', color: 'from-yellow-500 to-orange-500', bgColor: 'bg-yellow-500/10', textColor: 'text-yellow-500' };
-            case 'stage1':
-                return { icon: AlertCircle, label: 'Stage 1 - Document Review', color: 'from-blue-500 to-cyan-500', bgColor: 'bg-blue-500/10', textColor: 'text-blue-500' };
-            case 'stage2':
-                return { icon: AlertCircle, label: 'Stage 2 - Final Review', color: 'from-purple-500 to-indigo-500', bgColor: 'bg-purple-500/10', textColor: 'text-purple-500' };
-            case 'accepted':
-                return { icon: CheckCircle, label: 'Accepted', color: 'from-green-500 to-emerald-500', bgColor: 'bg-green-500/10', textColor: 'text-green-500' };
+                return {
+                    icon: Clock,
+                    label: 'Pending Admin Review',
+                    color: 'from-yellow-500 to-orange-500',
+                    bgColor: 'bg-yellow-500/10',
+                    textColor: 'text-yellow-500',
+                    progress: 10,
+                    message: 'Your application is being reviewed by our admin team'
+                };
+            case 'under_review':
+                return {
+                    icon: AlertCircle,
+                    label: 'Under Review',
+                    color: 'from-blue-500 to-cyan-500',
+                    bgColor: 'bg-blue-500/10',
+                    textColor: 'text-blue-500',
+                    progress: 25,
+                    message: 'Admin is reviewing your documents and eligibility'
+                };
+            case 'accepted_stage1':
+                return {
+                    icon: CheckCircle,
+                    label: 'Stage 1 Approved',
+                    color: 'from-green-500 to-emerald-500',
+                    bgColor: 'bg-green-500/10',
+                    textColor: 'text-green-500',
+                    progress: 40,
+                    message: 'Congratulations! Your application passed initial review'
+                };
+            case 'assigned_to_sponsor':
+                return {
+                    icon: AlertCircle,
+                    label: 'Assigned to Sponsor',
+                    color: 'from-purple-500 to-indigo-500',
+                    bgColor: 'bg-purple-500/10',
+                    textColor: 'text-purple-500',
+                    progress: 55,
+                    message: 'A sponsor is reviewing your application'
+                };
+            case 'sponsor_accepted':
+                return {
+                    icon: CheckCircle,
+                    label: 'Sponsor Accepted!',
+                    color: 'from-green-500 to-emerald-500',
+                    bgColor: 'bg-green-500/10',
+                    textColor: 'text-green-500',
+                    progress: 75,
+                    message: 'Great news! A sponsor has accepted your application'
+                };
+            case 'payment_pending':
+                return {
+                    icon: Clock,
+                    label: 'Payment Processing',
+                    color: 'from-blue-500 to-cyan-500',
+                    bgColor: 'bg-blue-500/10',
+                    textColor: 'text-blue-500',
+                    progress: 85,
+                    message: 'Sponsor is processing the payment'
+                };
+            case 'payment_completed':
+                return {
+                    icon: CheckCircle,
+                    label: '🎉 Fully Funded!',
+                    color: 'from-green-500 to-emerald-500',
+                    bgColor: 'bg-green-500/10',
+                    textColor: 'text-green-500',
+                    progress: 100,
+                    message: 'Congratulations! You can now schedule your certification exam'
+                };
             case 'rejected':
-                return { icon: XCircle, label: 'Rejected', color: 'from-red-500 to-pink-500', bgColor: 'bg-red-500/10', textColor: 'text-red-500' };
+                return {
+                    icon: XCircle,
+                    label: 'Under Review - Pre-checking',
+                    color: 'from-orange-500 to-yellow-500',
+                    bgColor: 'bg-orange-500/10',
+                    textColor: 'text-orange-500',
+                    progress: 15,
+                    message: 'Your application needs some updates. Please review the feedback and resubmit with corrections.'
+                };
+            // Handle old status values for backward compatibility
+            case 'stage1' as any:
+                return {
+                    icon: AlertCircle,
+                    label: 'Stage 1 - Document Review',
+                    color: 'from-blue-500 to-cyan-500',
+                    bgColor: 'bg-blue-500/10',
+                    textColor: 'text-blue-500',
+                    progress: 40,
+                    message: 'Your documents are being reviewed'
+                };
+            case 'stage2' as any:
+                return {
+                    icon: AlertCircle,
+                    label: 'Stage 2 - Final Review',
+                    color: 'from-purple-500 to-indigo-500',
+                    bgColor: 'bg-purple-500/10',
+                    textColor: 'text-purple-500',
+                    progress: 60,
+                    message: 'Your application is in final review stage'
+                };
+            case 'accepted' as any:
+                return {
+                    icon: CheckCircle,
+                    label: 'Accepted',
+                    color: 'from-green-500 to-emerald-500',
+                    bgColor: 'bg-green-500/10',
+                    textColor: 'text-green-500',
+                    progress: 90,
+                    message: 'Your application has been accepted'
+                };
+            default:
+                // Fallback for any unknown status
+                return {
+                    icon: Clock,
+                    label: 'In Progress',
+                    color: 'from-gray-500 to-gray-600',
+                    bgColor: 'bg-gray-500/10',
+                    textColor: 'text-gray-500',
+                    progress: 50,
+                    message: 'Your application is being processed'
+                };
         }
     };
 
     const stats = [
         { label: 'Total Applications', value: applications.length.toString(), color: 'from-blue-500 to-cyan-500' },
-        { label: 'Pending', value: applications.filter(a => a.status === 'pending').length.toString(), color: 'from-yellow-500 to-orange-500' },
-        { label: 'In Progress', value: applications.filter(a => a.status === 'stage1' || a.status === 'stage2').length.toString(), color: 'from-purple-500 to-indigo-500' },
-        { label: 'Accepted', value: applications.filter(a => a.status === 'accepted').length.toString(), color: 'from-green-500 to-emerald-500' },
+        { label: 'Pending', value: applications.filter(a => a.status === 'pending' || a.status === 'under_review').length.toString(), color: 'from-yellow-500 to-orange-500' },
+        { label: 'In Progress', value: applications.filter(a => ['accepted_stage1', 'assigned_to_sponsor', 'sponsor_accepted', 'payment_pending'].includes(a.status)).length.toString(), color: 'from-purple-500 to-indigo-500' },
+        { label: 'Completed', value: applications.filter(a => a.status === 'payment_completed').length.toString(), color: 'from-green-500 to-emerald-500' },
     ];
 
     return (
@@ -166,8 +281,8 @@ export function StudentDashboard({ darkMode, toggleDarkMode, onLogout }: Student
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setActiveTab('my-applications')}
                     className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === 'my-applications'
-                            ? 'bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white shadow-lg'
-                            : darkMode ? 'bg-white/5 text-gray-400 hover:bg-white/10' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white shadow-lg'
+                        : darkMode ? 'bg-white/5 text-gray-400 hover:bg-white/10' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                 >
                     <FileText className="w-5 h-5" />
@@ -178,8 +293,8 @@ export function StudentDashboard({ darkMode, toggleDarkMode, onLogout }: Student
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setActiveTab('available-projects')}
                     className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === 'available-projects'
-                            ? 'bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white shadow-lg'
-                            : darkMode ? 'bg-white/5 text-gray-400 hover:bg-white/10' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white shadow-lg'
+                        : darkMode ? 'bg-white/5 text-gray-400 hover:bg-white/10' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                 >
                     <BookOpen className="w-5 h-5" />
@@ -217,8 +332,8 @@ export function StudentDashboard({ darkMode, toggleDarkMode, onLogout }: Student
                                             alt={app.projectName}
                                             className="w-full md:w-32 h-32 object-cover rounded-lg"
                                         />
-                                        <div className="flex-1">
-                                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+                                        <div className="flex-1 space-y-4">
+                                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                                                 <div>
                                                     <h3 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                                                         {app.projectName}
@@ -229,10 +344,62 @@ export function StudentDashboard({ darkMode, toggleDarkMode, onLogout }: Student
                                                 </div>
                                                 <div className={`flex items-center gap-2 px-4 py-2 rounded-lg ${statusInfo.bgColor} ${statusInfo.textColor}`}>
                                                     <statusInfo.icon className="w-5 h-5" />
-                                                    <span className="font-medium">{statusInfo.label}</span>
+                                                    <span className="font-medium whitespace-nowrap">{statusInfo.label}</span>
                                                 </div>
                                             </div>
-                                            <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+
+                                            {/* Progress Bar */}
+                                            <div>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <span className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                                                        Progress
+                                                    </span>
+                                                    <span className={`text-sm font-bold ${statusInfo.textColor}`}>
+                                                        {statusInfo.progress}%
+                                                    </span>
+                                                </div>
+                                                <div className={`w-full h-3 rounded-full overflow-hidden ${darkMode ? 'bg-white/5' : 'bg-gray-200'}`}>
+                                                    <motion.div
+                                                        initial={{ width: 0 }}
+                                                        animate={{ width: `${statusInfo.progress}%` }}
+                                                        transition={{ duration: 1, ease: "easeOut" }}
+                                                        className={`h-full bg-gradient-to-r ${statusInfo.color} rounded-full`}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            {/* Status Message */}
+                                            <div className={`p-3 rounded-lg ${darkMode ? 'bg-white/5' : 'bg-gray-50'}`}>
+                                                <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                                                    {statusInfo.message}
+                                                </p>
+                                            </div>
+
+                                            {/* Additional Info for Accepted/Funded */}
+                                            {app.sponsorName && (
+                                                <div className={`p-3 rounded-lg ${darkMode ? 'bg-green-500/10 border border-green-500/20' : 'bg-green-50 border border-green-200'}`}>
+                                                    <p className={`text-sm font-medium ${darkMode ? 'text-green-400' : 'text-green-700'}`}>
+                                                        💚 Sponsored by: {app.sponsorName}
+                                                    </p>
+                                                </div>
+                                            )}
+
+                                            {app.status === 'payment_completed' && (
+                                                <motion.div
+                                                    initial={{ scale: 0.9, opacity: 0 }}
+                                                    animate={{ scale: 1, opacity: 1 }}
+                                                    className={`p-4 rounded-lg ${darkMode ? 'bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30' : 'bg-gradient-to-r from-green-50 to-emerald-50 border border-green-300'}`}
+                                                >
+                                                    <p className={`text-base font-bold ${darkMode ? 'text-green-400' : 'text-green-700'}`}>
+                                                        🎉 Congratulations! Your certification is fully funded!
+                                                    </p>
+                                                    <p className={`text-sm mt-2 ${darkMode ? 'text-green-300/80' : 'text-green-600'}`}>
+                                                        You can now schedule your exam. Check your email for next steps.
+                                                    </p>
+                                                </motion.div>
+                                            )}
+
+                                            <div className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
                                                 Last updated: {new Date(app.lastUpdated).toLocaleDateString()}
                                             </div>
                                         </div>

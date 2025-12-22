@@ -203,11 +203,11 @@ export function HomePage({ darkMode, onNavigate }: HomePageProps) {
   };
   // Hero slider images - 5 different charity images that transition smoothly
   const heroImages = [
-    '/carousel-1.jpg',
-    '/carousel-2.jpg',
-    '/carousel-3.jpg',
-    '/carousel-4.jpg',
-    '/carousel-5.jpg',
+    'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1920&q=80', // Students with laptops learning
+    'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1920&q=80', // Student studying with laptop and books
+    'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80', // Students collaborating on tech project
+    'https://images.unsplash.com/photo-1513258496099-48168024aec0?w=1920&q=80', // Graduation and achievement
+    'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1920&q=80', // IT training and computer education
   ];
 
 

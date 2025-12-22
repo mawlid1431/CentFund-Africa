@@ -21,19 +21,21 @@ interface Applicant {
     projectImage: string;
     projectPrice: number;
     appliedDate: string;
-    status: 'pending' | 'accepted' | 'rejected';
+    status: 'pending' | 'accepted' | 'payment_pending' | 'payment_completed' | 'rejected';
     documents: string[];
+    paymentMethod?: 'direct' | 'through-us';
 }
 
 export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: SponsorDashboardProps) {
     const [applicants, setApplicants] = useState<Applicant[]>([]);
     const [selectedApplicant, setSelectedApplicant] = useState<Applicant | null>(null);
     const [showReviewModal, setShowReviewModal] = useState(false);
-    const [reviewAction, setReviewAction] = useState<'accept' | 'reject' | null>(null);
+    const [reviewAction, setReviewAction] = useState<'accept' | 'reject' | 'pay' | null>(null);
     const [reviewReason, setReviewReason] = useState('');
     const [agreementChecked, setAgreementChecked] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState<'direct' | 'through-us'>('through-us');
     const [loading, setLoading] = useState(false);
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
 
     const sponsorName = localStorage.getItem('userName') || 'Sponsor';
     const sponsorEmail = localStorage.getItem('userEmail') || '';
@@ -82,13 +84,19 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
         setApplicants(mockApplicants);
     };
 
-    const handleReviewClick = (applicant: Applicant, action: 'accept' | 'reject') => {
+    const handleReviewClick = (applicant: Applicant, action: 'accept' | 'reject' | 'pay') => {
         setSelectedApplicant(applicant);
         setReviewAction(action);
-        setShowReviewModal(true);
-        setReviewReason('');
-        setAgreementChecked(false);
-        setPaymentMethod('through-us');
+
+        if (action === 'pay') {
+            setShowPaymentModal(true);
+            setPaymentMethod(applicant.paymentMethod || 'through-us');
+        } else {
+            setShowReviewModal(true);
+            setReviewReason('');
+            setAgreementChecked(false);
+            setPaymentMethod('through-us');
+        }
     };
 
     const handleSubmitReview = async () => {
@@ -106,13 +114,17 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
 
         setLoading(true);
 
-        // TODO: Submit to Supabase
+        // TODO: Submit to Supabase - Update application status and sponsor_responses table
         setTimeout(() => {
             // Update local state
             setApplicants(prev =>
                 prev.map(app =>
                     app.id === selectedApplicant.id
-                        ? { ...app, status: reviewAction === 'accept' ? 'accepted' : 'rejected' }
+                        ? {
+                            ...app,
+                            status: reviewAction === 'accept' ? 'accepted' : 'rejected',
+                            paymentMethod: reviewAction === 'accept' ? paymentMethod : undefined
+                        }
                         : app
                 )
             );
@@ -121,6 +133,34 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
             setShowReviewModal(false);
             setSelectedApplicant(null);
             alert(`Application ${reviewAction === 'accept' ? 'accepted' : 'rejected'} successfully!`);
+        }, 1000);
+    };
+
+    const handlePayment = async () => {
+        if (!selectedApplicant) return;
+
+        if (!agreementChecked) {
+            alert('Please confirm the payment agreement');
+            return;
+        }
+
+        setLoading(true);
+
+        // TODO: Submit to Supabase - Update payment_status to 'completed' and status to 'completed'
+        setTimeout(() => {
+            // Update local state
+            setApplicants(prev =>
+                prev.map(app =>
+                    app.id === selectedApplicant.id
+                        ? { ...app, status: 'payment_completed' }
+                        : app
+                )
+            );
+
+            setLoading(false);
+            setShowPaymentModal(false);
+            setSelectedApplicant(null);
+            alert('Payment confirmed! Student has been notified.');
         }, 1000);
     };
 
@@ -329,6 +369,39 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
                                             </motion.button>
                                         </div>
                                     )}
+
+                                    {applicant.status === 'accepted' && (
+                                        <div className="pt-4">
+                                            <div className={`p-4 rounded-lg mb-4 ${darkMode ? 'bg-green-500/10 border border-green-500/20' : 'bg-green-50 border border-green-200'}`}>
+                                                <p className={`text-sm font-medium ${darkMode ? 'text-green-400' : 'text-green-700'}`}>
+                                                    ✓ Application Accepted - Ready for Payment
+                                                </p>
+                                                <p className={`text-xs mt-1 ${darkMode ? 'text-green-300/70' : 'text-green-600'}`}>
+                                                    Payment Method: {applicant.paymentMethod === 'through-us' ? 'Through CertFund Africa' : 'Direct to Exam Center'}
+                                                </p>
+                                            </div>
+                                            <motion.button
+                                                whileHover={{ scale: 1.02 }}
+                                                whileTap={{ scale: 0.98 }}
+                                                onClick={() => handleReviewClick(applicant, 'pay')}
+                                                className="w-full bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 shadow-lg"
+                                            >
+                                                <DollarSign className="w-5 h-5" />
+                                                Confirm Payment (${applicant.projectPrice})
+                                            </motion.button>
+                                        </div>
+                                    )}
+
+                                    {applicant.status === 'payment_completed' && (
+                                        <div className={`p-4 rounded-lg mt-4 ${darkMode ? 'bg-blue-500/10 border border-blue-500/20' : 'bg-blue-50 border border-blue-200'}`}>
+                                            <p className={`text-sm font-medium ${darkMode ? 'text-blue-400' : 'text-blue-700'}`}>
+                                                🎉 Payment Completed - Student Notified!
+                                            </p>
+                                            <p className={`text-xs mt-1 ${darkMode ? 'text-blue-300/70' : 'text-blue-600'}`}>
+                                                The student can now proceed with their certification exam.
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
@@ -338,7 +411,7 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
 
             {/* Review Modal */}
             <AnimatePresence>
-                {showReviewModal && selectedApplicant && reviewAction && (
+                {showReviewModal && selectedApplicant && reviewAction && reviewAction !== 'pay' && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -484,6 +557,138 @@ export function SponsorDashboard({ darkMode, toggleDarkMode, onLogout }: Sponsor
                                             } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     >
                                         {loading ? 'Processing...' : `Confirm ${reviewAction === 'accept' ? 'Accept' : 'Reject'}`}
+                                    </motion.button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+
+                {/* Payment Confirmation Modal */}
+                {showPaymentModal && selectedApplicant && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                        onClick={() => setShowPaymentModal(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, y: 20 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.9, y: 20 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className={`w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl p-8 ${darkMode ? 'bg-[#0a1628] border border-white/10' : 'bg-white border border-gray-200'
+                                } shadow-2xl`}
+                        >
+                            <h2 className={`text-2xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                Confirm Payment
+                            </h2>
+
+                            <div className="space-y-6">
+                                {/* Applicant Summary */}
+                                <div className={`p-6 rounded-lg ${darkMode ? 'bg-white/5' : 'bg-gray-50'}`}>
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <img
+                                            src={selectedApplicant.projectImage}
+                                            alt={selectedApplicant.projectName}
+                                            className="w-20 h-20 object-cover rounded-lg"
+                                        />
+                                        <div>
+                                            <p className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                                {selectedApplicant.name}
+                                            </p>
+                                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                                {selectedApplicant.projectName}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                                        <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                            Payment Amount
+                                        </span>
+                                        <span className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                            ${selectedApplicant.projectPrice}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Payment Method Display */}
+                                <div className={`p-4 rounded-lg ${darkMode ? 'bg-blue-500/10 border border-blue-500/20' : 'bg-blue-50 border border-blue-200'}`}>
+                                    <p className={`text-sm font-medium ${darkMode ? 'text-blue-400' : 'text-blue-700'}`}>
+                                        Payment Method
+                                    </p>
+                                    <p className={`text-base mt-1 ${darkMode ? 'text-blue-300' : 'text-blue-900'}`}>
+                                        {selectedApplicant.paymentMethod === 'through-us'
+                                            ? '💳 Through CertFund Africa'
+                                            : '🏢 Direct to Exam Center'}
+                                    </p>
+                                </div>
+
+                                {/* Payment Instructions */}
+                                <div className={`p-4 rounded-lg ${darkMode ? 'bg-white/5' : 'bg-gray-50'}`}>
+                                    <p className={`text-sm font-medium mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                        Next Steps:
+                                    </p>
+                                    <ul className={`text-sm space-y-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                        {selectedApplicant.paymentMethod === 'through-us' ? (
+                                            <>
+                                                <li>• You will receive payment instructions via email</li>
+                                                <li>• Complete the payment through our secure portal</li>
+                                                <li>• Student will be notified once payment is confirmed</li>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <li>• Contact the exam center directly for payment</li>
+                                                <li>• Provide student details: {selectedApplicant.name}</li>
+                                                <li>• Confirm payment completion with us</li>
+                                            </>
+                                        )}
+                                    </ul>
+                                </div>
+
+                                {/* Agreement Checkbox */}
+                                <label className={`flex items-start gap-3 p-4 rounded-lg border-2 cursor-pointer ${darkMode ? 'border-white/10 hover:border-white/20' : 'border-gray-200 hover:border-gray-300'
+                                    }`}>
+                                    <input
+                                        type="checkbox"
+                                        checked={agreementChecked}
+                                        onChange={(e) => setAgreementChecked(e.target.checked)}
+                                        className="mt-1"
+                                    />
+                                    <div>
+                                        <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                            I confirm the payment of ${selectedApplicant.projectPrice}
+                                        </p>
+                                        <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                            By checking this box, I confirm that I have completed or will complete the payment for {selectedApplicant.name}'s {selectedApplicant.projectName} certification.
+                                        </p>
+                                    </div>
+                                </label>
+
+                                {/* Action Buttons */}
+                                <div className="flex gap-3 pt-4">
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={() => {
+                                            setShowPaymentModal(false);
+                                            setAgreementChecked(false);
+                                        }}
+                                        className={`flex-1 px-6 py-3 rounded-lg font-medium ${darkMode ? 'bg-white/5 text-white hover:bg-white/10' : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                                            }`}
+                                        disabled={loading}
+                                    >
+                                        Cancel
+                                    </motion.button>
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={handlePayment}
+                                        disabled={loading || !agreementChecked}
+                                        className={`flex-1 px-6 py-3 rounded-lg font-medium text-white bg-gradient-to-r from-[#ff6f0f] to-[#ff8f3f] ${loading || !agreementChecked ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    >
+                                        {loading ? 'Processing...' : 'Confirm Payment'}
                                     </motion.button>
                                 </div>
                             </div>

@@ -2,6 +2,30 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, CheckCircle, DollarSign, Calendar, Users, Award, AlertCircle } from 'lucide-react';
 import { DecorativeElements } from '../components/DecorativeElements';
+import { CompleteRegistration } from '../components/student/CompleteRegistration';
+
+// Eligible countries (excluding USA, European countries, China, Japan, Korea, Canada, Saudi Arabia)
+const ELIGIBLE_COUNTRIES = [
+    'Afghanistan', 'Algeria', 'Angola', 'Argentina', 'Armenia', 'Azerbaijan',
+    'Bahrain', 'Bangladesh', 'Benin', 'Bhutan', 'Bolivia', 'Botswana', 'Brazil',
+    'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Cape Verde', 'Central African Republic',
+    'Chad', 'Chile', 'Colombia', 'Comoros', 'Congo', 'Costa Rica', 'Côte d\'Ivoire',
+    'Cuba', 'Djibouti', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador',
+    'Equatorial Guinea', 'Eritrea', 'Eswatini', 'Ethiopia', 'Fiji', 'Gabon',
+    'Gambia', 'Georgia', 'Ghana', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana',
+    'Haiti', 'Honduras', 'India', 'Indonesia', 'Iran', 'Iraq', 'Israel',
+    'Jamaica', 'Jordan', 'Kazakhstan', 'Kenya', 'Kuwait', 'Kyrgyzstan', 'Laos',
+    'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Madagascar', 'Malawi', 'Malaysia',
+    'Maldives', 'Mali', 'Mauritania', 'Mauritius', 'Mexico', 'Mongolia', 'Morocco',
+    'Mozambique', 'Myanmar', 'Namibia', 'Nepal', 'Nicaragua', 'Niger', 'Nigeria',
+    'Oman', 'Pakistan', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru',
+    'Philippines', 'Qatar', 'Rwanda', 'Senegal', 'Seychelles', 'Sierra Leone',
+    'Singapore', 'Somalia', 'Somaliland', 'South Africa', 'South Sudan', 'Sri Lanka', 'Sudan',
+    'Suriname', 'Syria', 'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste',
+    'Togo', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Uganda',
+    'United Arab Emirates', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam',
+    'Yemen', 'Zambia', 'Zimbabwe'
+];
 
 interface ProjectDetailPageProps {
     darkMode: boolean;
@@ -10,7 +34,7 @@ interface ProjectDetailPageProps {
 }
 
 export function ProjectDetailPage({ darkMode, projectId, onNavigate }: ProjectDetailPageProps) {
-    const [currentStep, setCurrentStep] = useState<'details' | 'eligibility' | 'auth' | 'application'>('details');
+    const [currentStep, setCurrentStep] = useState<'details' | 'eligibility' | 'auth' | 'register' | 'application'>('details');
     const [isEligible, setIsEligible] = useState(false);
     const [eligibilityData, setEligibilityData] = useState({
         age: '',
@@ -48,21 +72,44 @@ export function ProjectDetailPage({ darkMode, projectId, onNavigate }: ProjectDe
 
         // Check eligibility criteria
         const age = parseInt(eligibilityData.age);
-        const eligible =
-            age >= 18 &&
-            age <= 35 &&
-            eligibilityData.education !== '' &&
-            eligibilityData.location.toLowerCase().includes('somaliland') &&
-            eligibilityData.hasComputer === 'yes' &&
-            eligibilityData.hasInternet === 'yes';
 
-        setIsEligible(eligible);
-
-        if (eligible) {
-            setCurrentStep('auth');
-        } else {
-            alert('Unfortunately, you do not meet the eligibility criteria for this program.');
+        // Check age (19-31)
+        if (age < 19) {
+            alert('You must be at least 19 years old to apply.');
+            return;
         }
+        if (age > 31) {
+            alert('This program is for students aged 19-31 years old.');
+            return;
+        }
+
+        // Check education (no Master's degree)
+        if (eligibilityData.education === 'masters') {
+            alert('This program is designed for students without advanced degrees. You already have a Master\'s degree.');
+            return;
+        }
+
+        // Check country (must be from eligible countries)
+        if (!ELIGIBLE_COUNTRIES.includes(eligibilityData.location)) {
+            alert('Unfortunately, your country is not eligible for this program.');
+            return;
+        }
+
+        // Check computer access
+        if (eligibilityData.hasComputer !== 'yes') {
+            alert('You need access to a computer to complete online certifications.');
+            return;
+        }
+
+        // Check internet access
+        if (eligibilityData.hasInternet !== 'yes') {
+            alert('You need reliable internet access to complete online certifications.');
+            return;
+        }
+
+        // All checks passed - eligible!
+        setIsEligible(true);
+        setCurrentStep('auth');
     };
 
     const handleAuthChoice = (choice: 'login' | 'create') => {
@@ -71,9 +118,16 @@ export function ProjectDetailPage({ darkMode, projectId, onNavigate }: ProjectDe
             localStorage.setItem('returnToApplication', projectId);
             onNavigate('admin');
         } else {
-            // Show create account form
-            setCurrentStep('application');
+            // Show complete registration form
+            setCurrentStep('register');
         }
+    };
+
+    const handleRegistrationSuccess = (userId: string, email: string, name: string) => {
+        // Registration successful, redirect to student dashboard or application
+        console.log('Registration successful:', { userId, email, name });
+        // TODO: Navigate to student dashboard or continue with application
+        setCurrentStep('application');
     };
 
     return (
@@ -210,13 +264,17 @@ export function ProjectDetailPage({ darkMode, projectId, onNavigate }: ProjectDe
                                             value={eligibilityData.age}
                                             onChange={(e) => setEligibilityData({ ...eligibilityData, age: e.target.value })}
                                             className={`w-full px-4 py-3 rounded-lg border transition-all ${darkMode
-                                                    ? 'bg-[#0a1628] border-white/10 text-white focus:border-[#ff6f0f]'
-                                                    : 'bg-white border-gray-300 text-gray-900 focus:border-[#ff6f0f]'
+                                                ? 'bg-[#0a1628] border-white/10 text-white focus:border-[#ff6f0f]'
+                                                : 'bg-white border-gray-300 text-gray-900 focus:border-[#ff6f0f]'
                                                 }`}
                                             required
-                                            min="1"
-                                            max="100"
+                                            min="19"
+                                            max="31"
+                                            placeholder="Enter your age (19-31)"
                                         />
+                                        <p className={`text-xs mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                                            You must be between 19 and 31 years old
+                                        </p>
                                     </div>
 
                                     {/* Education */}
@@ -228,8 +286,8 @@ export function ProjectDetailPage({ darkMode, projectId, onNavigate }: ProjectDe
                                             value={eligibilityData.education}
                                             onChange={(e) => setEligibilityData({ ...eligibilityData, education: e.target.value })}
                                             className={`w-full px-4 py-3 rounded-lg border transition-all ${darkMode
-                                                    ? 'bg-[#0a1628] border-white/10 text-white focus:border-[#ff6f0f]'
-                                                    : 'bg-white border-gray-300 text-gray-900 focus:border-[#ff6f0f]'
+                                                ? 'bg-[#0a1628] border-white/10 text-white focus:border-[#ff6f0f]'
+                                                : 'bg-white border-gray-300 text-gray-900 focus:border-[#ff6f0f]'
                                                 }`}
                                             required
                                         >
@@ -246,17 +304,23 @@ export function ProjectDetailPage({ darkMode, projectId, onNavigate }: ProjectDe
                                         <label className={`block text-sm font-medium mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                                             Where are you currently located? *
                                         </label>
-                                        <input
-                                            type="text"
+                                        <select
                                             value={eligibilityData.location}
                                             onChange={(e) => setEligibilityData({ ...eligibilityData, location: e.target.value })}
                                             className={`w-full px-4 py-3 rounded-lg border transition-all ${darkMode
-                                                    ? 'bg-[#0a1628] border-white/10 text-white focus:border-[#ff6f0f]'
-                                                    : 'bg-white border-gray-300 text-gray-900 focus:border-[#ff6f0f]'
+                                                ? 'bg-[#0a1628] border-white/10 text-white focus:border-[#ff6f0f]'
+                                                : 'bg-white border-gray-300 text-gray-900 focus:border-[#ff6f0f]'
                                                 }`}
-                                            placeholder="e.g., Hargeisa, Somaliland"
                                             required
-                                        />
+                                        >
+                                            <option value="">Select your country...</option>
+                                            {ELIGIBLE_COUNTRIES.map((country) => (
+                                                <option key={country} value={country}>{country}</option>
+                                            ))}
+                                        </select>
+                                        <p className={`text-xs mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                                            Note: USA, European countries, China, Japan, Korea, Canada, and Saudi Arabia are not eligible
+                                        </p>
                                     </div>
 
                                     {/* Computer Access */}
@@ -395,6 +459,18 @@ export function ProjectDetailPage({ darkMode, projectId, onNavigate }: ProjectDe
                                     </motion.button>
                                 </div>
                             </motion.div>
+                        )}
+
+                        {currentStep === 'register' && (
+                            <CompleteRegistration
+                                darkMode={darkMode}
+                                eligibilityData={{
+                                    age: eligibilityData.age,
+                                    country: eligibilityData.location,
+                                    education: eligibilityData.education
+                                }}
+                                onSuccess={handleRegistrationSuccess}
+                            />
                         )}
                     </AnimatePresence>
                 </div>
