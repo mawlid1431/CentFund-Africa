@@ -627,12 +627,7 @@ Environment variables store sensitive information like API keys.
 
 4. **Example of filled .env file:**
    ```env
-   VITE_SUPABASE_URL=https://abcdefghijklmnop.supabase.co
-   VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiY2RlZmdoaWprbG1ub3AiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMjc0ODAwMCwiZXhwIjoxOTQ4MzI0MDAwfQ.abcdefghijklmnopqrstuvwxyz123456789
-   VITE_SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiY2RlZmdoaWprbG1ub3AiLCJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjMyNzQ4MDAwLCJleHAiOjE5NDgzMjQwMDB9.abcdefghijklmnopqrstuvwxyz987654321
-   VITE_ADMIN_EMAIL=admin@centfundafrica.org
-   VITE_ADMIN_PASSWORD=Admin@2024Secure!
-   ```
+  
 
 5. **Save the file**
 
