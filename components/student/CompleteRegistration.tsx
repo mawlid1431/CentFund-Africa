@@ -112,6 +112,12 @@ export function CompleteRegistration({ darkMode, eligibilityData, onSuccess }: C
 
         setLoading(true);
 
+        // Add timeout to prevent infinite loading
+        const timeoutId = setTimeout(() => {
+            setLoading(false);
+            setError('Request timed out. Please check your internet connection and try again.');
+        }, 30000); // 30 second timeout
+
         try {
             // 1. Create auth user
             const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -169,9 +175,11 @@ export function CompleteRegistration({ darkMode, eligibilityData, onSuccess }: C
             if (profileError) throw profileError;
 
             // Success!
+            clearTimeout(timeoutId);
             onSuccess(authData.user.id, email, fullName);
 
         } catch (err: any) {
+            clearTimeout(timeoutId);
             console.error('Registration error:', err);
 
             // Handle rate limiting error
@@ -179,6 +187,8 @@ export function CompleteRegistration({ darkMode, eligibilityData, onSuccess }: C
                 setError('Too many registration attempts. Please wait 30 seconds and try again.');
             } else if (err.message?.includes('User already registered')) {
                 setError('This email is already registered. Please use a different email or login instead.');
+            } else if (err.message?.includes('row-level security policy')) {
+                setError('Database permission error. Please contact support or check the database setup guide.');
             } else {
                 setError(err.message || 'Failed to create account. Please try again.');
             }

@@ -56,6 +56,8 @@ export function CompleteSponsorRegistration({ darkMode, eligibilityData, onSucce
     const [confirmPassword, setConfirmPassword] = useState('');
     const [idDocument, setIdDocument] = useState<File | null>(null);
     const [idPreview, setIdPreview] = useState<string | null>(null);
+    const [financialProof, setFinancialProof] = useState<File | null>(null);
+    const [financialProofPreview, setFinancialProofPreview] = useState<string | null>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -86,14 +88,43 @@ export function CompleteSponsorRegistration({ darkMode, eligibilityData, onSucce
         }
     };
 
+    const handleFinancialProofChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+            if (!validTypes.includes(file.type)) {
+                setError('Please upload a valid image (JPG, PNG) or PDF file');
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                setError('File size must be less than 5MB');
+                return;
+            }
+
+            setFinancialProof(file);
+            setError('');
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setFinancialProofPreview(reader.result as string);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                setFinancialProofPreview(null);
+            }
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
 
         // Validation
         if (!fullName || !email || !phone || !age || !nationality || !country ||
-            !city || !address || !password || !confirmPassword || !idDocument) {
-            setError('Please fill in all required fields');
+            !city || !address || !password || !confirmPassword || !idDocument || !financialProof) {
+            setError('Please fill in all required fields and upload both ID and financial proof documents');
             return;
         }
 
@@ -128,7 +159,7 @@ export function CompleteSponsorRegistration({ darkMode, eligibilityData, onSucce
 
             // 2. Upload ID document
             const fileExt = idDocument.name.split('.').pop();
-            const fileName = `${authData.user.id}_${Date.now()}.${fileExt}`;
+            const fileName = `${authData.user.id}_id_${Date.now()}.${fileExt}`;
             const filePath = `sponsor-documents/${fileName}`;
 
             const { error: uploadError } = await supabase.storage
@@ -137,12 +168,28 @@ export function CompleteSponsorRegistration({ darkMode, eligibilityData, onSucce
 
             if (uploadError) throw uploadError;
 
-            // 3. Get public URL
+            // 3. Get public URL for ID
             const { data: { publicUrl } } = supabase.storage
                 .from('sponsor-documents')
                 .getPublicUrl(filePath);
 
-            // 4. Create sponsor profile with PENDING status
+            // 4. Upload Financial Proof document
+            const financialExt = financialProof.name.split('.').pop();
+            const financialFileName = `${authData.user.id}_financial_${Date.now()}.${financialExt}`;
+            const financialFilePath = `sponsor-documents/${financialFileName}`;
+
+            const { error: financialUploadError } = await supabase.storage
+                .from('sponsor-documents')
+                .upload(financialFilePath, financialProof);
+
+            if (financialUploadError) throw financialUploadError;
+
+            // 5. Get public URL for Financial Proof
+            const { data: { publicUrl: financialProofUrl } } = supabase.storage
+                .from('sponsor-documents')
+                .getPublicUrl(financialFilePath);
+
+            // 6. Create sponsor profile with PENDING status
             const { error: profileError } = await supabase
                 .from('sponsor_users')
                 .insert({
@@ -158,6 +205,7 @@ export function CompleteSponsorRegistration({ darkMode, eligibilityData, onSucce
                     organization: organization || null,
                     sponsor_type: sponsorType,
                     id_document_url: publicUrl,
+                    proof_of_funds_url: financialProofUrl,
                     eligibility_motivation: eligibilityData.motivation,
                     eligibility_financial: eligibilityData.financialCapability,
                     account_status: 'pending',
@@ -473,6 +521,76 @@ export function CompleteSponsorRegistration({ darkMode, eligibilityData, onSucce
                                                 <Upload className="w-12 h-12 text-gray-400 mb-3" />
                                                 <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'} mb-1`}>
                                                     Click to upload or drag and drop
+                                                </p>
+                                                <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                                                    JPG, PNG or PDF (max 5MB)
+                                                </p>
+                                            </>
+                                        )}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Financial Proof Upload */}
+                        <div>
+                            <h3 className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-gray-900'} mb-4 flex items-center gap-2`}>
+                                <DollarSign className="w-5 h-5" />
+                                Financial Capability Proof
+                            </h3>
+
+                            <div>
+                                <label className={`block text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'} mb-2`}>
+                                    Upload Proof of Financial Capability * (Bank Statement, Payslip, or Financial Document)
+                                </label>
+                                <p className={`text-xs mb-3 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                                    Please upload a recent bank statement, payslip, or other financial document showing you have the capability to sponsor students ($200-$500 per student)
+                                </p>
+                                <div className={`border-2 border-dashed ${darkMode ? 'border-gray-600' : 'border-gray-300'
+                                    } rounded-lg p-6`}>
+                                    <input
+                                        type="file"
+                                        id="financial-proof-upload"
+                                        accept="image/jpeg,image/jpg,image/png,application/pdf"
+                                        onChange={handleFinancialProofChange}
+                                        className="hidden"
+                                        required
+                                    />
+                                    <label
+                                        htmlFor="financial-proof-upload"
+                                        className="cursor-pointer flex flex-col items-center"
+                                    >
+                                        {financialProofPreview ? (
+                                            <div className="relative">
+                                                <img
+                                                    src={financialProofPreview}
+                                                    alt="Financial Proof Preview"
+                                                    className="max-w-full h-48 object-contain rounded-lg"
+                                                />
+                                                <div className="mt-2 text-center">
+                                                    <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                                        {financialProof?.name}
+                                                    </p>
+                                                    <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'} mt-1`}>
+                                                        Click to change
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        ) : financialProof ? (
+                                            <div className="text-center">
+                                                <FileText className="w-16 h-16 mx-auto text-green-500 mb-2" />
+                                                <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                                    {financialProof.name}
+                                                </p>
+                                                <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'} mt-1`}>
+                                                    Click to change
+                                                </p>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <Upload className="w-12 h-12 text-gray-400 mb-3" />
+                                                <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'} mb-1`}>
+                                                    Click to upload financial proof
                                                 </p>
                                                 <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
                                                     JPG, PNG or PDF (max 5MB)
